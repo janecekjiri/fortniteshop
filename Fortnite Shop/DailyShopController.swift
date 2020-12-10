@@ -22,19 +22,20 @@ class DailyShopController: UICollectionViewController {
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
 
         Service.shared.fetchDailyShop { dailyShop, error in
-            if let error = error {
-                print("Apologies, but we have encountered error: \(error)")
-            }
-
-            guard let dailyShop = dailyShop else {
-                print("We have ran into a problem. We weren't able to get the daily shop")
+            if error != nil {
+                self.showErrorAlert()
                 return
             }
 
-            var dailies = dailyShop.daily + dailyShop.featured + dailyShop.specialFeatured
-            dailies += dailyShop.community + dailyShop.offers + dailyShop.specialDaily
-            let dispatchGroup = DispatchGroup()
+            guard let dailyShop = dailyShop else {
+                self.showErrorAlert()
+                return
+            }
 
+            let dailies = dailyShop.daily + dailyShop.featured + dailyShop.specialFeatured
+                + dailyShop.community + dailyShop.offers + dailyShop.specialDaily
+
+            let dispatchGroup = DispatchGroup()
             dailies.forEach { item in
                 dispatchGroup.enter()
                 Service.shared.fetchImage(url: item.image) { image in
@@ -66,6 +67,15 @@ class DailyShopController: UICollectionViewController {
         }
         dailyShopCell.itemImageView.image = images[indexPath.item]
         return dailyShopCell
+    }
+
+    func showErrorAlert() {
+        let alertController = UIAlertController.makeErrorAlertController(
+            message: "We were not able to obtain items in today's shop. Please try it later"
+        )
+        DispatchQueue.main.async {
+            self.navigationController?.present(alertController, animated: true)
+        }
     }
 }
 
