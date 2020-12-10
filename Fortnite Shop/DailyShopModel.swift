@@ -12,6 +12,9 @@ struct DailyShopModel: Decodable {
     let featured: [Item]
     let daily: [Item]
     let specialFeatured: [Item]
+    let specialDaily: [Item]
+    let community: [Item]
+    let offers: [Item]
 }
 
 struct Item: Decodable {
