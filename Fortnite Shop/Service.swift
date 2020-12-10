@@ -33,8 +33,13 @@ class Service {
                 return
             }
 
+            guard let data = data else {
+                return
+            }
+
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                let dailies = try JSONDecoder().decode(DailyShopModel.self, from: data)
+                print(dailies)
             } catch {
                 print("We were not able to decode the data into JSON")
             }
