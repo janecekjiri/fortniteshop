@@ -11,6 +11,7 @@ import UIKit
 class DailyShopController: UICollectionViewController {
 
     let dailyShopCellId = "dailyShopCellId"
+    var images = [UIImage]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,21 @@ class DailyShopController: UICollectionViewController {
                 return
             }
 
-            print(dailyShop)
+            let dailies = dailyShop.daily + dailyShop.featured + dailyShop.specialFeatured
+            let dispatchGroup = DispatchGroup()
+            dailies.forEach { item in
+                dispatchGroup.enter()
+                Service.shared.fetchImage(url: item.image) { image, error in
+                    dispatchGroup.leave()
+                    guard let image = image else {
+                        return
+                    }
+                    self.images.append(image)
+                }
+            }
+            dispatchGroup.notify(queue: .main) {
+                self.collectionView.reloadData()
+            }
         }
     }
 
@@ -34,7 +49,7 @@ class DailyShopController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return images.count
     }
 
     override func collectionView(
@@ -45,6 +60,7 @@ class DailyShopController: UICollectionViewController {
         guard let dailyShopCell = cell as? DailyShopCell else {
             return cell
         }
+        dailyShopCell.itemImageView.image = images[indexPath.item]
         return dailyShopCell
     }
 }
