@@ -12,6 +12,13 @@ class DailyShopController: UICollectionViewController {
 
     let dailyShopCellId = "dailyShopCellId"
     var images = [UIImage]()
+    let activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .large)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.color = .white
+        view.startAnimating()
+        return view
+    }()
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -19,8 +26,34 @@ class DailyShopController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        positionActivityIndicator()
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
+        fetchDailyShop()
+    }
 
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dailyShopCellId, for: indexPath)
+        guard let dailyShopCell = cell as? DailyShopCell else {
+            return cell
+        }
+        dailyShopCell.itemImageView.image = images[indexPath.item]
+        return dailyShopCell
+    }
+
+    func positionActivityIndicator() {
+        collectionView.addSubview(activityIndicator)
+        activityIndicator.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+    }
+
+    func fetchDailyShop() {
         Service.shared.fetchDailyShop { dailyShop, error in
             if error != nil {
                 self.showErrorAlert()
@@ -48,25 +81,10 @@ class DailyShopController: UICollectionViewController {
             }
 
             dispatchGroup.notify(queue: .main) {
+                self.activityIndicator.stopAnimating()
                 self.collectionView.reloadData()
             }
         }
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
-    }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dailyShopCellId, for: indexPath)
-        guard let dailyShopCell = cell as? DailyShopCell else {
-            return cell
-        }
-        dailyShopCell.itemImageView.image = images[indexPath.item]
-        return dailyShopCell
     }
 
     func showErrorAlert() {
