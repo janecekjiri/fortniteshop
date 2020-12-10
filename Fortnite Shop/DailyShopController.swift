@@ -15,7 +15,18 @@ class DailyShopController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
-        Service.shared.fetchDailyShop()
+        Service.shared.fetchDailyShop { dailyShop, error in
+            if let error = error {
+                print("Apologies, but we have encountered error: \(error)")
+            }
+
+            guard let dailyShop = dailyShop else {
+                print("We have ran into a problem. We weren't able to get the daily shop")
+                return
+            }
+
+            print(dailyShop)
+        }
     }
 
     convenience init() {
