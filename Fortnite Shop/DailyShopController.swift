@@ -15,6 +15,7 @@ class DailyShopController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
+        Service.shared.fetchDailyShop()
     }
 
     convenience init() {
