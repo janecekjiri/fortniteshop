@@ -22,7 +22,6 @@ class Service {
 
         let task = session.dataTask(with: urlRequest) { data, response, error in
             if let error = error {
-                print("We have encountered error right at the beginning! \(error)")
                 completion(nil, error)
             }
 
@@ -30,7 +29,6 @@ class Service {
                 let httpResponse = response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode)
             else {
-                print("Status code is not withing the range 200-299")
                 completion(nil, nil)
                 return
             }
@@ -44,40 +42,38 @@ class Service {
                 let dailies = try JSONDecoder().decode(DailyShopModel.self, from: data)
                 completion(dailies, nil)
             } catch {
-                print("We were not able to decode the data into JSON")
+                completion(nil, nil)
             }
         }
         task.resume()
     }
 
-    func fetchImage(url: String, completion: @escaping (UIImage?, Error?) -> Void) {
+    func fetchImage(url: String, completion: @escaping (UIImage?) -> Void) {
         let session = URLSession.shared
         guard let url = URL(string: url) else {
-            completion(nil, nil)
+            completion(nil)
             return
         }
         let task = session.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("We have encountered error right at the beginning! \(error)")
-                completion(nil, error)
+            if let _ = error {
+                completion(nil)
             }
 
             guard
                 let httpResponse = response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode)
             else {
-                print("Status code is not withing the range 200-299")
-                completion(nil, nil)
+                completion(nil)
                 return
             }
 
             guard let data = data else {
-                completion(nil, nil)
+                completion(nil)
                 return
             }
 
             let image = UIImage(data: data)
-            completion(image, nil)
+            completion(image)
         }
         task.resume()
     }
