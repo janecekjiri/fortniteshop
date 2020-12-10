@@ -45,6 +45,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11458C54258243F200D562AA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				11458C4E25820F4400D562AA /* Service.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		11458C552582440000D562AA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				11458C502582148500D562AA /* DailyShopModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		11458C562582440D00D562AA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				11458C4C258207C600D562AA /* DailyShopCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		11458C572582442200D562AA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				11458C4A2582061900D562AA /* DailyShopController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		11458C582582453400D562AA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				11458C5225822CC600D562AA /* UIAlertControllerExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		11458C592582459900D562AA /* Rest */ = {
+			isa = PBXGroup;
+			children = (
+				118FC9E9258101B500A4D1F5 /* Info.plist */,
+				118FC9DB258101B300A4D1F5 /* AppDelegate.swift */,
+				118FC9DD258101B300A4D1F5 /* SceneDelegate.swift */,
+				118FC9E6258101B500A4D1F5 /* LaunchScreen.storyboard */,
+				118FC9F02581063D00A4D1F5 /* swiftlint.yml */,
+			);
+			path = Rest;
+			sourceTree = "<group>";
+		};
 		118FC9CF258101B300A4D1F5 = {
 			isa = PBXGroup;
 			children = (
@@ -64,17 +116,13 @@
 		118FC9DA258101B300A4D1F5 /* Fortnite Shop */ = {
 			isa = PBXGroup;
 			children = (
-				118FC9DB258101B300A4D1F5 /* AppDelegate.swift */,
-				118FC9DD258101B300A4D1F5 /* SceneDelegate.swift */,
-				11458C4A2582061900D562AA /* DailyShopController.swift */,
+				11458C54258243F200D562AA /* Service */,
+				11458C552582440000D562AA /* Models */,
+				11458C562582440D00D562AA /* Views */,
+				11458C572582442200D562AA /* Controllers */,
+				11458C582582453400D562AA /* Extensions */,
+				11458C592582459900D562AA /* Rest */,
 				118FC9E4258101B500A4D1F5 /* Assets.xcassets */,
-				118FC9E6258101B500A4D1F5 /* LaunchScreen.storyboard */,
-				118FC9E9258101B500A4D1F5 /* Info.plist */,
-				118FC9F02581063D00A4D1F5 /* swiftlint.yml */,
-				11458C4C258207C600D562AA /* DailyShopCell.swift */,
-				11458C4E25820F4400D562AA /* Service.swift */,
-				11458C502582148500D562AA /* DailyShopModel.swift */,
-				11458C5225822CC600D562AA /* UIAlertControllerExtension.swift */,
 			);
 			path = "Fortnite Shop";
 			sourceTree = "<group>";
