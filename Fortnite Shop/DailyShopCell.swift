@@ -12,22 +12,25 @@ class DailyShopCell: UICollectionViewCell {
 
     let itemImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        positionImageView()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func positionImageView() {
         addSubview(itemImageView)
         itemImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         itemImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         itemImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         itemImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
 }
