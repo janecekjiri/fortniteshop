@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
 
-            let viewController = UIViewController()
-            let navController = UINavigationController(rootViewController: viewController)
+            let dailyShopController = DailyShopController()
+            let navController = UINavigationController(rootViewController: dailyShopController)
 
             window.rootViewController = navController
             window.makeKeyAndVisible()
