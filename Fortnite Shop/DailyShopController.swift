@@ -13,9 +13,14 @@ class DailyShopController: UICollectionViewController {
     let dailyShopCellId = "dailyShopCellId"
     var images = [UIImage]()
 
+    convenience init() {
+        self.init(collectionViewLayout: UICollectionViewFlowLayout())
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
+
         Service.shared.fetchDailyShop { dailyShop, error in
             if let error = error {
                 print("Apologies, but we have encountered error: \(error)")
@@ -26,11 +31,13 @@ class DailyShopController: UICollectionViewController {
                 return
             }
 
-            let dailies = dailyShop.daily + dailyShop.featured + dailyShop.specialFeatured
+            var dailies = dailyShop.daily + dailyShop.featured + dailyShop.specialFeatured
+            dailies += dailyShop.community + dailyShop.offers + dailyShop.specialDaily
             let dispatchGroup = DispatchGroup()
+
             dailies.forEach { item in
                 dispatchGroup.enter()
-                Service.shared.fetchImage(url: item.image) { image, error in
+                Service.shared.fetchImage(url: item.image) { image in
                     dispatchGroup.leave()
                     guard let image = image else {
                         return
@@ -38,14 +45,11 @@ class DailyShopController: UICollectionViewController {
                     self.images.append(image)
                 }
             }
+
             dispatchGroup.notify(queue: .main) {
                 self.collectionView.reloadData()
             }
         }
-    }
-
-    convenience init() {
-        self.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

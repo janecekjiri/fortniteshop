@@ -55,7 +55,7 @@ class Service {
             return
         }
         let task = session.dataTask(with: url) { data, response, error in
-            if let _ = error {
+            if error != nil {
                 completion(nil)
             }
 
