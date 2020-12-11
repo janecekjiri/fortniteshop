@@ -55,7 +55,7 @@ class DailyShopController: UICollectionViewController {
             withReuseIdentifier: collectionViewHeader,
             for: indexPath
             ) as? CollectionViewLabelHeader {
-            header.titleLabel.text = returnTodaysDate()
+            header.titleLabel.text = returnTodaysDate().uppercased()
             return header
         }
         return UICollectionReusableView()
@@ -66,7 +66,7 @@ class DailyShopController: UICollectionViewController {
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForHeaderInSection section: Int
     ) -> CGSize {
-        return .init(width: view.frame.width, height: 30)
+        return .init(width: view.frame.width, height: 40)
     }
 }
 
@@ -177,7 +177,7 @@ extension DailyShopController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        return .init(top: 10, left: 10, bottom: 10, right: 10)
+        return .init(top: 0, left: 10, bottom: 10, right: 10)
     }
 
     func collectionView(

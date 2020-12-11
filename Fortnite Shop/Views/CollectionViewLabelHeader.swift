@@ -12,7 +12,6 @@ class CollectionViewLabelHeader: UICollectionReusableView {
 
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .red
         label.textAlignment = .center
         label.font = UIFont.fortniteFont(ofSize: 25)
         label.translatesAutoresizingMaskIntoConstraints = false
