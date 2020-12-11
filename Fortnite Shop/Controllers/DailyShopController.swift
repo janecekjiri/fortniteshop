@@ -12,6 +12,7 @@ class DailyShopController: UICollectionViewController {
 
     let dailyShopCellId = "dailyShopCellId"
     var images = [UIImage]()
+    var isFetchingData = true
 
     let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
 
@@ -21,7 +22,7 @@ class DailyShopController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Item Shop"
+        setupNavigationBar()
         positionActivityIndicator()
         activityIndicator.startAnimating()
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
@@ -44,6 +45,13 @@ class DailyShopController: UICollectionViewController {
         return dailyShopCell
     }
 
+    private func setupNavigationBar() {
+        navigationItem.title = "Item Shop"
+        let rightButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
+        rightButton.tintColor = .label
+        navigationItem.rightBarButtonItem = rightButton
+    }
+
     private func positionActivityIndicator() {
         collectionView.addSubview(activityIndicator)
         activityIndicator.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
@@ -51,6 +59,8 @@ class DailyShopController: UICollectionViewController {
     }
 
     private func fetchDailyShop() {
+        images.removeAll()
+        isFetchingData = true
         Service.shared.fetchDailyShop { dailyShop, error in
             if error != nil {
                 self.showErrorAlert()
@@ -80,7 +90,15 @@ class DailyShopController: UICollectionViewController {
             dispatchGroup.notify(queue: .main) {
                 self.activityIndicator.stopAnimating()
                 self.collectionView.reloadData()
+                self.isFetchingData = false
             }
+        }
+    }
+
+    @objc private func refresh() {
+        if !isFetchingData {
+            activityIndicator.startAnimating()
+            fetchDailyShop()
         }
     }
 
