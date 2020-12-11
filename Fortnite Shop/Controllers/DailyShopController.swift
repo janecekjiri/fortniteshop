@@ -11,6 +11,7 @@ import UIKit
 class DailyShopController: UICollectionViewController {
 
     let dailyShopCellId = "dailyShopCellId"
+    let collectionViewHeader = "collectionViewHeader"
     var images = [UIImage]()
     var isFetchingData = true
 
@@ -26,6 +27,11 @@ class DailyShopController: UICollectionViewController {
         positionActivityIndicator()
         activityIndicator.startAnimating()
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
+        collectionView.register(
+            CollectionViewLabelHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: collectionViewHeader
+        )
         fetchDailyShop()
     }
 
@@ -43,6 +49,29 @@ class DailyShopController: UICollectionViewController {
         }
         dailyShopCell.itemImageView.image = images[indexPath.item]
         return dailyShopCell
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        if let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: collectionViewHeader,
+            for: indexPath
+            ) as? CollectionViewLabelHeader {
+            return header
+        }
+        return UICollectionReusableView()
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
+        return .init(width: view.frame.width, height: 30)
     }
 
     private func setupNavigationBar() {
