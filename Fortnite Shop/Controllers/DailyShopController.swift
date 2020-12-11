@@ -24,14 +24,8 @@ class DailyShopController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        positionActivityIndicator()
-        activityIndicator.startAnimating()
-        collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
-        collectionView.register(
-            CollectionViewLabelHeader.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: collectionViewHeader
-        )
+        prepareActivityIndicator()
+        registerCells()
         fetchDailyShop()
     }
 
@@ -77,7 +71,16 @@ class DailyShopController: UICollectionViewController {
 
 // MARK: - Custom Methods
 extension DailyShopController {
-    
+
+    private func registerCells() {
+        collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
+        collectionView.register(
+            CollectionViewLabelHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: collectionViewHeader
+        )
+    }
+
     private func setupNavigationBar() {
         navigationItem.title = "Item Shop"
         let rightButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
@@ -89,6 +92,11 @@ extension DailyShopController {
         collectionView.addSubview(activityIndicator)
         activityIndicator.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
         activityIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+    }
+
+    private func prepareActivityIndicator() {
+        positionActivityIndicator()
+        activityIndicator.startAnimating()
     }
 
     private func fetchDailyShop() {
