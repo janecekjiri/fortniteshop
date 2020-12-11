@@ -73,7 +73,11 @@ class DailyShopController: UICollectionViewController {
     ) -> CGSize {
         return .init(width: view.frame.width, height: 30)
     }
+}
 
+// MARK: - Custom Methods
+extension DailyShopController {
+    
     private func setupNavigationBar() {
         navigationItem.title = "Item Shop"
         let rightButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
@@ -141,6 +145,7 @@ class DailyShopController: UICollectionViewController {
     }
 }
 
+// MARK: - UICollectionView Layout Methods
 extension DailyShopController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(
