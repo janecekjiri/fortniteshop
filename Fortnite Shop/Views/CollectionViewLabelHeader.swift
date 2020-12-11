@@ -13,7 +13,6 @@ class CollectionViewLabelHeader: UICollectionReusableView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .red
-        label.text = "11th of December 2020"
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

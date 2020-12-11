@@ -55,6 +55,7 @@ class DailyShopController: UICollectionViewController {
             withReuseIdentifier: collectionViewHeader,
             for: indexPath
             ) as? CollectionViewLabelHeader {
+            header.titleLabel.text = returnTodaysDate()
             return header
         }
         return UICollectionReusableView()
@@ -97,6 +98,12 @@ extension DailyShopController {
     private func prepareActivityIndicator() {
         positionActivityIndicator()
         activityIndicator.startAnimating()
+    }
+
+    private func returnTodaysDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        return dateFormatter.string(from: Date())
     }
 
     private func fetchDailyShop() {
