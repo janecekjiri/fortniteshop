@@ -12,6 +12,7 @@
 		11458C4F25820F4400D562AA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11458C4E25820F4400D562AA /* Service.swift */; };
 		11458C512582148500D562AA /* DailyShopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11458C502582148500D562AA /* DailyShopModel.swift */; };
 		11458C5325822CC600D562AA /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11458C5225822CC600D562AA /* UIAlertControllerExtension.swift */; };
+		11458C5B25835C7700D562AA /* UIActivityIndicatorViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11458C5A25835C7700D562AA /* UIActivityIndicatorViewExtension.swift */; };
 		118FC9DC258101B300A4D1F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118FC9DB258101B300A4D1F5 /* AppDelegate.swift */; };
 		118FC9DE258101B300A4D1F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118FC9DD258101B300A4D1F5 /* SceneDelegate.swift */; };
 		118FC9E5258101B500A4D1F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 118FC9E4258101B500A4D1F5 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		11458C4E25820F4400D562AA /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		11458C502582148500D562AA /* DailyShopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyShopModel.swift; sourceTree = "<group>"; };
 		11458C5225822CC600D562AA /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
+		11458C5A25835C7700D562AA /* UIActivityIndicatorViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicatorViewExtension.swift; sourceTree = "<group>"; };
 		118FC9D8258101B300A4D1F5 /* Fortnite Shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fortnite Shop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		118FC9DB258101B300A4D1F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		118FC9DD258101B300A4D1F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				11458C5225822CC600D562AA /* UIAlertControllerExtension.swift */,
+				11458C5A25835C7700D562AA /* UIActivityIndicatorViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11458C4B2582061900D562AA /* DailyShopController.swift in Sources */,
+				11458C5B25835C7700D562AA /* UIActivityIndicatorViewExtension.swift in Sources */,
 				118FC9DC258101B300A4D1F5 /* AppDelegate.swift in Sources */,
 				11458C4F25820F4400D562AA /* Service.swift in Sources */,
 				118FC9DE258101B300A4D1F5 /* SceneDelegate.swift in Sources */,
@@ -363,7 +367,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LSX73KEXNV;
-				INFOPLIST_FILE = "Fortnite Shop/Info.plist";
+				INFOPLIST_FILE = "Fortnite Shop/Rest/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,7 +385,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LSX73KEXNV;
-				INFOPLIST_FILE = "Fortnite Shop/Info.plist";
+				INFOPLIST_FILE = "Fortnite Shop/Rest/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -12,13 +12,8 @@ class DailyShopController: UICollectionViewController {
 
     let dailyShopCellId = "dailyShopCellId"
     var images = [UIImage]()
-    let activityIndicator: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .large)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.color = .white
-        view.startAnimating()
-        return view
-    }()
+
+    let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -27,6 +22,7 @@ class DailyShopController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         positionActivityIndicator()
+        activityIndicator.startAnimating()
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
         fetchDailyShop()
     }
