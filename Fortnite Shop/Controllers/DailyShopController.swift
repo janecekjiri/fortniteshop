@@ -21,6 +21,7 @@ class DailyShopController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Item Shop"
         positionActivityIndicator()
         activityIndicator.startAnimating()
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
