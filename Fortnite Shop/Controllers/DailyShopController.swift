@@ -102,7 +102,7 @@ extension DailyShopController {
 
     private func returnTodaysDate() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d, yyyy"
+        dateFormatter.dateStyle = .long
         return dateFormatter.string(from: Date())
     }
 
