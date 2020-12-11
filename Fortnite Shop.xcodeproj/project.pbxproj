@@ -19,6 +19,7 @@
 		118FC9E8258101B500A4D1F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118FC9E6258101B500A4D1F5 /* LaunchScreen.storyboard */; };
 		118FC9F12581063D00A4D1F5 /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 118FC9F02581063D00A4D1F5 /* swiftlint.yml */; };
 		11CD5BA325836E28000FD294 /* CollectionViewLabelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */; };
+		11CD5BA725837DA4000FD294 /* BurbankBigCondensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		118FC9E9258101B500A4D1F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		118FC9F02581063D00A4D1F5 /* swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLabelHeader.swift; sourceTree = "<group>"; };
+		11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BurbankBigCondensed-Black.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,10 +129,19 @@
 				11458C562582440D00D562AA /* Views */,
 				11458C572582442200D562AA /* Controllers */,
 				11458C582582453400D562AA /* Extensions */,
+				11CD5BA825837F8C000FD294 /* Fonts */,
 				11458C592582459900D562AA /* Rest */,
 				118FC9E4258101B500A4D1F5 /* Assets.xcassets */,
 			);
 			path = "Fortnite Shop";
+			sourceTree = "<group>";
+		};
+		11CD5BA825837F8C000FD294 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				118FC9E8258101B500A4D1F5 /* LaunchScreen.storyboard in Resources */,
+				11CD5BA725837DA4000FD294 /* BurbankBigCondensed-Black.otf in Resources */,
 				118FC9F12581063D00A4D1F5 /* swiftlint.yml in Resources */,
 				118FC9E5258101B500A4D1F5 /* Assets.xcassets in Resources */,
 			);

@@ -14,6 +14,7 @@ class CollectionViewLabelHeader: UICollectionReusableView {
         let label = UILabel()
         label.backgroundColor = .red
         label.textAlignment = .center
+        label.font = UIFont(name: "BurbankBigCondensed-Black", size: 25)!
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
