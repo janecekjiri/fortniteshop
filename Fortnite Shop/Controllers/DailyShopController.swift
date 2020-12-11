@@ -43,13 +43,13 @@ class DailyShopController: UICollectionViewController {
         return dailyShopCell
     }
 
-    func positionActivityIndicator() {
+    private func positionActivityIndicator() {
         collectionView.addSubview(activityIndicator)
         activityIndicator.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
         activityIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
     }
 
-    func fetchDailyShop() {
+    private func fetchDailyShop() {
         Service.shared.fetchDailyShop { dailyShop, error in
             if error != nil {
                 self.showErrorAlert()
@@ -83,7 +83,7 @@ class DailyShopController: UICollectionViewController {
         }
     }
 
-    func showErrorAlert() {
+    private func showErrorAlert() {
         let alertController = UIAlertController.makeErrorAlertController(
             message: "We were not able to obtain items in today's shop. Please try it later"
         )
