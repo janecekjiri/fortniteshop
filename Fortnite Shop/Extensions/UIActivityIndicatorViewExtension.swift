@@ -13,6 +13,7 @@ extension UIActivityIndicatorView {
         let view = UIActivityIndicatorView(style: .large)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.color = .white
+        view.hidesWhenStopped = true
         return view
     }()
 }

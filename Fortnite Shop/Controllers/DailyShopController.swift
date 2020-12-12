@@ -111,12 +111,12 @@ extension DailyShopController {
         isFetchingData = true
         Service.shared.fetchDailyShop { dailyShop, error in
             if error != nil {
-                self.showErrorAlert()
+                self.handleFetchError()
                 return
             }
 
             guard let dailyShop = dailyShop else {
-                self.showErrorAlert()
+                self.handleFetchError()
                 return
             }
 
@@ -154,6 +154,14 @@ extension DailyShopController {
         DispatchQueue.main.async {
             self.navigationController?.present(alertController, animated: true)
         }
+    }
+
+    private func handleFetchError() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
+        self.showErrorAlert()
+        self.isFetchingData = false
     }
 }
 
