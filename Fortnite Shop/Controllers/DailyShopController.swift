@@ -120,11 +120,8 @@ extension DailyShopController {
                 return
             }
 
-            let dailies = dailyShop.daily + dailyShop.featured + dailyShop.specialFeatured
-                + dailyShop.community + dailyShop.offers + dailyShop.specialDaily
-
             let dispatchGroup = DispatchGroup()
-            dailies.forEach { item in
+            dailyShop.items.forEach { item in
                 dispatchGroup.enter()
                 Service.shared.fetchImage(url: item.image) { image in
                     dispatchGroup.leave()

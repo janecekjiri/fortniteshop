@@ -9,18 +9,20 @@
 import Foundation
 
 struct DailyShopModel: Decodable {
-    let featured: [Item]
-    let daily: [Item]
-    let specialFeatured: [Item]
-    let specialDaily: [Item]
-    let community: [Item]
-    let offers: [Item]
-}
+    let items: [Item]
 
-struct Item: Decodable {
-    let image: String
+    enum CodingKeys: CodingKey {
+        case featured, daily, specialFeatured, specialDaily, community, offers
+    }
 
-    enum CodingKeys: String, CodingKey {
-        case image = "full_background"
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let featured = try container.decode([Item].self, forKey: .featured)
+        let daily = try container.decode([Item].self, forKey: .daily)
+        let specialFeatured = try container.decode([Item].self, forKey: .specialFeatured)
+        let specialDaily = try container.decode([Item].self, forKey: .specialDaily)
+        let community = try container.decode([Item].self, forKey: .community)
+        let offers = try container.decode([Item].self, forKey: .offers)
+        items = featured + daily + specialFeatured + specialDaily + community + offers
     }
 }
