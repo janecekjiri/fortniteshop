@@ -109,6 +109,7 @@ extension DailyShopController {
     private func fetchDailyShop() {
         images.removeAll()
         isFetchingData = true
+        collectionView.isScrollEnabled = false
         Service.shared.fetchDailyShop { dailyShop, error in
             if error != nil {
                 self.handleFetchError()
@@ -135,6 +136,7 @@ extension DailyShopController {
             dispatchGroup.notify(queue: .main) {
                 self.activityIndicator.stopAnimating()
                 self.collectionView.reloadData()
+                self.collectionView.isScrollEnabled = true
                 self.isFetchingData = false
             }
         }
