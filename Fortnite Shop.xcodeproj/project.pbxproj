@@ -21,7 +21,6 @@
 		118FC9F12581063D00A4D1F5 /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 118FC9F02581063D00A4D1F5 /* swiftlint.yml */; };
 		11969E1A2587493B00F25CDE /* ItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E192587493B00F25CDE /* ItemDetailController.swift */; };
 		11969E1C25874C4500F25CDE /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E1B25874C4500F25CDE /* ItemDetailView.swift */; };
-		11969E2025878B7600F25CDE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E1F25878B7500F25CDE /* Item.swift */; };
 		11969E2225878F9D00F25CDE /* ItemDetailWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E2125878F9D00F25CDE /* ItemDetailWrapper.swift */; };
 		11969E2425878FC300F25CDE /* ItemDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E2325878FC300F25CDE /* ItemDetail.swift */; };
 		11CD5BA325836E28000FD294 /* CollectionViewLabelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */; };
@@ -46,7 +45,6 @@
 		118FC9F02581063D00A4D1F5 /* swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		11969E192587493B00F25CDE /* ItemDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailController.swift; sourceTree = "<group>"; };
 		11969E1B25874C4500F25CDE /* ItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
-		11969E1F25878B7500F25CDE /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		11969E2125878F9D00F25CDE /* ItemDetailWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailWrapper.swift; sourceTree = "<group>"; };
 		11969E2325878FC300F25CDE /* ItemDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetail.swift; sourceTree = "<group>"; };
 		11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLabelHeader.swift; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 				11458C502582148500D562AA /* DailyShopModel.swift */,
 				11969E2325878FC300F25CDE /* ItemDetail.swift */,
 				11969E2125878F9D00F25CDE /* ItemDetailWrapper.swift */,
-				11969E1F25878B7500F25CDE /* Item.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -263,7 +260,6 @@
 				11458C5B25835C7700D562AA /* UIActivityIndicatorViewExtension.swift in Sources */,
 				11969E1A2587493B00F25CDE /* ItemDetailController.swift in Sources */,
 				118FC9DC258101B300A4D1F5 /* AppDelegate.swift in Sources */,
-				11969E2025878B7600F25CDE /* Item.swift in Sources */,
 				11458C4F25820F4400D562AA /* Service.swift in Sources */,
 				118FC9DE258101B300A4D1F5 /* SceneDelegate.swift in Sources */,
 				118D9C962584A80300FC29C0 /* DailyShopItem.swift in Sources */,

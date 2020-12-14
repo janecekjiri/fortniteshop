@@ -10,12 +10,12 @@ import UIKit
 
 class ItemDetailController: UIViewController {
 
-    let item: Item
+    let item: DailyShopItem
 
     let itemDetailView = ItemDetailView()
     let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
 
-    init(item: Item) {
+    init(for item: DailyShopItem) {
         self.item = item
         super.init(nibName: nil, bundle: nil)
     }

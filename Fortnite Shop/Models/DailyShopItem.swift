@@ -9,12 +9,9 @@
 import Foundation
 
 struct DailyShopItem: Decodable {
-    // TODO: change date-related properties to type Date
-    let identity, name, description, type, rarity, image, releaseDate, lastAppearance: String
-    let price: Int
+    let identity, image: String
 
     enum CodingKeys: String, CodingKey {
-        case name, description, type, rarity, releaseDate, lastAppearance, price
         case identity = "id"
         case image = "full_background"
     }

@@ -9,6 +9,13 @@
 import Foundation
 
 struct ItemDetail: Decodable {
+    let name: String
+    let type: String
+    let rarity: String
+    let price: Int
+    let releaseDate: String
+    let lastAppearance: String
+    let description: String
     let set: String
     let itemsInSet: [String]
     let history: [String]
@@ -19,7 +26,7 @@ struct ItemDetail: Decodable {
     let fullBackground: String
 
     enum CodingKeys: String, CodingKey {
-        case set, itemsInSet, images
+        case name, type, rarity, price, releaseDate, lastAppearance, description, set, itemsInSet, images
         case history = "shopHistory"
     }
 
@@ -31,6 +38,13 @@ struct ItemDetail: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        type = try container.decode(String.self, forKey: .type)
+        rarity = try container.decode(String.self, forKey: .rarity)
+        price = try container.decode(Int.self, forKey: .price)
+        releaseDate = try container.decode(String.self, forKey: .releaseDate)
+        lastAppearance = try container.decode(String.self, forKey: .lastAppearance)
+        description = try container.decode(String.self, forKey: .description)
         set = try container.decode(String.self, forKey: .set)
         itemsInSet = try container.decode([String].self, forKey: .itemsInSet)
         history = try container.decode([String].self, forKey: .history)

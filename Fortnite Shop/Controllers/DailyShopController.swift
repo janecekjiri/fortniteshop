@@ -12,7 +12,7 @@ class DailyShopController: UICollectionViewController {
 
     let dailyShopCellId = "dailyShopCellId"
     let collectionViewHeader = "collectionViewHeader"
-    var items = [Item]()
+    var items = [(DailyShopItem, UIImage)]()
     var isFetchingData = true
 
     let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
@@ -41,12 +41,12 @@ class DailyShopController: UICollectionViewController {
         guard let dailyShopCell = cell as? DailyShopCell else {
             return cell
         }
-        dailyShopCell.itemImageView.image = items[indexPath.item].profileImage
+        dailyShopCell.itemImageView.image = items[indexPath.item].1
         return dailyShopCell
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let itemDetailController = ItemDetailController(item: items[indexPath.item])
+        let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
         navigationController?.pushViewController(itemDetailController, animated: true)
     }
 
@@ -129,7 +129,7 @@ extension DailyShopController {
                     guard let image = image else {
                         return
                     }
-                    self.items.append(Item(item: item, profileImage: image))
+                    self.items.append((item, image))
                 }
             }
 
