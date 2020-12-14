@@ -12,7 +12,7 @@ class DailyShopController: UICollectionViewController {
 
     let dailyShopCellId = "dailyShopCellId"
     let collectionViewHeader = "collectionViewHeader"
-    var images = [UIImage]()
+    var items = [Item]()
     var isFetchingData = true
 
     let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
@@ -30,7 +30,7 @@ class DailyShopController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return items.count
     }
 
     override func collectionView(
@@ -41,14 +41,15 @@ class DailyShopController: UICollectionViewController {
         guard let dailyShopCell = cell as? DailyShopCell else {
             return cell
         }
-        dailyShopCell.itemImageView.image = images[indexPath.item]
+        dailyShopCell.itemImageView.image = items[indexPath.item].profileImage
         return dailyShopCell
     }
 
     // TODO: Rewrite appropriately
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let itemDetailController = ItemDetailController()
-        navigationController?.pushViewController(itemDetailController, animated: true)
+        //let itemDetailController = ItemDetailController()
+        //navigationController?.pushViewController(itemDetailController, animated: true)
+        print(items[indexPath.item].item.name)
     }
 
     override func collectionView(
@@ -113,7 +114,7 @@ extension DailyShopController {
     }
 
     private func fetchDailyShop() {
-        images.removeAll()
+        items.removeAll()
         isFetchingData = true
         collectionView.isScrollEnabled = false
         Service.shared.fetchDailyShop { dailyShop, error in
@@ -135,7 +136,7 @@ extension DailyShopController {
                     guard let image = image else {
                         return
                     }
-                    self.images.append(image)
+                    self.items.append(Item(item: item, profileImage: image))
                 }
             }
 

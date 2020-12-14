@@ -9,7 +9,7 @@
 import Foundation
 
 struct DailyShopModel: Decodable {
-    let items: [Item]
+    let items: [DailyShopItem]
 
     enum CodingKeys: CodingKey {
         case featured, daily, specialFeatured, specialDaily, community, offers
@@ -17,12 +17,12 @@ struct DailyShopModel: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let featured = try container.decode([Item].self, forKey: .featured)
-        let daily = try container.decode([Item].self, forKey: .daily)
-        let specialFeatured = try container.decode([Item].self, forKey: .specialFeatured)
-        let specialDaily = try container.decode([Item].self, forKey: .specialDaily)
-        let community = try container.decode([Item].self, forKey: .community)
-        let offers = try container.decode([Item].self, forKey: .offers)
+        let featured = try container.decode([DailyShopItem].self, forKey: .featured)
+        let daily = try container.decode([DailyShopItem].self, forKey: .daily)
+        let specialFeatured = try container.decode([DailyShopItem].self, forKey: .specialFeatured)
+        let specialDaily = try container.decode([DailyShopItem].self, forKey: .specialDaily)
+        let community = try container.decode([DailyShopItem].self, forKey: .community)
+        let offers = try container.decode([DailyShopItem].self, forKey: .offers)
         items = featured + daily + specialFeatured + specialDaily + community + offers
     }
 }
