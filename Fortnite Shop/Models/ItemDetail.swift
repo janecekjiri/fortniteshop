@@ -9,21 +9,11 @@
 import Foundation
 
 struct ItemDetail: Decodable {
-    let name: String
-    let type: String
-    let rarity: String
+    let name, description, type, rarity, set: String
     let price: Int
-    let releaseDate: String
-    let lastAppearance: String
-    let description: String
-    let set: String
-    let itemsInSet: [String]
-    let history: [String]
-    let icon: String
-    let fullSize: String
-    let featured: String
-    let background: String
-    let fullBackground: String
+    let releaseDate, lastAppearance: String
+    let itemsInSet, history: [String]
+    let icon, fullSize, featured, background, fullBackground: String
 
     enum CodingKeys: CodingKey {
         case item
