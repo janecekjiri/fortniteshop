@@ -45,6 +45,13 @@ class DailyShopController: UICollectionViewController {
         return dailyShopCell
     }
 
+    // TODO: Rewrite appropriately
+    // TODO: Fix animation bug
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemDetailController = ItemDetailController()
+        navigationController?.pushViewController(itemDetailController, animated: true)
+    }
+
     override func collectionView(
         _ collectionView: UICollectionView,
         viewForSupplementaryElementOfKind kind: String,

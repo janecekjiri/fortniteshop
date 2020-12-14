@@ -19,6 +19,7 @@
 		118FC9E5258101B500A4D1F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 118FC9E4258101B500A4D1F5 /* Assets.xcassets */; };
 		118FC9E8258101B500A4D1F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118FC9E6258101B500A4D1F5 /* LaunchScreen.storyboard */; };
 		118FC9F12581063D00A4D1F5 /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 118FC9F02581063D00A4D1F5 /* swiftlint.yml */; };
+		11969E1A2587493B00F25CDE /* ItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E192587493B00F25CDE /* ItemDetailController.swift */; };
 		11CD5BA325836E28000FD294 /* CollectionViewLabelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */; };
 		11CD5BA725837DA4000FD294 /* BurbankBigCondensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */; };
 		11CD5BAA258380E5000FD294 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA9258380E5000FD294 /* UIFontExtension.swift */; };
@@ -39,6 +40,7 @@
 		118FC9E7258101B500A4D1F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		118FC9E9258101B500A4D1F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		118FC9F02581063D00A4D1F5 /* swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
+		11969E192587493B00F25CDE /* ItemDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailController.swift; sourceTree = "<group>"; };
 		11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLabelHeader.swift; sourceTree = "<group>"; };
 		11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BurbankBigCondensed-Black.otf"; sourceTree = "<group>"; };
 		11CD5BA9258380E5000FD294 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				11458C4A2582061900D562AA /* DailyShopController.swift */,
+				11969E192587493B00F25CDE /* ItemDetailController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				11CD5BA325836E28000FD294 /* CollectionViewLabelHeader.swift in Sources */,
 				11458C4B2582061900D562AA /* DailyShopController.swift in Sources */,
 				11458C5B25835C7700D562AA /* UIActivityIndicatorViewExtension.swift in Sources */,
+				11969E1A2587493B00F25CDE /* ItemDetailController.swift in Sources */,
 				118FC9DC258101B300A4D1F5 /* AppDelegate.swift in Sources */,
 				11458C4F25820F4400D562AA /* Service.swift in Sources */,
 				118FC9DE258101B300A4D1F5 /* SceneDelegate.swift in Sources */,
