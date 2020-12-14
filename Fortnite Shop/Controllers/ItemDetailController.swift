@@ -13,11 +13,11 @@ class ItemDetailController: UIViewController {
     let item: Item
 
     let itemDetailView = ItemDetailView()
+    let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
 
     init(item: Item) {
         self.item = item
         super.init(nibName: nil, bundle: nil)
-        print(item.name)
     }
 
     required init?(coder: NSCoder) {
@@ -26,7 +26,30 @@ class ItemDetailController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
+        view.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicator.startAnimating()
+        Service.shared.fetchItemDetail(for: item) { (itemDetailWrapper, error) in
+            guard let itemDetailWrapper = itemDetailWrapper else {
+                return
+            }
+            Service.shared.fetchImage(url: itemDetailWrapper.item.background) { image in
+                guard let image = image else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.setUpDetailView(profileImg: image)
+                }
+            }
+        }
+    }
+
+    private func setUpDetailView(profileImg: UIImage) {
         view.addSubview(itemDetailView)
+        itemDetailView.imageView.image = profileImg
         itemDetailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         itemDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         itemDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
