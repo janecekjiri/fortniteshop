@@ -45,7 +45,6 @@ class DailyShopController: UICollectionViewController {
         return dailyShopCell
     }
 
-    // TODO: Rewrite appropriately
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let itemDetailController = ItemDetailController(item: items[indexPath.item])
         navigationController?.pushViewController(itemDetailController, animated: true)
@@ -116,12 +115,7 @@ extension DailyShopController {
         items.removeAll()
         isFetchingData = true
         collectionView.isScrollEnabled = false
-        Service.shared.fetchDailyShop { dailyShop, error in
-            if error != nil {
-                self.handleFetchError()
-                return
-            }
-
+        Service.shared.fetchDailyShop { dailyShop in
             guard let dailyShop = dailyShop else {
                 self.handleFetchError()
                 return

@@ -31,7 +31,7 @@ class ItemDetailController: UIViewController {
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         activityIndicator.startAnimating()
-        Service.shared.fetchItemDetail(for: item) { (itemDetailWrapper, error) in
+        Service.shared.fetchItemDetail(for: item) { itemDetailWrapper in
             guard let itemDetailWrapper = itemDetailWrapper else {
                 return
             }

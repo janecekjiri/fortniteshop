@@ -12,7 +12,7 @@ class Service {
     let apiKey = "d162e8f4-7dfb5de9-3e284b5c-c82a4923"
     static let shared = Service()
 
-    func fetchDailyShop(completion: @escaping (DailyShopModel?, Error?) -> Void) {
+    func fetchDailyShop(completion: @escaping (DailyShopModel?) -> Void) {
         let session = URLSession.shared
         guard let url = URL(string: "https://fortniteapi.io/v1/shop?lang=en") else {
             return
@@ -21,28 +21,28 @@ class Service {
         urlRequest.addValue(apiKey, forHTTPHeaderField: "Authorization")
 
         let task = session.dataTask(with: urlRequest) { data, response, error in
-            if let error = error {
-                completion(nil, error)
+            if error != nil {
+                completion(nil)
             }
 
             guard
                 let httpResponse = response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode)
             else {
-                completion(nil, nil)
+                completion(nil)
                 return
             }
 
             guard let data = data else {
-                completion(nil, nil)
+                completion(nil)
                 return
             }
 
             do {
                 let dailies = try JSONDecoder().decode(DailyShopModel.self, from: data)
-                completion(dailies, nil)
+                completion(dailies)
             } catch {
-                completion(nil, nil)
+                completion(nil)
             }
         }
         task.resume()
@@ -78,7 +78,7 @@ class Service {
         task.resume()
     }
 
-    func fetchItemDetail(for item: Item, completion: @escaping (ItemDetailWrapper?, Error?) -> Void) {
+    func fetchItemDetail(for item: Item, completion: @escaping (ItemDetailWrapper?) -> Void) {
         let session = URLSession.shared
         guard let url = URL(string: "https://fortniteapi.io/v1/items/get?id=\(item.identity)&lang=en") else {
             return
@@ -87,28 +87,28 @@ class Service {
         urlRequest.addValue(apiKey, forHTTPHeaderField: "Authorization")
 
         let task = session.dataTask(with: urlRequest) { data, response, error in
-            if let error = error {
-                completion(nil, error)
+            if error != nil {
+                completion(nil)
             }
 
             guard
                 let httpResponse = response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode)
             else {
-                completion(nil, nil)
+                completion(nil)
                 return
             }
 
             guard let data = data else {
-                completion(nil, nil)
+                completion(nil)
                 return
             }
 
             do {
                 let dailies = try JSONDecoder().decode(ItemDetailWrapper.self, from: data)
-                completion(dailies, nil)
+                completion(dailies)
             } catch {
-                completion(nil, nil)
+                completion(nil)
             }
         }
         task.resume()
