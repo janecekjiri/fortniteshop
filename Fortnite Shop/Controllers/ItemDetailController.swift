@@ -31,11 +31,11 @@ class ItemDetailController: UIViewController {
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         activityIndicator.startAnimating()
-        Service.shared.fetchItemDetail(for: item) { itemDetailWrapper in
-            guard let itemDetailWrapper = itemDetailWrapper else {
+        Service.shared.fetchItemDetail(for: item) { itemDetail in
+            guard let itemDetail = itemDetail else {
                 return
             }
-            Service.shared.fetchImage(url: itemDetailWrapper.item.background) { image in
+            Service.shared.fetchImage(url: itemDetail.background) { image in
                 guard let image = image else {
                     return
                 }

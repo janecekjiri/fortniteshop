@@ -25,7 +25,11 @@ struct ItemDetail: Decodable {
     let background: String
     let fullBackground: String
 
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: CodingKey {
+        case item
+    }
+
+    enum ItemKeys: String, CodingKey {
         case name, type, rarity, price, releaseDate, lastAppearance, description, set, itemsInSet, images
         case history = "shopHistory"
     }
@@ -38,17 +42,18 @@ struct ItemDetail: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.decode(String.self, forKey: .name)
-        type = try container.decode(String.self, forKey: .type)
-        rarity = try container.decode(String.self, forKey: .rarity)
-        price = try container.decode(Int.self, forKey: .price)
-        releaseDate = try container.decode(String.self, forKey: .releaseDate)
-        lastAppearance = try container.decode(String.self, forKey: .lastAppearance)
-        description = try container.decode(String.self, forKey: .description)
-        set = try container.decode(String.self, forKey: .set)
-        itemsInSet = try container.decode([String].self, forKey: .itemsInSet)
-        history = try container.decode([String].self, forKey: .history)
-        let imagesContainer = try container.nestedContainer(keyedBy: ImageKeys.self, forKey: .images)
+        let itemContainer = try container.nestedContainer(keyedBy: ItemKeys.self, forKey: .item)
+        name = try itemContainer.decode(String.self, forKey: .name)
+        type = try itemContainer.decode(String.self, forKey: .type)
+        rarity = try itemContainer.decode(String.self, forKey: .rarity)
+        price = try itemContainer.decode(Int.self, forKey: .price)
+        releaseDate = try itemContainer.decode(String.self, forKey: .releaseDate)
+        lastAppearance = try itemContainer.decode(String.self, forKey: .lastAppearance)
+        description = try itemContainer.decode(String.self, forKey: .description)
+        set = try itemContainer.decode(String.self, forKey: .set)
+        itemsInSet = try itemContainer.decode([String].self, forKey: .itemsInSet)
+        history = try itemContainer.decode([String].self, forKey: .history)
+        let imagesContainer = try itemContainer.nestedContainer(keyedBy: ImageKeys.self, forKey: .images)
         icon = try imagesContainer.decode(String.self, forKey: .icon)
         fullSize = try imagesContainer.decode(String.self, forKey: .fullSize)
         featured = try imagesContainer.decode(String.self, forKey: .featured)
