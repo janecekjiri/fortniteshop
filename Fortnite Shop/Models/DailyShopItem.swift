@@ -9,6 +9,7 @@
 import Foundation
 
 struct DailyShopItem: Decodable {
+    // TODO: change date-related properties to type Date
     let identity, name, description, type, rarity, image, releaseDate, lastAppearance: String
     let price: Int
 

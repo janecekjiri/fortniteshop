@@ -9,11 +9,19 @@
 import UIKit
 
 struct Item {
-    let item: DailyShopItem
+    let identity, name, description, type, rarity, releaseDate, lastAppearance: String
+    let price: Int
     let profileImage: UIImage
 
     init(item: DailyShopItem, profileImage: UIImage) {
-        self.item = item
+        identity = item.identity
+        name = item.name
+        description = item.description
+        type = item.type
+        rarity = item.rarity
+        releaseDate = item.releaseDate
+        lastAppearance = item.lastAppearance
+        price = item.price
         self.profileImage = profileImage
     }
 }

@@ -10,7 +10,19 @@ import UIKit
 
 class ItemDetailController: UIViewController {
 
+    let item: Item
+
     let itemDetailView = ItemDetailView()
+
+    init(item: Item) {
+        self.item = item
+        super.init(nibName: nil, bundle: nil)
+        print(item.name)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -77,4 +77,40 @@ class Service {
         }
         task.resume()
     }
+
+    func fetchItemDetail(for item: Item, completion: @escaping (ItemDetailWrapper?, Error?) -> Void) {
+        let session = URLSession.shared
+        guard let url = URL(string: "https://fortniteapi.io/v1/items/get?id=\(item.identity)&lang=en") else {
+            return
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.addValue(apiKey, forHTTPHeaderField: "Authorization")
+
+        let task = session.dataTask(with: urlRequest) { data, response, error in
+            if let error = error {
+                completion(nil, error)
+            }
+
+            guard
+                let httpResponse = response as? HTTPURLResponse,
+                (200...299).contains(httpResponse.statusCode)
+            else {
+                completion(nil, nil)
+                return
+            }
+
+            guard let data = data else {
+                completion(nil, nil)
+                return
+            }
+
+            do {
+                let dailies = try JSONDecoder().decode(ItemDetailWrapper.self, from: data)
+                completion(dailies, nil)
+            } catch {
+                completion(nil, nil)
+            }
+        }
+        task.resume()
+    }
 }

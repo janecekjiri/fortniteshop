@@ -47,9 +47,8 @@ class DailyShopController: UICollectionViewController {
 
     // TODO: Rewrite appropriately
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let itemDetailController = ItemDetailController()
-        //navigationController?.pushViewController(itemDetailController, animated: true)
-        print(items[indexPath.item].item.name)
+        let itemDetailController = ItemDetailController(item: items[indexPath.item])
+        navigationController?.pushViewController(itemDetailController, animated: true)
     }
 
     override func collectionView(
