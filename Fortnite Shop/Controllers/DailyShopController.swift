@@ -97,7 +97,7 @@ extension DailyShopController {
     }
 
     private func positionActivityIndicator() {
-        collectionView.addSubview(activityIndicator)
+        view.addSubview(activityIndicator)
         activityIndicator.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
         activityIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
     }
