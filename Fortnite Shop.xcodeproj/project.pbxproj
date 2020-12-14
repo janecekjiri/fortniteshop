@@ -22,6 +22,8 @@
 		11969E1A2587493B00F25CDE /* ItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E192587493B00F25CDE /* ItemDetailController.swift */; };
 		11969E1C25874C4500F25CDE /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E1B25874C4500F25CDE /* ItemDetailView.swift */; };
 		11969E2025878B7600F25CDE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E1F25878B7500F25CDE /* Item.swift */; };
+		11969E2225878F9D00F25CDE /* ItemDetailWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E2125878F9D00F25CDE /* ItemDetailWrapper.swift */; };
+		11969E2425878FC300F25CDE /* ItemDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E2325878FC300F25CDE /* ItemDetail.swift */; };
 		11CD5BA325836E28000FD294 /* CollectionViewLabelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */; };
 		11CD5BA725837DA4000FD294 /* BurbankBigCondensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */; };
 		11CD5BAA258380E5000FD294 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA9258380E5000FD294 /* UIFontExtension.swift */; };
@@ -45,6 +47,8 @@
 		11969E192587493B00F25CDE /* ItemDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailController.swift; sourceTree = "<group>"; };
 		11969E1B25874C4500F25CDE /* ItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 		11969E1F25878B7500F25CDE /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		11969E2125878F9D00F25CDE /* ItemDetailWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailWrapper.swift; sourceTree = "<group>"; };
+		11969E2325878FC300F25CDE /* ItemDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetail.swift; sourceTree = "<group>"; };
 		11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLabelHeader.swift; sourceTree = "<group>"; };
 		11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BurbankBigCondensed-Black.otf"; sourceTree = "<group>"; };
 		11CD5BA9258380E5000FD294 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 			children = (
 				118D9C952584A80300FC29C0 /* DailyShopItem.swift */,
 				11458C502582148500D562AA /* DailyShopModel.swift */,
+				11969E2325878FC300F25CDE /* ItemDetail.swift */,
+				11969E2125878F9D00F25CDE /* ItemDetailWrapper.swift */,
 				11969E1F25878B7500F25CDE /* Item.swift */,
 			);
 			path = Models;
@@ -265,6 +271,8 @@
 				11458C4D258207C600D562AA /* DailyShopCell.swift in Sources */,
 				11969E1C25874C4500F25CDE /* ItemDetailView.swift in Sources */,
 				11458C5325822CC600D562AA /* UIAlertControllerExtension.swift in Sources */,
+				11969E2425878FC300F25CDE /* ItemDetail.swift in Sources */,
+				11969E2225878F9D00F25CDE /* ItemDetailWrapper.swift in Sources */,
 				11458C512582148500D562AA /* DailyShopModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
