@@ -25,32 +25,11 @@ class ItemDetailView: UIView {
         return view
     }()
 
-    let releaseDateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Released: December 10, 2018"
-        label.font = .systemFont(ofSize: 15)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let releaseDateLabel = UILabel.makeHistoryLabel(withBoldText: "Released: ", withNormalText: "December 10, 2018")
 
-    let lastSeenLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Last seen: July 29, 2020"
-        label.font = .systemFont(ofSize: 15)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let lastSeenLabel = UILabel.makeHistoryLabel(withBoldText: "Last seen: ", withNormalText: "July 29, 2020")
 
-    let occurrencesLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Occurrences: 23"
-        label.font = .systemFont(ofSize: 15)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let occurrencesLabel = UILabel.makeHistoryLabel(withBoldText: "Occurrences: ", withNormalText: "23")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
