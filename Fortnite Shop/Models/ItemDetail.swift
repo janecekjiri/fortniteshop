@@ -11,8 +11,9 @@ import Foundation
 struct ItemDetail: Decodable {
     let name, description, type, rarity, set: String
     let price: Int
-    let releaseDate, lastAppearance: String
-    let itemsInSet, history: [String]
+    let releaseDate, lastAppearance: Date
+    let history: [Date]
+    let itemsInSet: [String]
     let icon, fullSize, featured, background, fullBackground: String
 
     enum CodingKeys: CodingKey {
@@ -37,12 +38,22 @@ struct ItemDetail: Decodable {
         type = try itemContainer.decode(String.self, forKey: .type)
         rarity = try itemContainer.decode(String.self, forKey: .rarity)
         price = try itemContainer.decode(Int.self, forKey: .price)
-        releaseDate = try itemContainer.decode(String.self, forKey: .releaseDate)
-        lastAppearance = try itemContainer.decode(String.self, forKey: .lastAppearance)
         description = try itemContainer.decode(String.self, forKey: .description)
         set = try itemContainer.decode(String.self, forKey: .set)
         itemsInSet = try itemContainer.decode([String].self, forKey: .itemsInSet)
-        history = try itemContainer.decode([String].self, forKey: .history)
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .none
+        let releaseDateString = try itemContainer.decode(String.self, forKey: .releaseDate)
+        let lastAppearanceString = try itemContainer.decode(String.self, forKey: .lastAppearance)
+        let historyStrings = try itemContainer.decode([String].self, forKey: .history)
+        releaseDate = dateFormatter.date(from: releaseDateString) ?? Date()
+        lastAppearance = dateFormatter.date(from: lastAppearanceString) ?? Date()
+        var historyDate = [Date]()
+        historyStrings.forEach { historyDate.append(dateFormatter.date(from: $0) ?? Date()) }
+        history = historyDate
+
         let imagesContainer = try itemContainer.nestedContainer(keyedBy: ImageKeys.self, forKey: .images)
         icon = try imagesContainer.decode(String.self, forKey: .icon)
         fullSize = try imagesContainer.decode(String.self, forKey: .fullSize)
