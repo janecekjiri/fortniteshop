@@ -44,8 +44,7 @@ struct ItemDetail: Decodable {
         itemsInSet = try itemContainer.decode([String].self, forKey: .itemsInSet)
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         let releaseDateString = try itemContainer.decode(String.self, forKey: .releaseDate)
         let lastAppearanceString = try itemContainer.decode(String.self, forKey: .lastAppearance)
         let historyStrings = try itemContainer.decode([String].self, forKey: .history)

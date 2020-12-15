@@ -76,9 +76,20 @@ class ItemDetailView: UIView {
     func setUpView(for item: ItemDetail, with image: UIImage) {
         descriptionLabel.text = "\"\(item.description)\""
         imageView.image = image
-        releaseDateLabel.setAttributedHistoryText(withBoldText: "Released: ", withNormalText: "December 10, 2018")
-        lastSeenLabel.setAttributedHistoryText(withBoldText: "Last seen: ", withNormalText: "December 15, 2020")
-        occurrencesLabel.setAttributedHistoryText(withBoldText: "Occurrences: ", withNormalText: "23")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        releaseDateLabel.setAttributedHistoryText(
+            withBoldText: "Released: ",
+            withNormalText: "\(dateFormatter.string(from: item.releaseDate))"
+        )
+        lastSeenLabel.setAttributedHistoryText(
+            withBoldText: "Last seen: ",
+            withNormalText: "\(dateFormatter.string(from: item.lastAppearance))"
+        )
+        occurrencesLabel.setAttributedHistoryText(
+            withBoldText: "Occurrences: ",
+            withNormalText: "\(item.history.count)"
+        )
     }
 
 }
