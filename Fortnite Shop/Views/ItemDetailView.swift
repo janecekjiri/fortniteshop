@@ -10,6 +10,14 @@ import UIKit
 
 class ItemDetailView: UIView {
 
+    let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "\"Always remember your first run.\""
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     let imageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .red
@@ -17,23 +25,86 @@ class ItemDetailView: UIView {
         return view
     }()
 
+    let releaseDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Released: December 10, 2018"
+        label.font = .systemFont(ofSize: 15)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    let lastSeenLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Last seen: July 29, 2020"
+        label.font = .systemFont(ofSize: 15)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    let occurrencesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Occurrences: 23"
+        label.font = .systemFont(ofSize: 15)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
         translatesAutoresizingMaskIntoConstraints = false
-        positionImageView()
+        positionViews()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private func positionDescriptionLabel() {
+        addSubview(descriptionLabel)
+        descriptionLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        descriptionLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        descriptionLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+    }
+
+    private func returnImageViewWidth() -> NSLayoutDimension {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        view.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        view.rightAnchor.constraint(equalTo: centerXAnchor, constant: -5).isActive = true
+        return view.widthAnchor
+    }
+
     private func positionImageView() {
         addSubview(imageView)
-        imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-        imageView.rightAnchor.constraint(equalTo: centerXAnchor, constant: -5).isActive = true
+        imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalTo: returnImageViewWidth()).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0).isActive = true
+    }
+
+    private func positionStackView() {
+        let stackView = UIStackView(
+            arrangedSubviews: [releaseDateLabel, lastSeenLabel, occurrencesLabel]
+        )
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 5.0
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stackView)
+        stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+        stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+    }
+
+    private func positionViews() {
+        positionDescriptionLabel()
+        positionImageView()
+        positionStackView()
     }
 
 }

@@ -35,7 +35,7 @@ class ItemDetailController: UIViewController {
             guard let itemDetail = itemDetail else {
                 return
             }
-            Service.shared.fetchImage(url: itemDetail.background) { image in
+            Service.shared.fetchImage(url: itemDetail.fullBackground) { image in
                 guard let image = image else {
                     return
                 }
