@@ -41,6 +41,7 @@ class ItemDetailController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
+                    self.navigationItem.title = itemDetail.name
                     self.setUpDetailView(for: itemDetail, with: image)
                 }
             }
