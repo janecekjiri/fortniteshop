@@ -41,15 +41,15 @@ class ItemDetailController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
-                    self.setUpDetailView(profileImg: image)
+                    self.setUpDetailView(for: itemDetail, with: image)
                 }
             }
         }
     }
 
-    private func setUpDetailView(profileImg: UIImage) {
+    private func setUpDetailView(for item: ItemDetail, with image: UIImage) {
         view.addSubview(itemDetailView)
-        itemDetailView.imageView.image = profileImg
+        itemDetailView.setUpView(for: item, with: image)
         itemDetailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         itemDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         itemDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true

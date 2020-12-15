@@ -9,8 +9,7 @@
 import UIKit
 
 extension UILabel {
-    static func makeHistoryLabel(withBoldText boldText: String, withNormalText normalText: String) -> UILabel {
-        let label = UILabel()
+    func setAttributedHistoryText(withBoldText boldText: String, withNormalText normalText: String) {
         let boldPart = NSAttributedString(
             string: boldText,
             attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
@@ -22,7 +21,11 @@ extension UILabel {
         let mutableString = NSMutableAttributedString()
         mutableString.append(boldPart)
         mutableString.append(normalPart)
-        label.attributedText = mutableString
+        self.attributedText = mutableString
+    }
+
+    static func makeCenteredLabel() -> UILabel {
+        let label = UILabel()
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

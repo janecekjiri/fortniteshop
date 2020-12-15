@@ -10,26 +10,12 @@ import UIKit
 
 class ItemDetailView: UIView {
 
-    let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "\"Always remember your first run.\""
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let descriptionLabel = UILabel.makeCenteredLabel()
+    private let releaseDateLabel = UILabel.makeCenteredLabel()
+    private let lastSeenLabel = UILabel.makeCenteredLabel()
+    private let occurrencesLabel = UILabel.makeCenteredLabel()
 
-    let imageView: UIImageView = {
-        let view = UIImageView()
-        view.backgroundColor = .red
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    let releaseDateLabel = UILabel.makeHistoryLabel(withBoldText: "Released: ", withNormalText: "December 10, 2018")
-
-    let lastSeenLabel = UILabel.makeHistoryLabel(withBoldText: "Last seen: ", withNormalText: "July 29, 2020")
-
-    let occurrencesLabel = UILabel.makeHistoryLabel(withBoldText: "Occurrences: ", withNormalText: "23")
+    private let imageView = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,6 +46,7 @@ class ItemDetailView: UIView {
 
     private func positionImageView() {
         addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
         imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         imageView.widthAnchor.constraint(equalTo: returnImageViewWidth()).isActive = true
@@ -84,6 +71,14 @@ class ItemDetailView: UIView {
         positionDescriptionLabel()
         positionImageView()
         positionStackView()
+    }
+
+    func setUpView(for item: ItemDetail, with image: UIImage) {
+        descriptionLabel.text = "\"\(item.description)\""
+        imageView.image = image
+        releaseDateLabel.setAttributedHistoryText(withBoldText: "Released: ", withNormalText: "December 10, 2018")
+        lastSeenLabel.setAttributedHistoryText(withBoldText: "Last seen: ", withNormalText: "December 15, 2020")
+        occurrencesLabel.setAttributedHistoryText(withBoldText: "Occurrences: ", withNormalText: "23")
     }
 
 }
