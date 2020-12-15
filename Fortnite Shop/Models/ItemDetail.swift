@@ -14,7 +14,8 @@ struct ItemDetail: Decodable {
     let releaseDate, lastAppearance: Date
     let history: [Date]
     let itemsInSet: [String]
-    let icon, fullSize, featured, background, fullBackground: String
+    let icon, background, fullBackground: String
+    let featured, fullSize: String?
 
     enum CodingKeys: CodingKey {
         case item
@@ -56,8 +57,8 @@ struct ItemDetail: Decodable {
 
         let imagesContainer = try itemContainer.nestedContainer(keyedBy: ImageKeys.self, forKey: .images)
         icon = try imagesContainer.decode(String.self, forKey: .icon)
-        fullSize = try imagesContainer.decode(String.self, forKey: .fullSize)
-        featured = try imagesContainer.decode(String.self, forKey: .featured)
+        fullSize = try? imagesContainer.decode(String.self, forKey: .fullSize)
+        featured = try? imagesContainer.decode(String.self, forKey: .featured)
         background = try imagesContainer.decode(String.self, forKey: .background)
         fullBackground = try imagesContainer.decode(String.self, forKey: .fullBackground)
     }
