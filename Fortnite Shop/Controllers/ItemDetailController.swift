@@ -15,6 +15,10 @@ class ItemDetailController: UIViewController {
     let itemDetailView = ItemDetailView()
     let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
 
+    let firstVC = UIViewController()
+    let secondVC = UIViewController()
+    let thirdVC = UIViewController()
+
     init(for item: DailyShopItem) {
         self.item = item
         super.init(nibName: nil, bundle: nil)
@@ -26,6 +30,10 @@ class ItemDetailController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        firstVC.view.backgroundColor = .red
+        secondVC.view.backgroundColor = .blue
+        thirdVC.view.backgroundColor = .green
+        addChild(controller: firstVC)
         view.backgroundColor = .black
         view.addSubview(activityIndicator)
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -55,6 +63,13 @@ class ItemDetailController: UIViewController {
         itemDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         itemDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         itemDetailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+
+    private func addChild(controller: UIViewController) {
+        addChild(controller)
+        itemDetailView.addChild(view: controller.view) // add subview
+        controller.didMove(toParent: self)
+        // position view
     }
 
 }

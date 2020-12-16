@@ -125,4 +125,13 @@ class ItemDetailView: UIView {
             print("Set")
         }
     }
+
+    func addChild(view: UIView) {
+        addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10).isActive = true
+        view.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        view.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+        view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
+    }
 }
