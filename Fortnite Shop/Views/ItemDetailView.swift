@@ -29,6 +29,7 @@ class ItemDetailView: UIView {
     private let segmentedControl: UISegmentedControl = {
         let items = ["History", "Images"]
         let segmentedControl = UISegmentedControl(items: items)
+        segmentedControl.addTarget(self, action: #selector(segmentDidChange(_:)), for: .valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
     }()
@@ -111,6 +112,17 @@ class ItemDetailView: UIView {
 
         if !item.itemsInSet.isEmpty {
             segmentedControl.insertSegment(withTitle: "Set", at: 2, animated: false)
+        }
+    }
+
+    @objc func segmentDidChange(_ segmentedControl: UISegmentedControl) {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            print("History")
+        case 1:
+            print("Images")
+        default:
+            print("Set")
         }
     }
 
