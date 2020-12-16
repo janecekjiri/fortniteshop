@@ -17,6 +17,22 @@ class ItemDetailView: UIView {
 
     private let imageView = UIImageView()
 
+    private lazy var historyStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [releaseDateLabel, lastSeenLabel, occurrencesLabel])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 5.0
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    private let segmentedControl: UISegmentedControl = {
+        let items = ["History", "Images"]
+        let segmentedControl = UISegmentedControl(items: items)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        return segmentedControl
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
@@ -54,30 +70,33 @@ class ItemDetailView: UIView {
     }
 
     private func positionStackView() {
-        let stackView = UIStackView(
-            arrangedSubviews: [releaseDateLabel, lastSeenLabel, occurrencesLabel]
-        )
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 5.0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
-        stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
-        stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-        stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+        [releaseDateLabel, lastSeenLabel, occurrencesLabel].forEach { historyStackView.addArrangedSubview($0) }
+        addSubview(historyStackView)
+        historyStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+        historyStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        historyStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+    }
+
+    private func positionSegmentedControl() {
+        addSubview(segmentedControl)
+        segmentedControl.topAnchor.constraint(equalTo: historyStackView.bottomAnchor, constant: 15).isActive = true
+        segmentedControl.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
     private func positionViews() {
         positionDescriptionLabel()
         positionImageView()
         positionStackView()
+        positionSegmentedControl()
     }
 
     func setUpView(for item: ItemDetail, with image: UIImage) {
         descriptionLabel.text = "\"\(item.description)\""
         imageView.image = image
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
+
         releaseDateLabel.setAttributedHistoryText(
             withBoldText: "Released: ",
             withNormalText: "\(dateFormatter.string(from: item.releaseDate))"
@@ -90,6 +109,10 @@ class ItemDetailView: UIView {
             withBoldText: "Occurrences: ",
             withNormalText: "\(item.history.count)"
         )
+
+        if !item.itemsInSet.isEmpty {
+            segmentedControl.insertSegment(withTitle: "Set", at: 2, animated: false)
+        }
     }
 
 }
