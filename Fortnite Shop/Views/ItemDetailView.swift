@@ -70,7 +70,6 @@ class ItemDetailView: UIView {
     }
 
     private func positionStackView() {
-        [releaseDateLabel, lastSeenLabel, occurrencesLabel].forEach { historyStackView.addArrangedSubview($0) }
         addSubview(historyStackView)
         historyStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
         historyStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
