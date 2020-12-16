@@ -16,6 +16,7 @@ class ItemDetailView: UIView {
     private let occurrencesLabel = UILabel.makeCenteredLabel()
 
     private let imageView = UIImageView()
+    private var segmentedViews = [UIView]()
 
     private lazy var historyStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [releaseDateLabel, lastSeenLabel, occurrencesLabel])
@@ -29,6 +30,7 @@ class ItemDetailView: UIView {
     private let segmentedControl: UISegmentedControl = {
         let items = ["History", "Images"]
         let segmentedControl = UISegmentedControl(items: items)
+        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentDidChange(_:)), for: .valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
@@ -116,22 +118,19 @@ class ItemDetailView: UIView {
     }
 
     @objc func segmentDidChange(_ segmentedControl: UISegmentedControl) {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            print("History")
-        case 1:
-            print("Images")
-        default:
-            print("Set")
-        }
+        segmentedViews.enumerated().forEach { $1.isHidden = $0 != segmentedControl.selectedSegmentIndex }
     }
 
     func addChild(view: UIView) {
+        segmentedViews.append(view)
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10).isActive = true
         view.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         view.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
+        if segmentedViews.count > 1 {
+            view.isHidden = true
+        }
     }
 }

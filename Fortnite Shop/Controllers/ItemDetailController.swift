@@ -30,10 +30,11 @@ class ItemDetailController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        firstVC.view.backgroundColor = .red
-        secondVC.view.backgroundColor = .blue
-        thirdVC.view.backgroundColor = .green
+        firstVC.view.backgroundColor = .red // TODO: Remove
+        secondVC.view.backgroundColor = .blue // TODO: Remove
+        thirdVC.view.backgroundColor = .green // TODO: Remove
         addChild(controller: firstVC)
+        addChild(controller: secondVC)
         view.backgroundColor = .black
         view.addSubview(activityIndicator)
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -42,6 +43,11 @@ class ItemDetailController: UIViewController {
         Service.shared.fetchItemDetail(for: item) { itemDetail in
             guard let itemDetail = itemDetail else {
                 return
+            }
+            if !itemDetail.itemsInSet.isEmpty {
+                DispatchQueue.main.async {
+                    self.addChild(controller: self.thirdVC)
+                }
             }
             Service.shared.fetchImage(url: itemDetail.fullBackground) { image in
                 guard let image = image else {
@@ -67,9 +73,8 @@ class ItemDetailController: UIViewController {
 
     private func addChild(controller: UIViewController) {
         addChild(controller)
-        itemDetailView.addChild(view: controller.view) // add subview
+        itemDetailView.addChild(view: controller.view)
         controller.didMove(toParent: self)
-        // position view
     }
 
 }
