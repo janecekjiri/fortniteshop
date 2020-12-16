@@ -125,5 +125,4 @@ class ItemDetailView: UIView {
             print("Set")
         }
     }
-
 }
