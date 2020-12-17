@@ -124,7 +124,7 @@ class ItemDetailView: UIView {
         }
     }
 
-    @objc func segmentDidChange(_ segmentedControl: UISegmentedControl) {
+    @objc private func segmentDidChange(_ segmentedControl: UISegmentedControl) {
         segmentedViews.enumerated().forEach { $1.isHidden = $0 != segmentedControl.selectedSegmentIndex }
     }
 

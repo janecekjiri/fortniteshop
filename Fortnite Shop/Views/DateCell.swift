@@ -12,7 +12,6 @@ class DateCell: UICollectionViewCell {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "December 17th 2020"
         label.textColor = .white
         label.font = .systemFont(ofSize: 14)
         return label
@@ -20,7 +19,6 @@ class DateCell: UICollectionViewCell {
 
     private let daysAgoLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
         label.textColor = .white
         label.font = .systemFont(ofSize: 14)
         return label
@@ -40,6 +38,11 @@ class DateCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func setCell(date: String, daysAgo: String) {
+        dateLabel.text = date
+        daysAgoLabel.text = daysAgo
     }
 
 }

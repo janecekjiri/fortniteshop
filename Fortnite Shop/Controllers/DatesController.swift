@@ -12,6 +12,7 @@ class DatesController: UICollectionViewController {
 
     private let dateCellId = "dateCell"
     private let headerId = "header"
+    private var dates = [Date]()
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -49,7 +50,7 @@ class DatesController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return dates.count
     }
 
     override func collectionView(
@@ -63,7 +64,29 @@ class DatesController: UICollectionViewController {
         let darkGray = UIColor.dateControllerCellDarkGray
         let lightGray = UIColor.dateControllerCellLightGray
         dateCell.backgroundColor = indexPath.item % 2 == 0 ? lightGray : darkGray
+
+        let date = dates[indexPath.item]
+        dateCell.setCell(date: formatDate(date), daysAgo: calculateDaysAgo(for: date))
         return dateCell
+    }
+
+    func addDates(_ dates: [Date]) {
+        self.dates = dates
+        self.dates.reverse()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+
+    func formatDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        return dateFormatter.string(from: date)
+    }
+
+    func calculateDaysAgo(for date: Date) -> String {
+        let daysAgo = Calendar.current.dateComponents([.day], from: date, to: Date()).day ?? 0
+        return "\(daysAgo)"
     }
 }
 

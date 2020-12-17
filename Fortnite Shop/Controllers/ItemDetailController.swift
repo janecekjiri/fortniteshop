@@ -43,6 +43,7 @@ class ItemDetailController: UIViewController {
             guard let itemDetail = itemDetail else {
                 return
             }
+            self.datesController.addDates(itemDetail.history)
             if !itemDetail.itemsInSet.isEmpty {
                 DispatchQueue.main.async {
                     self.addChild(controller: self.thirdVC)
