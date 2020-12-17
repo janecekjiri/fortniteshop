@@ -60,7 +60,6 @@ class ItemDetailController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     self.navigationItem.title = itemDetail.name
                     self.setUpDetailView(for: itemDetail, with: image)
-                    self.images.append(image)
                     self.fetchImages(for: itemDetail)
                 }
             }
@@ -113,11 +112,9 @@ class ItemDetailController: UIViewController {
 
     // TODO: Move to DatesController
     private func makeLinkArray(for item: ItemDetail) -> [String] {
-        var urls = [item.icon, item.background]
-        [item.featured, item.fullSize].forEach { url in
-            if let url = url {
-                urls.append(url)
-            }
+        var urls = [item.icon]
+        if let url = item.featured {
+            urls.append(url)
         }
         return urls
     }
