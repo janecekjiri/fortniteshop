@@ -30,15 +30,15 @@ class ItemDetailController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         secondVC.view.backgroundColor = .blue // TODO: Remove
         thirdVC.view.backgroundColor = .green // TODO: Remove
-        addChild(controller: datesController, doesHaveBorder: true)
-        addChild(controller: secondVC)
-        view.backgroundColor = .black
-        view.addSubview(activityIndicator)
-        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        activityIndicator.startAnimating()
+        addChildControllers()
+        setUpActivityIndicator()
+        fetchItemDetail()
+    }
+
+    private func fetchItemDetail() {
         Service.shared.fetchItemDetail(for: item) { itemDetail in
             guard let itemDetail = itemDetail else {
                 return
@@ -62,6 +62,13 @@ class ItemDetailController: UIViewController {
         }
     }
 
+    private func setUpActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicator.startAnimating()
+    }
+
     private func setUpDetailView(for item: ItemDetail, with image: UIImage) {
         view.addSubview(itemDetailView)
         itemDetailView.setUpView(for: item, with: image)
@@ -75,6 +82,11 @@ class ItemDetailController: UIViewController {
         addChild(controller)
         itemDetailView.addChild(view: controller.view, doesHaveBorder: doesHaveBorder)
         controller.didMove(toParent: self)
+    }
+
+    private func addChildControllers() {
+        addChild(controller: datesController, doesHaveBorder: true)
+        addChild(controller: secondVC)
     }
 
 }
