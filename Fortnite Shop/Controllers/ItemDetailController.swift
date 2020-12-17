@@ -33,6 +33,7 @@ class ItemDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+        setUpImagesController()
         thirdVC.view.backgroundColor = .green // TODO: Remove
         addChildControllers()
         setUpActivityIndicator()
@@ -60,7 +61,6 @@ class ItemDetailController: UIViewController {
                     self.navigationItem.title = itemDetail.name
                     self.setUpDetailView(for: itemDetail, with: image)
                     self.images.append(image)
-                    self.showImage(image)
                     self.fetchImages(for: itemDetail)
                 }
             }
@@ -140,6 +140,12 @@ class ItemDetailController: UIViewController {
     private func addChildControllers() {
         addChild(controller: datesController, doesHaveBorder: true)
         addChild(controller: imagesController)
+    }
+
+    private func setUpImagesController() {
+        imagesController.didSelectImage = { image in
+            self.showImage(image)
+        }
     }
 
 }

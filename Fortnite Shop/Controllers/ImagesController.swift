@@ -13,6 +13,8 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
     private let cellId = "cellId"
     private var images = [UIImage]()
 
+    var didSelectImage: ((UIImage) -> Void)?
+
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -45,6 +47,10 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
     ) -> CGSize {
         let width = (view.frame.width - 10)/2
         return .init(width: width, height: width)
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didSelectImage?(images[indexPath.item])
     }
 
     func appendImage(_ image: UIImage) {
