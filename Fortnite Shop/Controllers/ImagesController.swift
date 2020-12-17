@@ -37,6 +37,8 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
             return cell
         }
         dailyShopCell.itemImageView.image = images[indexPath.item]
+        dailyShopCell.backgroundColor = .gray
+        // NOTE: for now, set the bgColor to gray - later, set it on the rarity
         return dailyShopCell
     }
 
