@@ -66,17 +66,6 @@ class ItemDetailController: UIViewController {
         }
     }
 
-    // NOTE: Called from ImagesController
-    func showImage(_ image: UIImage) {
-        navigationController?.navigationBar.isHidden = true
-        imageDetailView.showImage(image)
-        view.addSubview(imageDetailView)
-        imageDetailView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        imageDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        imageDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        imageDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-
     private func setUpImageDetailView() {
         imageDetailView.didPressCloseButton = {
             self.navigationController?.navigationBar.isHidden = false
@@ -91,7 +80,6 @@ class ItemDetailController: UIViewController {
         activityIndicator.startAnimating()
     }
 
-    // TODO: Move to DatesController
     private func fetchImages(for item: ItemDetail) {
         let urls = makeLinkArray(for: item)
         let dispatchGroup = DispatchGroup()
@@ -110,7 +98,6 @@ class ItemDetailController: UIViewController {
         }
     }
 
-    // TODO: Move to DatesController
     private func makeLinkArray(for item: ItemDetail) -> [String] {
         var urls = [item.icon]
         if let url = item.featured {
@@ -143,6 +130,16 @@ class ItemDetailController: UIViewController {
         imagesController.didSelectImage = { image in
             self.showImage(image)
         }
+    }
+
+    private func showImage(_ image: UIImage) {
+        navigationController?.navigationBar.isHidden = true
+        imageDetailView.showImage(image)
+        view.addSubview(imageDetailView)
+        imageDetailView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        imageDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        imageDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        imageDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
 }
