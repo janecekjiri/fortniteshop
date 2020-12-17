@@ -10,22 +10,19 @@ import UIKit
 
 class DateCell: UICollectionViewCell {
 
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 14)
-        return label
-    }()
-
-    private let daysAgoLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 14)
-        return label
-    }()
+    private let dateLabel = UILabel.makeSystemLabel(ofSize: 14)
+    private let daysAgoLabel = UILabel.makeSystemLabel(ofSize: 14)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUpStackView()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setUpStackView() {
         let stackView = UIStackView(arrangedSubviews: [dateLabel, daysAgoLabel])
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,10 +31,6 @@ class DateCell: UICollectionViewCell {
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
         stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     func setCell(date: String, daysAgo: String) {

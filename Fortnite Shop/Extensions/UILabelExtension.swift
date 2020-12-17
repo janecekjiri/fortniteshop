@@ -39,4 +39,13 @@ extension UILabel {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
+
+    static func makeSystemLabel(ofSize size: CGFloat, with text: String? = nil) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
 }
