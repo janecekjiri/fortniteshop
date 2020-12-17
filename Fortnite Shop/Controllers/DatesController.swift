@@ -11,6 +11,7 @@ import UIKit
 class DatesController: UICollectionViewController {
 
     private let dateCellId = "dateCell"
+    private let headerId = "header"
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -19,6 +20,32 @@ class DatesController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(DateCell.self, forCellWithReuseIdentifier: dateCellId)
+        collectionView.register(
+            DateCellHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: headerId
+        )
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: headerId,
+            for: indexPath
+        )
+        return header
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
+        return .init(width: view.frame.width, height: 30)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -35,7 +62,7 @@ class DatesController: UICollectionViewController {
         }
         let darkGray = UIColor.dateControllerCellDarkGray
         let lightGray = UIColor.dateControllerCellLightGray
-        dateCell.backgroundColor = indexPath.item % 2 == 0 ? darkGray : lightGray
+        dateCell.backgroundColor = indexPath.item % 2 == 0 ? lightGray : darkGray
         return dateCell
     }
 }
