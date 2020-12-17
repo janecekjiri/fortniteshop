@@ -25,6 +25,7 @@
 		11969E262588C4AD00F25CDE /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E252588C4AD00F25CDE /* UILabelExtension.swift */; };
 		1199573A258B31A00023A639 /* DatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11995739258B31A00023A639 /* DatesController.swift */; };
 		1199573C258B32E80023A639 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1199573B258B32E80023A639 /* DateCell.swift */; };
+		1199573E258B3D980023A639 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1199573D258B3D980023A639 /* UIColorExtension.swift */; };
 		11CD5BA325836E28000FD294 /* CollectionViewLabelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */; };
 		11CD5BA725837DA4000FD294 /* BurbankBigCondensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */; };
 		11CD5BAA258380E5000FD294 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA9258380E5000FD294 /* UIFontExtension.swift */; };
@@ -51,6 +52,7 @@
 		11969E252588C4AD00F25CDE /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		11995739258B31A00023A639 /* DatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatesController.swift; sourceTree = "<group>"; };
 		1199573B258B32E80023A639 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		1199573D258B3D980023A639 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLabelHeader.swift; sourceTree = "<group>"; };
 		11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BurbankBigCondensed-Black.otf"; sourceTree = "<group>"; };
 		11CD5BA9258380E5000FD294 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				11458C5A25835C7700D562AA /* UIActivityIndicatorViewExtension.swift */,
 				11CD5BA9258380E5000FD294 /* UIFontExtension.swift */,
 				11969E252588C4AD00F25CDE /* UILabelExtension.swift */,
+				1199573D258B3D980023A639 /* UIColorExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				11458C5B25835C7700D562AA /* UIActivityIndicatorViewExtension.swift in Sources */,
 				11969E1A2587493B00F25CDE /* ItemDetailController.swift in Sources */,
 				118FC9DC258101B300A4D1F5 /* AppDelegate.swift in Sources */,
+				1199573E258B3D980023A639 /* UIColorExtension.swift in Sources */,
 				1199573A258B31A00023A639 /* DatesController.swift in Sources */,
 				11458C4F25820F4400D562AA /* Service.swift in Sources */,
 				1199573C258B32E80023A639 /* DateCell.swift in Sources */,

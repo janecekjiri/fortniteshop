@@ -33,8 +33,8 @@ class DatesController: UICollectionViewController {
         guard let dateCell = cell as? DateCell else {
             return cell
         }
-        let darkGray = UIColor(red: 52/255.0, green: 52/255.0, blue: 52/255.0, alpha: 1.0)
-        let lightGray = UIColor(red: 62/255.0, green: 62/255.0, blue: 62/255.0, alpha: 1.0)
+        let darkGray = UIColor.dateControllerCellDarkGray
+        let lightGray = UIColor.dateControllerCellLightGray
         dateCell.backgroundColor = indexPath.item % 2 == 0 ? darkGray : lightGray
         return dateCell
     }
