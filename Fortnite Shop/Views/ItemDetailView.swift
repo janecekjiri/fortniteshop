@@ -132,7 +132,7 @@ class ItemDetailView: UIView {
         segmentedViews.append(view)
         addSubview(view)
         if doesHaveBorder {
-            view.layer.borderWidth = 2
+            view.layer.borderWidth = 1
             view.layer.borderColor = UIColor.dateControllerBorder.cgColor
         }
         view.translatesAutoresizingMaskIntoConstraints = false

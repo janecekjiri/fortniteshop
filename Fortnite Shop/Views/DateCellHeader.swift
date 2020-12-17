@@ -26,15 +26,27 @@ class DateCellHeader: UICollectionReusableView {
         return label
     }()
 
+    private let separatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .dateControllerBorder
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.dateControllerCellDarkGray
+        addSubview(separatorView)
+        separatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        separatorView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        separatorView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        separatorView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         let stackView = UIStackView(arrangedSubviews: [dateLabel, daysAgoLabel])
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
         stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: separatorView.topAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
         stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
     }
