@@ -13,6 +13,7 @@ class ItemDetailController: UIViewController {
     let item: DailyShopItem
 
     let itemDetailView = ItemDetailView()
+    let imageDetailView = ImageDetailView()
     let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
     var images = [UIImage]()
 
@@ -58,10 +59,28 @@ class ItemDetailController: UIViewController {
                     self.navigationItem.title = itemDetail.name
                     self.setUpDetailView(for: itemDetail, with: image)
                     self.images.append(image)
+                    self.showImage(image)
                     self.fetchImages(for: itemDetail)
                 }
             }
         }
+    }
+
+    // NOTE: Called from ImagesController
+    func showImage(_ image: UIImage) {
+        navigationController?.navigationBar.isHidden = true
+        imageDetailView.showImage(image)
+        view.addSubview(imageDetailView)
+        imageDetailView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        imageDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        imageDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        imageDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+
+    // NOTE: Called from ImageDetailView
+    func hideImage() {
+        navigationController?.navigationBar.isHidden = false
+        imageDetailView.removeFromSuperview()
     }
 
     private func setUpActivityIndicator() {
