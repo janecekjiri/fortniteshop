@@ -14,6 +14,7 @@ class ItemDetailController: UIViewController {
 
     let itemDetailView = ItemDetailView()
     let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
+    var images = [UIImage]()
 
     let datesController = DatesController()
     let imagesController = ImagesController()
@@ -56,7 +57,8 @@ class ItemDetailController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     self.navigationItem.title = itemDetail.name
                     self.setUpDetailView(for: itemDetail, with: image)
-                    self.imagesController.appendImage(image)
+                    self.images.append(image)
+                    self.fetchImages(for: itemDetail)
                 }
             }
         }
@@ -67,6 +69,36 @@ class ItemDetailController: UIViewController {
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         activityIndicator.startAnimating()
+    }
+
+    // TODO: Move to DatesController
+    private func fetchImages(for item: ItemDetail) {
+        let urls = makeLinkArray(for: item)
+        let dispatchGroup = DispatchGroup()
+        urls.forEach { url in
+            dispatchGroup.enter()
+            Service.shared.fetchImage(url: url) { image in
+                dispatchGroup.leave()
+                guard let image = image else {
+                    return
+                }
+                self.images.append(image)
+            }
+        }
+        dispatchGroup.notify(queue: .main) {
+            self.imagesController.appendImages(self.images)
+        }
+    }
+
+    // TODO: Move to DatesController
+    private func makeLinkArray(for item: ItemDetail) -> [String] {
+        var urls = [item.icon, item.background]
+        [item.featured, item.fullSize].forEach { url in
+            if let url = url {
+                urls.append(url)
+            }
+        }
+        return urls
     }
 
     private func setUpDetailView(for item: ItemDetail, with image: UIImage) {

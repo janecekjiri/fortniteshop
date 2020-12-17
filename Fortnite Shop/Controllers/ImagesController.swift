@@ -52,4 +52,9 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
         collectionView.reloadData()
     }
 
+    func appendImages(_ images: [UIImage]) {
+        images.forEach { self.images.append($0) }
+        collectionView.reloadData()
+    }
+
 }
