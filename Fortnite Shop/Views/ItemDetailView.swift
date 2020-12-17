@@ -31,6 +31,7 @@ class ItemDetailView: UIView {
         let items = ["History", "Images"]
         let segmentedControl = UISegmentedControl(items: items)
         segmentedControl.selectedSegmentIndex = 0
+        // TODO: Move to UIColorExtension
         let segmentYellow = UIColor(red: 239/255.0, green: 237/255.0, blue: 120/255.0, alpha: 1.0)
         let segmentGray = UIColor(red: 54/255.0, green: 54/255.0, blue: 57/255.0, alpha: 1.0)
         segmentedControl.backgroundColor = segmentGray
@@ -127,9 +128,13 @@ class ItemDetailView: UIView {
         segmentedViews.enumerated().forEach { $1.isHidden = $0 != segmentedControl.selectedSegmentIndex }
     }
 
-    func addChild(view: UIView) {
+    func addChild(view: UIView, doesHaveBorder: Bool) {
         segmentedViews.append(view)
         addSubview(view)
+        if doesHaveBorder {
+            view.layer.borderWidth = 2
+            view.layer.borderColor = UIColor(red: 103/255.0, green: 103/255.0, blue: 103.0/255.0, alpha: 1.0).cgColor
+        }
         view.translatesAutoresizingMaskIntoConstraints = false
         view.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10).isActive = true
         view.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true

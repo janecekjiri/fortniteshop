@@ -15,7 +15,7 @@ class ItemDetailController: UIViewController {
     let itemDetailView = ItemDetailView()
     let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
 
-    let firstVC = UIViewController()
+    let datesController = DatesController()
     let secondVC = UIViewController()
     let thirdVC = UIViewController()
 
@@ -30,10 +30,9 @@ class ItemDetailController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        firstVC.view.backgroundColor = .red // TODO: Remove
         secondVC.view.backgroundColor = .blue // TODO: Remove
         thirdVC.view.backgroundColor = .green // TODO: Remove
-        addChild(controller: firstVC)
+        addChild(controller: datesController, doesHaveBorder: true)
         addChild(controller: secondVC)
         view.backgroundColor = .black
         view.addSubview(activityIndicator)
@@ -71,9 +70,9 @@ class ItemDetailController: UIViewController {
         itemDetailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 
-    private func addChild(controller: UIViewController) {
+    private func addChild(controller: UIViewController, doesHaveBorder: Bool = false) {
         addChild(controller)
-        itemDetailView.addChild(view: controller.view)
+        itemDetailView.addChild(view: controller.view, doesHaveBorder: doesHaveBorder)
         controller.didMove(toParent: self)
     }
 
