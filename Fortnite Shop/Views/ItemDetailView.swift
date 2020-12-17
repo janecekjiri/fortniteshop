@@ -46,6 +46,7 @@ class ItemDetailView: UIView {
         super.init(frame: frame)
         backgroundColor = .black
         translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.adjustsFontSizeToFitWidth = true
         positionViews()
     }
 
