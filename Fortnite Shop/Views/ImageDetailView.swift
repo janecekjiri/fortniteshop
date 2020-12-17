@@ -10,6 +10,8 @@ import UIKit
 
 class ImageDetailView: UIView {
 
+    var didPressCloseButton: (() -> Void)?
+
     private let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Close", for: .normal)
@@ -24,7 +26,7 @@ class ImageDetailView: UIView {
             for: .normal
         )
         button.layer.borderWidth = 0.0
-
+        button.addTarget(self, action: #selector(pressedCloseButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -66,5 +68,9 @@ class ImageDetailView: UIView {
         imageView.image = image
         positionImageView()
         positionCloseButton()
+    }
+
+    @objc func pressedCloseButton() {
+        didPressCloseButton?()
     }
 }

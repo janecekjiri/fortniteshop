@@ -36,6 +36,7 @@ class ItemDetailController: UIViewController {
         thirdVC.view.backgroundColor = .green // TODO: Remove
         addChildControllers()
         setUpActivityIndicator()
+        setUpImageDetailView()
         fetchItemDetail()
     }
 
@@ -77,10 +78,11 @@ class ItemDetailController: UIViewController {
         imageDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
-    // NOTE: Called from ImageDetailView
-    func hideImage() {
-        navigationController?.navigationBar.isHidden = false
-        imageDetailView.removeFromSuperview()
+    private func setUpImageDetailView() {
+        imageDetailView.didPressCloseButton = {
+            self.navigationController?.navigationBar.isHidden = false
+            self.imageDetailView.removeFromSuperview()
+        }
     }
 
     private func setUpActivityIndicator() {
