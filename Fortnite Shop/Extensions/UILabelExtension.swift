@@ -30,4 +30,13 @@ extension UILabel {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
+
+    static func makeBoldLabel(ofSize size: CGFloat, with text: String) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.textColor = .white
+        label.font = .boldSystemFont(ofSize: size)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
 }
