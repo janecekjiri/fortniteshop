@@ -27,6 +27,7 @@
 		1199573C258B32E80023A639 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1199573B258B32E80023A639 /* DateCell.swift */; };
 		1199573E258B3D980023A639 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1199573D258B3D980023A639 /* UIColorExtension.swift */; };
 		11995740258B4B7E0023A639 /* DateCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1199573F258B4B7E0023A639 /* DateCellHeader.swift */; };
+		11995742258B6B080023A639 /* ImagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11995741258B6B080023A639 /* ImagesController.swift */; };
 		11CD5BA325836E28000FD294 /* CollectionViewLabelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */; };
 		11CD5BA725837DA4000FD294 /* BurbankBigCondensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */; };
 		11CD5BAA258380E5000FD294 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA9258380E5000FD294 /* UIFontExtension.swift */; };
@@ -55,6 +56,7 @@
 		1199573B258B32E80023A639 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		1199573D258B3D980023A639 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		1199573F258B4B7E0023A639 /* DateCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCellHeader.swift; sourceTree = "<group>"; };
+		11995741258B6B080023A639 /* ImagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesController.swift; sourceTree = "<group>"; };
 		11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLabelHeader.swift; sourceTree = "<group>"; };
 		11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BurbankBigCondensed-Black.otf"; sourceTree = "<group>"; };
 		11CD5BA9258380E5000FD294 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				11458C4A2582061900D562AA /* DailyShopController.swift */,
 				11969E192587493B00F25CDE /* ItemDetailController.swift */,
 				11995739258B31A00023A639 /* DatesController.swift */,
+				11995741258B6B080023A639 /* ImagesController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				11458C5325822CC600D562AA /* UIAlertControllerExtension.swift in Sources */,
 				11969E2425878FC300F25CDE /* ItemDetail.swift in Sources */,
 				11458C512582148500D562AA /* DailyShopModel.swift in Sources */,
+				11995742258B6B080023A639 /* ImagesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

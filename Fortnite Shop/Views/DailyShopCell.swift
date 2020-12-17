@@ -10,6 +10,7 @@ import UIKit
 
 class DailyShopCell: UICollectionViewCell {
 
+    // TODO: Set to private
     let itemImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
