@@ -15,7 +15,9 @@ class DatesController: UICollectionViewController {
     private var dates = [Date]()
 
     convenience init() {
-        self.init(collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionHeadersPinToVisibleBounds = true
+        self.init(collectionViewLayout: layout)
     }
 
     override func viewDidLoad() {
