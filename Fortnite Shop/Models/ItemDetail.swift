@@ -8,8 +8,18 @@
 
 import Foundation
 
+enum Rarity: String {
+    case common = "common"
+    case uncommon = "uncommon"
+    case rare = "rare"
+    case epic = "epic"
+    case legendary = "legendary"
+    case unknown
+}
+
 struct ItemDetail: Decodable {
-    let name, description, type, rarity, set: String
+    let name, description, type, set: String
+    let rarity: Rarity
     let price: Int
     let releaseDate, lastAppearance: Date
     let history: [Date]
@@ -37,7 +47,8 @@ struct ItemDetail: Decodable {
         let itemContainer = try container.nestedContainer(keyedBy: ItemKeys.self, forKey: .item)
         name = try itemContainer.decode(String.self, forKey: .name)
         type = try itemContainer.decode(String.self, forKey: .type)
-        rarity = try itemContainer.decode(String.self, forKey: .rarity)
+        let rarityString = try itemContainer.decode(String.self, forKey: .rarity)
+        rarity = Rarity(rawValue: rarityString) ?? .unknown
         price = try itemContainer.decode(Int.self, forKey: .price)
         description = try itemContainer.decode(String.self, forKey: .description)
         set = try itemContainer.decode(String.self, forKey: .set)

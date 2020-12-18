@@ -54,6 +54,9 @@ class ItemDetailController: UIViewController {
                     self.addChild(controller: self.thirdVC)
                 }
             }
+            DispatchQueue.main.async {
+                self.imageDetailView.backgroundColor = UIColor.rarityColor(for: itemDetail.rarity)
+            }
             Service.shared.fetchImage(url: itemDetail.fullBackground) { image in
                 guard let image = image else {
                     return
@@ -107,7 +110,8 @@ class ItemDetailController: UIViewController {
             }
         }
         dispatchGroup.notify(queue: .main) {
-            self.imagesController.appendImages(self.images)
+            //self.imagesController.appendImages(self.images)
+            self.imagesController.insert(self.images, item.rarity)
         }
     }
 

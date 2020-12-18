@@ -12,6 +12,7 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
 
     private let cellId = "cellId"
     private var images = [UIImage]()
+    private var rarity = Rarity.unknown
 
     var didSelectImage: ((UIImage) -> Void)?
 
@@ -37,8 +38,7 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
             return cell
         }
         dailyShopCell.itemImageView.image = images[indexPath.item]
-        dailyShopCell.backgroundColor = .gray
-        // NOTE: for now, set the bgColor to gray - later, set it on the rarity
+        dailyShopCell.backgroundColor = UIColor.rarityColor(for: rarity)
         return dailyShopCell
     }
 
@@ -62,6 +62,12 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
 
     func appendImages(_ images: [UIImage]) {
         images.forEach { self.images.append($0) }
+        collectionView.reloadData()
+    }
+
+    func insert(_ images: [UIImage], _ rarity: Rarity) {
+        images.forEach { self.images.append($0) }
+        self.rarity = rarity
         collectionView.reloadData()
     }
 
