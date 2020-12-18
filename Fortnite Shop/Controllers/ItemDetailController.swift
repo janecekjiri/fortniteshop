@@ -99,11 +99,11 @@ class ItemDetailController: UIViewController {
         urls.forEach { url in
             dispatchGroup.enter()
             Service.shared.fetchImage(url: url) { image in
-                dispatchGroup.leave()
                 guard let image = image else {
                     return
                 }
                 self.images.append(image)
+                dispatchGroup.leave()
             }
         }
         dispatchGroup.notify(queue: .main) {
