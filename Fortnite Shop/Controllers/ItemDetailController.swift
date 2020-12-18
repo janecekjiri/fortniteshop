@@ -11,6 +11,8 @@ import UIKit
 class ItemDetailController: UIViewController {
 
     let item: DailyShopItem
+    var topConstraint: NSLayoutConstraint?
+    var bottomConstraint: NSLayoutConstraint?
 
     let itemDetailView = ItemDetailView()
     let imageDetailView = ImageDetailView()
@@ -61,6 +63,7 @@ class ItemDetailController: UIViewController {
                     self.navigationItem.title = itemDetail.name
                     self.setUpDetailView(for: itemDetail, with: image)
                     self.fetchImages(for: itemDetail)
+                    self.positionImageDetailView()
                 }
             }
         }
@@ -68,8 +71,18 @@ class ItemDetailController: UIViewController {
 
     private func setUpImageDetailView() {
         imageDetailView.didPressCloseButton = {
+            self.topConstraint?.constant = self.view.bounds.height
+            self.bottomConstraint?.constant = self.view.bounds.height
             self.navigationController?.navigationBar.isHidden = false
-            self.imageDetailView.removeFromSuperview()
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0,
+                options: .curveEaseOut,
+                animations: {
+                    self.view.layoutIfNeeded()
+                },
+                completion: nil
+            )
         }
     }
 
@@ -126,6 +139,18 @@ class ItemDetailController: UIViewController {
         addChild(controller: imagesController)
     }
 
+    private func positionImageDetailView() {
+        view.addSubview(imageDetailView)
+        imageDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        imageDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        topConstraint = imageDetailView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height)
+        bottomConstraint = imageDetailView.bottomAnchor.constraint(
+            equalTo: view.bottomAnchor,
+            constant: view.bounds.height
+        )
+        [topConstraint, bottomConstraint].forEach { $0?.isActive = true }
+    }
+
     private func setUpImagesController() {
         imagesController.didSelectImage = { image in
             self.showImage(image)
@@ -135,11 +160,17 @@ class ItemDetailController: UIViewController {
     private func showImage(_ image: UIImage) {
         navigationController?.navigationBar.isHidden = true
         imageDetailView.showImage(image)
-        view.addSubview(imageDetailView)
-        imageDetailView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        imageDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        imageDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        imageDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        topConstraint?.constant = 0
+        bottomConstraint?.constant = 0
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {
+                self.view.layoutIfNeeded()
+            },
+            completion: nil
+        )
     }
 
 }

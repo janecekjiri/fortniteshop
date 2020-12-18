@@ -42,6 +42,8 @@ class ImageDetailView: UIView {
         super.init(frame: frame)
         backgroundColor = .black
         translatesAutoresizingMaskIntoConstraints = false
+        positionImageView()
+        positionCloseButton()
     }
 
     required init?(coder: NSCoder) {
@@ -66,8 +68,6 @@ class ImageDetailView: UIView {
 
     func showImage(_ image: UIImage) {
         imageView.image = image
-        positionImageView()
-        positionCloseButton()
     }
 
     @objc func pressedCloseButton() {
