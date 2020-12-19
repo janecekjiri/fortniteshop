@@ -9,11 +9,11 @@
 import Foundation
 
 enum Rarity: String {
-    case common = "common"
-    case uncommon = "uncommon"
-    case rare = "rare"
-    case epic = "epic"
-    case legendary = "legendary"
+    case common
+    case uncommon
+    case rare
+    case epic
+    case legendary
     case unknown
 }
 
