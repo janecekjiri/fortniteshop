@@ -23,9 +23,10 @@ class DateCell: UICollectionViewCell {
     }
 
     private func setUpStackView() {
-        let stackView = UIStackView(arrangedSubviews: [dateLabel, daysAgoLabel])
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let stackView = UIStackView.makeHorizontalStackView(
+            arrangedSubview: [dateLabel, daysAgoLabel],
+            distribution: .fillEqually
+        )
         addSubview(stackView)
         stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
