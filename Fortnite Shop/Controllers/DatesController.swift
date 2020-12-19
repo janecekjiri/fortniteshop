@@ -29,7 +29,10 @@ class DatesController: UICollectionViewController {
             withReuseIdentifier: headerId
         )
     }
+}
 
+// MARK: - Collection View Header Setup Methods
+extension DatesController {
     override func collectionView(
         _ collectionView: UICollectionView,
         viewForSupplementaryElementOfKind kind: String,
@@ -50,7 +53,10 @@ class DatesController: UICollectionViewController {
     ) -> CGSize {
         return .init(width: view.frame.width, height: 30)
     }
+}
 
+// MARK: - CollectionView Setup Methods
+extension DatesController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dates.count
     }
@@ -72,6 +78,25 @@ class DatesController: UICollectionViewController {
         return dateCell
     }
 
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return .init(width: view.frame.width, height: 30)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return 0
+    }
+}
+
+// MARK: - Custom Methods
+extension DatesController {
     func addDates(_ dates: [Date]) {
         self.dates = dates
         self.dates.reverse()
@@ -89,23 +114,5 @@ class DatesController: UICollectionViewController {
     func calculateDaysAgo(for date: Date) -> String {
         let daysAgo = Calendar.current.dateComponents([.day], from: date, to: Date()).day ?? 0
         return "\(daysAgo)"
-    }
-}
-
-extension DatesController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        return .init(width: view.frame.width, height: 30)
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int
-    ) -> CGFloat {
-        return 0
     }
 }
