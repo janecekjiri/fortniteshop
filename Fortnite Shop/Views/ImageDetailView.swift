@@ -13,30 +13,12 @@ class ImageDetailView: UIView {
     var didPressCloseButton: (() -> Void)?
 
     private let closeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Close", for: .normal)
-        button.setAttributedTitle(
-            NSAttributedString(
-                string: "Close",
-                attributes: [
-                    .font: UIFont.boldSystemFont(ofSize: 16),
-                    .foregroundColor: UIColor.white
-                ]
-            ),
-            for: .normal
-        )
-        button.layer.borderWidth = 0.0
+        let button = UIButton.makeBorderlessBoldButton(with: "Close")
         button.addTarget(self, action: #selector(pressedCloseButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
-    private let imageView: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFit
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let imageView = UIImageView(contentMode: .scaleAspectFit)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
