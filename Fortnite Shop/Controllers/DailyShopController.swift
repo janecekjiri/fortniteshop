@@ -60,7 +60,7 @@ class DailyShopController: UICollectionViewController {
             withReuseIdentifier: collectionViewHeader,
             for: indexPath
             ) as? CollectionViewLabelHeader {
-            header.titleLabel.text = returnTodaysDate().uppercased()
+            header.setTitle(returnTodaysDate().uppercased())
             return header
         }
         return UICollectionReusableView()

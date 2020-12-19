@@ -10,16 +10,19 @@ import UIKit
 
 class CollectionViewLabelHeader: UICollectionReusableView {
 
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.font = UIFont.fortniteFont(ofSize: 25)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let titleLabel = UILabel.makeCenteredLabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUpTitleLabel()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setUpTitleLabel() {
+        titleLabel.font = UIFont.fortniteFont(ofSize: 25)
         addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
@@ -27,7 +30,7 @@ class CollectionViewLabelHeader: UICollectionReusableView {
         titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setTitle(_ text: String) {
+        titleLabel.text = text
     }
 }
