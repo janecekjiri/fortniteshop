@@ -8,30 +8,42 @@
 
 import UIKit
 
+private enum FontType {
+    case system
+    case bold
+}
+
 extension UILabel {
 
     // MARK: - Methods Returning Specific Labels
-    static func makeCenteredLabel() -> UILabel {
+    fileprivate static func makeGenericLabel(
+        ofSize size: CGFloat,
+        with text: String? = nil,
+        fontType: FontType
+    ) -> UILabel {
         let label = UILabel()
-        label.textAlignment = .center
+        label.text = text
+        label.textColor = .white
+        if fontType == .system {
+            label.font = .systemFont(ofSize: size)
+        } else {
+            label.font = .boldSystemFont(ofSize: size)
+        }
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
 
-    static func makeBoldLabel(ofSize size: CGFloat, with text: String) -> UILabel {
-        let label = UILabel()
-        label.text = text
-        label.textColor = .white
-        label.font = .boldSystemFont(ofSize: size)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    static func makeBoldLabel(ofSize size: CGFloat, with text: String? = nil) -> UILabel {
+        return makeGenericLabel(ofSize: size, with: text, fontType: .bold)
     }
 
     static func makeSystemLabel(ofSize size: CGFloat, with text: String? = nil) -> UILabel {
+        return makeGenericLabel(ofSize: size, with: text, fontType: .system)
+    }
+
+    static func makeCenteredLabel() -> UILabel {
         let label = UILabel()
-        label.text = text
-        label.textColor = .white
-        label.font = .systemFont(ofSize: size)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
