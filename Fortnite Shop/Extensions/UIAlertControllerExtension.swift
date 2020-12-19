@@ -13,7 +13,8 @@ extension UIAlertController {
         let alertController = UIAlertController(
             title: "Oops! There was an error...",
             message: message,
-            preferredStyle: .alert)
+            preferredStyle: .alert
+        )
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(action)
         return alertController

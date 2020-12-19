@@ -18,14 +18,11 @@ class ItemDetailView: UIView {
     private let imageView = UIImageView()
     private var segmentedViews = [UIView]()
 
-    private lazy var historyStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [releaseDateLabel, lastSeenLabel, occurrencesLabel])
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 5.0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+    private lazy var historyStackView = UIStackView.makeVerticalStackView(
+        arrangedSubview: [releaseDateLabel, lastSeenLabel, occurrencesLabel],
+        distribution: .fillEqually,
+        spacing: 5.0
+    )
 
     private let segmentedControl: UISegmentedControl = {
         let items = ["History", "Images"]
