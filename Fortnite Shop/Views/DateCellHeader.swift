@@ -13,12 +13,7 @@ class DateCellHeader: UICollectionReusableView {
     private let dateLabel = UILabel.makeBoldLabel(ofSize: 16, with: "Date")
     private let daysAgoLabel = UILabel.makeBoldLabel(ofSize: 16, with: "Days Ago")
 
-    private let separatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .dateControllerBorder
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let separatorView = UIView.makeView(ofColor: .dateControllerBorder)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,9 +35,10 @@ class DateCellHeader: UICollectionReusableView {
     }
 
     private func setUpStackView() {
-        let stackView = UIStackView(arrangedSubviews: [dateLabel, daysAgoLabel])
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let stackView = UIStackView.makeHorizontalStackView(
+            arrangedSubview: [dateLabel, daysAgoLabel],
+            distribution: .fillEqually
+        )
         addSubview(stackView)
         stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: separatorView.topAnchor).isActive = true
