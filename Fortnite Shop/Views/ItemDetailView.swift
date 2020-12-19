@@ -25,17 +25,8 @@ class ItemDetailView: UIView {
     )
 
     private let segmentedControl: UISegmentedControl = {
-        let items = ["History", "Images"]
-        let segmentedControl = UISegmentedControl(items: items)
-        segmentedControl.selectedSegmentIndex = 0
-        let segmentYellow = UIColor.segmentControlYellow
-        let segmentGray = UIColor.segmentControlGray
-        segmentedControl.backgroundColor = segmentGray
-        segmentedControl.selectedSegmentTintColor = segmentYellow
-        segmentedControl.setTitleTextAttributes([.foregroundColor: segmentYellow], for: .normal)
-        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+        let segmentedControl = UISegmentedControl.makeGrayYellowSegmentedControl(items: ["History", "Images"])
         segmentedControl.addTarget(self, action: #selector(segmentDidChange(_:)), for: .valueChanged)
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
     }()
 
