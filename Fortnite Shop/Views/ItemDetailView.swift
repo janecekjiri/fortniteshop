@@ -54,6 +54,22 @@ class ItemDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    @objc private func segmentDidChange(_ segmentedControl: UISegmentedControl) {
+        segmentedViews.enumerated().forEach { $1.isHidden = $0 != segmentedControl.selectedSegmentIndex }
+    }
+
+}
+
+// MARK: - Positioning Methods
+extension ItemDetailView {
+
+    private func positionViews() {
+        positionDescriptionLabel()
+        positionImageView()
+        positionStackView()
+        positionSegmentedControl()
+    }
+
     private func positionDescriptionLabel() {
         addSubview(descriptionLabel)
         descriptionLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
@@ -92,12 +108,10 @@ class ItemDetailView: UIView {
         segmentedControl.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
-    private func positionViews() {
-        positionDescriptionLabel()
-        positionImageView()
-        positionStackView()
-        positionSegmentedControl()
-    }
+}
+
+// MARK: - Setup Methods
+extension ItemDetailView {
 
     func setUpView(for item: ItemDetail, with image: UIImage) {
         descriptionLabel.text = "\"\(item.description)\""
@@ -108,11 +122,11 @@ class ItemDetailView: UIView {
 
         releaseDateLabel.setAttributedHistoryText(
             withBoldText: "Released: ",
-            withNormalText: "\(dateFormatter.string(from: item.releaseDate))"
+            withNormalText: dateFormatter.string(from: item.releaseDate)
         )
         lastSeenLabel.setAttributedHistoryText(
             withBoldText: "Last seen: ",
-            withNormalText: "\(dateFormatter.string(from: item.lastAppearance))"
+            withNormalText: dateFormatter.string(from: item.lastAppearance)
         )
         occurrencesLabel.setAttributedHistoryText(
             withBoldText: "Occurrences: ",
@@ -122,10 +136,6 @@ class ItemDetailView: UIView {
         if !item.itemsInSet.isEmpty {
             segmentedControl.insertSegment(withTitle: "Set", at: 2, animated: false)
         }
-    }
-
-    @objc private func segmentDidChange(_ segmentedControl: UISegmentedControl) {
-        segmentedViews.enumerated().forEach { $1.isHidden = $0 != segmentedControl.selectedSegmentIndex }
     }
 
     func addChild(view: UIView, doesHaveBorder: Bool) {
