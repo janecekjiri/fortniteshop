@@ -125,11 +125,11 @@ extension DailyShopController {
             dailyShop.items.forEach { item in
                 dispatchGroup.enter()
                 Service.shared.fetchImage(url: item.image) { image in
-                    dispatchGroup.leave()
                     guard let image = image else {
                         return
                     }
                     self.items.append((item, image))
+                    dispatchGroup.leave()
                 }
             }
 
