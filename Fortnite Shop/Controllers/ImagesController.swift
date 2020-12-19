@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImagesController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ImagesController: UICollectionViewController {
 
     private let cellId = "cellId"
     private var images = [UIImage]()
@@ -25,6 +25,15 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
         collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: cellId)
     }
 
+    func insert(_ images: [UIImage], _ rarity: Rarity) {
+        images.forEach { self.images.append($0) }
+        self.rarity = rarity
+        collectionView.reloadData()
+    }
+}
+
+// MARK: - CollectionView Setup Methods
+extension ImagesController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
@@ -54,21 +63,4 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         didSelectImage?(images[indexPath.item])
     }
-
-    func appendImage(_ image: UIImage) {
-        images.append(image)
-        collectionView.reloadData()
-    }
-
-    func appendImages(_ images: [UIImage]) {
-        images.forEach { self.images.append($0) }
-        collectionView.reloadData()
-    }
-
-    func insert(_ images: [UIImage], _ rarity: Rarity) {
-        images.forEach { self.images.append($0) }
-        self.rarity = rarity
-        collectionView.reloadData()
-    }
-
 }
