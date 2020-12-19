@@ -10,18 +10,18 @@ import UIKit
 
 class ItemDetailController: UIViewController {
 
-    let item: DailyShopItem
-    var topConstraint: NSLayoutConstraint?
-    var bottomConstraint: NSLayoutConstraint?
+    private let item: DailyShopItem
+    private var topConstraint: NSLayoutConstraint?
+    private var bottomConstraint: NSLayoutConstraint?
 
-    let itemDetailView = ItemDetailView()
-    let imageDetailView = ImageDetailView()
-    let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
-    var images = [UIImage]()
+    private let itemDetailView = ItemDetailView()
+    private let imageDetailView = ImageDetailView()
+    private let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
+    private var images = [UIImage]()
 
-    let datesController = DatesController()
-    let imagesController = ImagesController()
-    let thirdVC = UIViewController()
+    private let datesController = DatesController()
+    private let imagesController = ImagesController()
+    private let thirdVC = UIViewController()
 
     init(for item: DailyShopItem) {
         self.item = item
