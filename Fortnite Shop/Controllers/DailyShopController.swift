@@ -41,7 +41,7 @@ class DailyShopController: UICollectionViewController {
         guard let dailyShopCell = cell as? DailyShopCell else {
             return cell
         }
-        dailyShopCell.itemImageView.image = items[indexPath.item].1
+        dailyShopCell.showImage(items[indexPath.item].1)
         return dailyShopCell
     }
 

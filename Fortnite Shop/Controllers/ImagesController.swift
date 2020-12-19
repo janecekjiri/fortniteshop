@@ -37,7 +37,7 @@ class ImagesController: UICollectionViewController, UICollectionViewDelegateFlow
         guard let dailyShopCell = cell as? DailyShopCell else {
             return cell
         }
-        dailyShopCell.itemImageView.image = images[indexPath.item]
+        dailyShopCell.showImage(images[indexPath.item])
         dailyShopCell.backgroundColor = UIColor.rarityColor(for: rarity)
         return dailyShopCell
     }

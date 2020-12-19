@@ -10,8 +10,7 @@ import UIKit
 
 class DailyShopCell: UICollectionViewCell {
 
-    // TODO: Set to private
-    let itemImageView: UIImageView = {
+    private let itemImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -32,6 +31,10 @@ class DailyShopCell: UICollectionViewCell {
         itemImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         itemImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         itemImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
+
+    func showImage(_ image: UIImage) {
+        itemImageView.image = image
     }
 
 }
