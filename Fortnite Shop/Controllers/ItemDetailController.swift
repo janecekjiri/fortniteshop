@@ -117,15 +117,15 @@ extension ItemDetailController {
         return urls
     }
 
+    private func addChildControllers() {
+        addChild(controller: datesController, doesHaveBorder: true)
+        addChild(controller: imagesController)
+    }
+
     private func addChild(controller: UIViewController, doesHaveBorder: Bool = false) {
         addChild(controller)
         itemDetailView.addChild(view: controller.view, doesHaveBorder: doesHaveBorder)
         controller.didMove(toParent: self)
-    }
-
-    private func addChildControllers() {
-        addChild(controller: datesController, doesHaveBorder: true)
-        addChild(controller: imagesController)
     }
 
     private func showImage(_ image: UIImage) {
