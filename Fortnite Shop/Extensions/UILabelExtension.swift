@@ -16,7 +16,7 @@ private enum FontType {
 extension UILabel {
 
     // MARK: - Methods Returning Specific Labels
-    fileprivate static func makeGenericLabel(
+    private static func makeGenericLabel(
         ofSize size: CGFloat,
         with text: String? = nil,
         fontType: FontType

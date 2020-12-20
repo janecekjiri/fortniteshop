@@ -9,10 +9,10 @@
 import UIKit
 
 class Service {
-    fileprivate let apiKey = "d162e8f4-7dfb5de9-3e284b5c-c82a4923"
+    private let apiKey = "d162e8f4-7dfb5de9-3e284b5c-c82a4923"
     static let shared = Service()
 
-    fileprivate func fetch<T: Decodable>(url: URL, completion: @escaping (T?) -> Void) {
+    private func fetch<T: Decodable>(url: URL, completion: @escaping (T?) -> Void) {
         let session = URLSession.shared
 
         var urlRequest = URLRequest(url: url)

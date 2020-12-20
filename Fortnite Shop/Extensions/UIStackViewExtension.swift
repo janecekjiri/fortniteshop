@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIStackView {
-    fileprivate static func makeGenericStackView(
+    private static func makeGenericStackView(
         arrangedSubview: [UIView],
         distribution: UIStackView.Distribution,
         spacing: CGFloat,
