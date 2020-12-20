@@ -1,5 +1,5 @@
 //
-//  DailyShopCell.swift
+//  ImageCell.swift
 //  Fortnite Shop
 //
 //  Created by Jiri Janecek on 10/12/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DailyShopCell: UICollectionViewCell {
+class ImageCell: UICollectionViewCell {
 
     private let itemImageView: UIImageView = {
         let view = UIImageView()

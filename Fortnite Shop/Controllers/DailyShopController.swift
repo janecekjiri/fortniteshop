@@ -39,7 +39,7 @@ class DailyShopController: UICollectionViewController {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dailyShopCellId, for: indexPath)
-        guard let dailyShopCell = cell as? DailyShopCell else {
+        guard let dailyShopCell = cell as? ImageCell else {
             return cell
         }
         dailyShopCell.showImage(items[indexPath.item].1)
@@ -80,7 +80,7 @@ class DailyShopController: UICollectionViewController {
 extension DailyShopController {
 
     private func registerCells() {
-        collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: dailyShopCellId)
+        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: dailyShopCellId)
         collectionView.register(
             CollectionViewLabelHeader.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,

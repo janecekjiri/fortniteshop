@@ -22,7 +22,7 @@ class ImagesController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(DailyShopCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
 
     func insert(_ images: [UIImage], _ rarity: Rarity) {
@@ -43,12 +43,12 @@ extension ImagesController: UICollectionViewDelegateFlowLayout {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        guard let dailyShopCell = cell as? DailyShopCell else {
+        guard let imageCell = cell as? ImageCell else {
             return cell
         }
-        dailyShopCell.showImage(images[indexPath.item])
-        dailyShopCell.backgroundColor = UIColor.rarityColor(for: rarity)
-        return dailyShopCell
+        imageCell.showImage(images[indexPath.item])
+        imageCell.backgroundColor = UIColor.rarityColor(for: rarity)
+        return imageCell
     }
 
     func collectionView(
