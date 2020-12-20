@@ -48,36 +48,6 @@ class Service {
         task.resume()
     }
 
-    func fetchImage(url: String, completion: @escaping (UIImage?) -> Void) {
-        let session = URLSession.shared
-        guard let url = URL(string: url) else {
-            completion(nil)
-            return
-        }
-        let task = session.dataTask(with: url) { data, response, error in
-            if error != nil {
-                completion(nil)
-            }
-
-            guard
-                let httpResponse = response as? HTTPURLResponse,
-                (200...299).contains(httpResponse.statusCode)
-            else {
-                completion(nil)
-                return
-            }
-
-            guard let data = data else {
-                completion(nil)
-                return
-            }
-
-            let image = UIImage(data: data)
-            completion(image)
-        }
-        task.resume()
-    }
-
     func fetchItemDetail(for identity: String, completion: @escaping (ItemDetail?) -> Void) {
         let session = URLSession.shared
         guard let url = URL(string: "https://fortniteapi.io/v1/items/get?id=\(identity)&lang=en") else {
@@ -116,6 +86,36 @@ class Service {
 
     func fetchItemDetail(for item: ItemDetailProtocol, completion: @escaping (ItemDetail?) -> Void) {
         fetchItemDetail(for: item.identity, completion: completion)
+    }
+
+    func fetchImage(url: String, completion: @escaping (UIImage?) -> Void) {
+        let session = URLSession.shared
+        guard let url = URL(string: url) else {
+            completion(nil)
+            return
+        }
+        let task = session.dataTask(with: url) { data, response, error in
+            if error != nil {
+                completion(nil)
+            }
+
+            guard
+                let httpResponse = response as? HTTPURLResponse,
+                (200...299).contains(httpResponse.statusCode)
+            else {
+                completion(nil)
+                return
+            }
+
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+
+            let image = UIImage(data: data)
+            completion(image)
+        }
+        task.resume()
     }
 
 }
