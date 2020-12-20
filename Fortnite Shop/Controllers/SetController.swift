@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SetController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SetController: UICollectionViewController {
 
     private let imageCellId = "imageCellId"
     private var items = [(ItemDetail, UIImage)]()
@@ -24,6 +24,14 @@ class SetController: UICollectionViewController, UICollectionViewDelegateFlowLay
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: imageCellId)
     }
 
+    func insert(_ items: [(ItemDetail, UIImage)]) {
+        self.items = items
+        collectionView.reloadData()
+    }
+}
+
+// MARK: - CollectionView Setup Methods
+extension SetController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
@@ -53,10 +61,5 @@ class SetController: UICollectionViewController, UICollectionViewDelegateFlowLay
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items[indexPath.row].0
         didPressSet?(item)
-    }
-
-    func insert(_ items: [(ItemDetail, UIImage)]) {
-        self.items = items
-        collectionView.reloadData()
     }
 }
