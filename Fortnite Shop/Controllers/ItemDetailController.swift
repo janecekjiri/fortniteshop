@@ -10,7 +10,7 @@ import UIKit
 
 class ItemDetailController: UIViewController {
 
-    private let item: DailyShopItem
+    private let item: ItemDetailProtocol
     private var topConstraint: NSLayoutConstraint?
     private var bottomConstraint: NSLayoutConstraint?
 
@@ -24,7 +24,7 @@ class ItemDetailController: UIViewController {
     private let imagesController = ImagesController()
     private let setController = SetController()
 
-    init(for item: DailyShopItem) {
+    init(for item: ItemDetailProtocol) {
         self.item = item
         super.init(nibName: nil, bundle: nil)
     }

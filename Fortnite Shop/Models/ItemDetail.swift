@@ -17,7 +17,7 @@ enum Rarity: String {
     case unknown
 }
 
-struct ItemDetail: Decodable {
+struct ItemDetail: Decodable, ItemDetailProtocol {
     let identity, name, description, type, set: String
     let rarity: Rarity
     let price: Int

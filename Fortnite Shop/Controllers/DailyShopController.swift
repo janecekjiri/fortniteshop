@@ -124,7 +124,7 @@ extension DailyShopController {
             let dispatchGroup = DispatchGroup()
             dailyShop.items.forEach { item in
                 dispatchGroup.enter()
-                Service.shared.fetchImage(url: item.image) { image in
+                Service.shared.fetchImage(url: item.fullBackground) { image in
                     guard let image = image else {
                         return
                     }

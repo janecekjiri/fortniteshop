@@ -13,7 +13,7 @@ class SetController: UICollectionViewController, UICollectionViewDelegateFlowLay
     private let imageCellId = "imageCellId"
     private var items = [(ItemDetail, UIImage)]()
 
-    var didPressSet: ((DailyShopItem) -> Void)?
+    var didPressSet: ((ItemDetail) -> Void)?
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -52,8 +52,7 @@ class SetController: UICollectionViewController, UICollectionViewDelegateFlowLay
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items[indexPath.row].0
-        let dailyShopItem = DailyShopItem(identity: item.identity, image: item.fullBackground)
-        didPressSet?(dailyShopItem)
+        didPressSet?(item)
     }
 
     func insert(_ items: [(ItemDetail, UIImage)]) {

@@ -78,7 +78,7 @@ class Service {
         task.resume()
     }
 
-    func fetchItemDetail(for item: DailyShopItem, completion: @escaping (ItemDetail?) -> Void) {
+    func fetchItemDetail(for item: ItemDetailProtocol, completion: @escaping (ItemDetail?) -> Void) {
         let session = URLSession.shared
         guard let url = URL(string: "https://fortniteapi.io/v1/items/get?id=\(item.identity)&lang=en") else {
             return

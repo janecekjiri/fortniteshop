@@ -25,6 +25,7 @@
 		118FC9E8258101B500A4D1F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118FC9E6258101B500A4D1F5 /* LaunchScreen.storyboard */; };
 		118FC9F12581063D00A4D1F5 /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 118FC9F02581063D00A4D1F5 /* swiftlint.yml */; };
 		11919ED2258F56F7002F1F13 /* SetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11919ED1258F56F7002F1F13 /* SetController.swift */; };
+		11919ED4258F7550002F1F13 /* ItemDetailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11919ED3258F7550002F1F13 /* ItemDetailProtocol.swift */; };
 		11969E1A2587493B00F25CDE /* ItemDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E192587493B00F25CDE /* ItemDetailController.swift */; };
 		11969E1C25874C4500F25CDE /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E1B25874C4500F25CDE /* ItemDetailView.swift */; };
 		11969E2425878FC300F25CDE /* ItemDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E2325878FC300F25CDE /* ItemDetail.swift */; };
@@ -61,6 +62,7 @@
 		118FC9E9258101B500A4D1F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		118FC9F02581063D00A4D1F5 /* swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		11919ED1258F56F7002F1F13 /* SetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetController.swift; sourceTree = "<group>"; };
+		11919ED3258F7550002F1F13 /* ItemDetailProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailProtocol.swift; sourceTree = "<group>"; };
 		11969E192587493B00F25CDE /* ItemDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailController.swift; sourceTree = "<group>"; };
 		11969E1B25874C4500F25CDE /* ItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 		11969E2325878FC300F25CDE /* ItemDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetail.swift; sourceTree = "<group>"; };
@@ -184,10 +186,19 @@
 				11458C572582442200D562AA /* Controllers */,
 				11458C582582453400D562AA /* Extensions */,
 				11CD5BA825837F8C000FD294 /* Fonts */,
+				11919ED5258F7FCA002F1F13 /* Protocols */,
 				11458C592582459900D562AA /* Rest */,
 				118FC9E4258101B500A4D1F5 /* Assets.xcassets */,
 			);
 			path = "Fortnite Shop";
+			sourceTree = "<group>";
+		};
+		11919ED5258F7FCA002F1F13 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				11919ED3258F7550002F1F13 /* ItemDetailProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		11CD5BA825837F8C000FD294 /* Fonts */ = {
@@ -306,6 +317,7 @@
 				1199573C258B32E80023A639 /* DateCell.swift in Sources */,
 				118FC9DE258101B300A4D1F5 /* SceneDelegate.swift in Sources */,
 				115CBE3E258E18C90094BD88 /* UISegmentedControlExtension.swift in Sources */,
+				11919ED4258F7550002F1F13 /* ItemDetailProtocol.swift in Sources */,
 				11995740258B4B7E0023A639 /* DateCellHeader.swift in Sources */,
 				11969E262588C4AD00F25CDE /* UILabelExtension.swift in Sources */,
 				118D9C962584A80300FC29C0 /* DailyShopItem.swift in Sources */,

@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct DailyShopItem: Decodable {
-    let identity, image: String
+struct DailyShopItem: Decodable, ItemDetailProtocol {
+    let identity, fullBackground: String
 
     enum CodingKeys: String, CodingKey {
         case identity = "id"
-        case image = "full_background"
+        case fullBackground = "full_background"
     }
 }
