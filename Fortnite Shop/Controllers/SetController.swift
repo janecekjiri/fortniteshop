@@ -11,6 +11,7 @@ import UIKit
 class SetController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     private let imageCellId = "imageCellId"
+    private var items = [(ItemDetail, UIImage)]()
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -22,7 +23,7 @@ class SetController: UICollectionViewController, UICollectionViewDelegateFlowLay
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return items.count
     }
 
     override func collectionView(
@@ -33,7 +34,8 @@ class SetController: UICollectionViewController, UICollectionViewDelegateFlowLay
         guard let itemCell = cell as? ImageCell else {
             return cell
         }
-        itemCell.backgroundColor = .red
+        let image = items[indexPath.row].1
+        itemCell.showImage(image)
         return itemCell
     }
 
@@ -44,5 +46,10 @@ class SetController: UICollectionViewController, UICollectionViewDelegateFlowLay
     ) -> CGSize {
         let width = (view.frame.width - 10)/2
         return .init(width: width, height: width)
+    }
+
+    func insert(_ items: [(ItemDetail, UIImage)]) {
+        self.items = items
+        collectionView.reloadData()
     }
 }

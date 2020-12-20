@@ -18,7 +18,7 @@ enum Rarity: String {
 }
 
 struct ItemDetail: Decodable {
-    let name, description, type, set: String
+    let identity, name, description, type, set: String
     let rarity: Rarity
     let price: Int
     let releaseDate, lastAppearance: Date
@@ -33,6 +33,7 @@ struct ItemDetail: Decodable {
 
     enum ItemKeys: String, CodingKey {
         case name, type, rarity, price, releaseDate, lastAppearance, description, set, itemsInSet, images
+        case identity = "id"
         case history = "shopHistory"
     }
 
@@ -45,6 +46,7 @@ struct ItemDetail: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let itemContainer = try container.nestedContainer(keyedBy: ItemKeys.self, forKey: .item)
+        identity = try itemContainer.decode(String.self, forKey: .identity)
         name = try itemContainer.decode(String.self, forKey: .name)
         type = try itemContainer.decode(String.self, forKey: .type)
         let rarityString = try itemContainer.decode(String.self, forKey: .rarity)

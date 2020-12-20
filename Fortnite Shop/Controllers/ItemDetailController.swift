@@ -18,6 +18,7 @@ class ItemDetailController: UIViewController {
     private let imageDetailView = ImageDetailView()
     private let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
     private var images = [UIImage]()
+    private var setItems = [(ItemDetail, UIImage)]()
 
     private let datesController = DatesController()
     private let imagesController = ImagesController()
@@ -166,18 +167,21 @@ extension ItemDetailController {
                 guard let image = image else {
                     return
                 }
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.navigationItem.title = itemDetail.name
-                    self.setUpDetailView(for: itemDetail, with: image)
-                    self.fetchImages(for: itemDetail)
-                    self.positionImageDetailView()
+                self.fetchImages(for: itemDetail) {
+                    self.fetchSetItems(for: itemDetail) {
+                        DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
+                            self.navigationItem.title = itemDetail.name
+                            self.setUpDetailView(for: itemDetail, with: image)
+                            self.positionImageDetailView()
+                        }
+                    }
                 }
             }
         }
     }
 
-    private func fetchImages(for item: ItemDetail) {
+    private func fetchImages(for item: ItemDetail, completion: @escaping () -> Void) {
         let urls = makeLinkArray(for: item)
         let dispatchGroup = DispatchGroup()
         urls.forEach { url in
@@ -192,6 +196,31 @@ extension ItemDetailController {
         }
         dispatchGroup.notify(queue: .main) {
             self.imagesController.insert(self.images, item.rarity)
+            completion()
+        }
+    }
+
+    private func fetchSetItems(for item: ItemDetail, completion:  @escaping () -> Void) {
+        let items = item.itemsInSet
+        let dispatchGroup = DispatchGroup()
+        items.forEach { identity in
+            dispatchGroup.enter()
+            Service.shared.fetchItemDetail(for: identity) { setItem in
+                guard let setItem = setItem else {
+                    return
+                }
+                Service.shared.fetchImage(url: setItem.fullBackground) { image in
+                    guard let image = image else {
+                        return
+                    }
+                    self.setItems.append((setItem, image))
+                    dispatchGroup.leave()
+                }
+            }
+        }
+        dispatchGroup.notify(queue: .main) {
+            self.setController.insert(self.setItems)
+            completion()
         }
     }
 
