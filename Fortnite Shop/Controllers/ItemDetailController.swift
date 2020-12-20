@@ -21,7 +21,7 @@ class ItemDetailController: UIViewController {
 
     private let datesController = DatesController()
     private let imagesController = ImagesController()
-    private let thirdVC = UIViewController()
+    private let setController = SetController()
 
     init(for item: DailyShopItem) {
         self.item = item
@@ -36,7 +36,6 @@ class ItemDetailController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         setUpImagesController()
-        thirdVC.view.backgroundColor = .green // TODO: Remove
         addChildControllers()
         positionActivityIndicator()
         setUpImageDetailView()
@@ -157,7 +156,7 @@ extension ItemDetailController {
             self.datesController.addDates(itemDetail.history)
             if !itemDetail.itemsInSet.isEmpty {
                 DispatchQueue.main.async {
-                    self.addChild(controller: self.thirdVC)
+                    self.addChild(controller: self.setController)
                 }
             }
             DispatchQueue.main.async {
