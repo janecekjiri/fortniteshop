@@ -13,6 +13,8 @@ class SetController: UICollectionViewController, UICollectionViewDelegateFlowLay
     private let imageCellId = "imageCellId"
     private var items = [(ItemDetail, UIImage)]()
 
+    var didPressSet: ((DailyShopItem) -> Void)?
+
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -46,6 +48,12 @@ class SetController: UICollectionViewController, UICollectionViewDelegateFlowLay
     ) -> CGSize {
         let width = (view.frame.width - 10)/2
         return .init(width: width, height: width)
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = items[indexPath.row].0
+        let dailyShopItem = DailyShopItem(identity: item.identity, image: item.fullBackground)
+        didPressSet?(dailyShopItem)
     }
 
     func insert(_ items: [(ItemDetail, UIImage)]) {

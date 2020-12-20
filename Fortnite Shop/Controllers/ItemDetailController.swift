@@ -37,6 +37,12 @@ class ItemDetailController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         setUpImagesController()
+
+        setController.didPressSet = { setItem in
+            let itemDetailController = ItemDetailController(for: setItem)
+            self.navigationController?.pushViewController(itemDetailController, animated: true)
+        }
+
         addChildControllers()
         positionActivityIndicator()
         setUpImageDetailView()
