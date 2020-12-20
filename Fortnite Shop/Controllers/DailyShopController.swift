@@ -10,13 +10,13 @@ import UIKit
 
 class DailyShopController: UICollectionViewController {
 
-    let dailyShopCellId = "dailyShopCellId"
-    let collectionViewHeader = "collectionViewHeader"
-    var items = [(DailyShopItem, UIImage)]()
-    var isFetchingData = true
-    let dateFormatter = DateFormatter()
+    private let dailyShopCellId = "dailyShopCellId"
+    private let collectionViewHeader = "collectionViewHeader"
+    private var items = [(DailyShopItem, UIImage)]()
+    private var isFetchingData = true
+    private let dateFormatter = DateFormatter()
 
-    let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
+    private let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
