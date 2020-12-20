@@ -14,6 +14,7 @@ class DailyShopController: UICollectionViewController {
     let collectionViewHeader = "collectionViewHeader"
     var items = [(DailyShopItem, UIImage)]()
     var isFetchingData = true
+    let dateFormatter = DateFormatter()
 
     let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
 
@@ -106,7 +107,6 @@ extension DailyShopController {
     }
 
     private func returnTodaysDate() -> String {
-        let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         return dateFormatter.string(from: Date())
     }

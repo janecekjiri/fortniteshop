@@ -13,6 +13,7 @@ class DatesController: UICollectionViewController {
     private let dateCellId = "dateCell"
     private let headerId = "header"
     private var dates = [Date]()
+    private let dateFormatter = DateFormatter()
 
     convenience init() {
         let layout = UICollectionViewFlowLayout()
@@ -28,6 +29,7 @@ class DatesController: UICollectionViewController {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: headerId
         )
+        dateFormatter.dateStyle = .long
     }
 }
 
@@ -106,8 +108,6 @@ extension DatesController {
     }
 
     func formatDate(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
         return dateFormatter.string(from: date)
     }
 

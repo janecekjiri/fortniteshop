@@ -14,6 +14,7 @@ class ItemDetailView: UIView {
     private let releaseDateLabel = UILabel.makeCenteredLabel()
     private let lastSeenLabel = UILabel.makeCenteredLabel()
     private let occurrencesLabel = UILabel.makeCenteredLabel()
+    private let dateFormatter = DateFormatter()
 
     private let imageView = UIImageView()
     private var segmentedViews = [UIView]()
@@ -105,7 +106,6 @@ extension ItemDetailView {
         descriptionLabel.text = "\"\(item.description)\""
         imageView.image = image
 
-        let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
 
         releaseDateLabel.setAttributedHistoryText(
