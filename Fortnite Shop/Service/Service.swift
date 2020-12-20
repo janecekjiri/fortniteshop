@@ -12,11 +12,9 @@ class Service {
     let apiKey = "d162e8f4-7dfb5de9-3e284b5c-c82a4923"
     static let shared = Service()
 
-    func fetchDailyShop(completion: @escaping (DailyShopModel?) -> Void) {
+    fileprivate func fetch<T: Decodable>(url: URL, completion: @escaping (T?) -> Void) {
         let session = URLSession.shared
-        guard let url = URL(string: "https://fortniteapi.io/v1/shop?lang=en") else {
-            return
-        }
+
         var urlRequest = URLRequest(url: url)
         urlRequest.addValue(apiKey, forHTTPHeaderField: "Authorization")
 
@@ -39,7 +37,7 @@ class Service {
             }
 
             do {
-                let dailies = try JSONDecoder().decode(DailyShopModel.self, from: data)
+                let dailies = try JSONDecoder().decode(T.self, from: data)
                 completion(dailies)
             } catch {
                 completion(nil)
@@ -48,40 +46,18 @@ class Service {
         task.resume()
     }
 
+    func fetchDailyShop(completion: @escaping (DailyShopModel?) -> Void) {
+        guard let url = URL(string: "https://fortniteapi.io/v1/shop?lang=en") else {
+            return
+        }
+        fetch(url: url, completion: completion)
+    }
+
     func fetchItemDetail(for identity: String, completion: @escaping (ItemDetail?) -> Void) {
-        let session = URLSession.shared
         guard let url = URL(string: "https://fortniteapi.io/v1/items/get?id=\(identity)&lang=en") else {
             return
         }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.addValue(apiKey, forHTTPHeaderField: "Authorization")
-
-        let task = session.dataTask(with: urlRequest) { data, response, error in
-            if error != nil {
-                completion(nil)
-            }
-
-            guard
-                let httpResponse = response as? HTTPURLResponse,
-                (200...299).contains(httpResponse.statusCode)
-            else {
-                completion(nil)
-                return
-            }
-
-            guard let data = data else {
-                completion(nil)
-                return
-            }
-
-            do {
-                let dailies = try JSONDecoder().decode(ItemDetail.self, from: data)
-                completion(dailies)
-            } catch {
-                completion(nil)
-            }
-        }
-        task.resume()
+        fetch(url: url, completion: completion)
     }
 
     func fetchItemDetail(for item: ItemDetailProtocol, completion: @escaping (ItemDetail?) -> Void) {
