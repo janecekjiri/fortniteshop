@@ -16,8 +16,19 @@ class BaseTabBarController: UITabBarController {
 
     func addController(_ controller: UIViewController, with title: String, with imageName: String) {
         let navController = UINavigationController(rootViewController: controller)
-        navController.tabBarItem.title = title
-        navController.tabBarItem.image = UIImage(named: imageName)
+        let tabBarItem = UITabBarItem(
+            title: title,
+            image: UIImage(named: imageName),
+            selectedImage: UIImage(named: imageName)?.withTintColor(
+                .segmentControlYellow,
+                renderingMode: .alwaysOriginal
+            )
+        )
+        tabBarItem.setTitleTextAttributes(
+            [NSAttributedString.Key.foregroundColor: UIColor.segmentControlYellow],
+            for: .selected
+        )
+        navController.tabBarItem = tabBarItem
         guard var currentControllers = viewControllers else {
             viewControllers = [navController]
             return
