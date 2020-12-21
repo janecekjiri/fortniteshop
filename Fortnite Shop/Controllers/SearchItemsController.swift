@@ -18,6 +18,12 @@ class SearchItemsController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        definesPresentationContext = true
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
 
@@ -35,6 +41,12 @@ class SearchItemsController: UICollectionViewController {
         }
         searchCell.backgroundColor = .red
         return searchCell
+    }
+}
+
+extension SearchItemsController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print(searchBar.text)
     }
 }
 
