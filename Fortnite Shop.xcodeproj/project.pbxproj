@@ -30,7 +30,7 @@
 		11969E1C25874C4500F25CDE /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E1B25874C4500F25CDE /* ItemDetailView.swift */; };
 		11969E2425878FC300F25CDE /* ItemDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E2325878FC300F25CDE /* ItemDetail.swift */; };
 		11969E262588C4AD00F25CDE /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11969E252588C4AD00F25CDE /* UILabelExtension.swift */; };
-		1197A08225908FC20064D03D /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1197A08125908FC20064D03D /* SearchController.swift */; };
+		1197A08225908FC20064D03D /* SearchItemsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1197A08125908FC20064D03D /* SearchItemsController.swift */; };
 		1197A08425909EAD0064D03D /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1197A08325909EAD0064D03D /* BaseTabBarController.swift */; };
 		1199573A258B31A00023A639 /* DatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11995739258B31A00023A639 /* DatesController.swift */; };
 		1199573C258B32E80023A639 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1199573B258B32E80023A639 /* DateCell.swift */; };
@@ -69,7 +69,7 @@
 		11969E1B25874C4500F25CDE /* ItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 		11969E2325878FC300F25CDE /* ItemDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetail.swift; sourceTree = "<group>"; };
 		11969E252588C4AD00F25CDE /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
-		1197A08125908FC20064D03D /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		1197A08125908FC20064D03D /* SearchItemsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemsController.swift; sourceTree = "<group>"; };
 		1197A08325909EAD0064D03D /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		11995739258B31A00023A639 /* DatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatesController.swift; sourceTree = "<group>"; };
 		1199573B258B32E80023A639 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 				11458C4A2582061900D562AA /* DailyShopController.swift */,
 				11969E192587493B00F25CDE /* ItemDetailController.swift */,
 				1197A08025908F570064D03D /* ItemDetailChildControllers */,
-				1197A08125908FC20064D03D /* SearchController.swift */,
+				1197A08125908FC20064D03D /* SearchItemsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@
 				11458C5B25835C7700D562AA /* UIActivityIndicatorViewExtension.swift in Sources */,
 				11969E1A2587493B00F25CDE /* ItemDetailController.swift in Sources */,
 				118FC9DC258101B300A4D1F5 /* AppDelegate.swift in Sources */,
-				1197A08225908FC20064D03D /* SearchController.swift in Sources */,
+				1197A08225908FC20064D03D /* SearchItemsController.swift in Sources */,
 				11919ED2258F56F7002F1F13 /* SetController.swift in Sources */,
 				1199573E258B3D980023A639 /* UIColorExtension.swift in Sources */,
 				115CBE40258E22CA0094BD88 /* UIViewExtension.swift in Sources */,

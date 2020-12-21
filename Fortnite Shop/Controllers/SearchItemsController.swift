@@ -1,5 +1,5 @@
 //
-//  SearchController.swift
+//  SearchItemsController.swift
 //  Fortnite Shop
 //
 //  Created by Jiri Janecek on 21/12/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchController: UICollectionViewController {
+class SearchItemsController: UICollectionViewController {
 
     private let cellId = "cellId"
 
@@ -39,7 +39,7 @@ class SearchController: UICollectionViewController {
 }
 
 // MARK: - UICollectionView Layout Methods
-extension SearchController: UICollectionViewDelegateFlowLayout {
+extension SearchItemsController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(
         _ collectionView: UICollectionView,
