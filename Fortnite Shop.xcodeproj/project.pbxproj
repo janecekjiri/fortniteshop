@@ -125,9 +125,7 @@
 			children = (
 				11458C4A2582061900D562AA /* DailyShopController.swift */,
 				11969E192587493B00F25CDE /* ItemDetailController.swift */,
-				11995739258B31A00023A639 /* DatesController.swift */,
-				11995741258B6B080023A639 /* ImagesController.swift */,
-				11919ED1258F56F7002F1F13 /* SetController.swift */,
+				1197A08025908F570064D03D /* ItemDetailChildControllers */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -199,6 +197,16 @@
 				11919ED3258F7550002F1F13 /* ItemDetailProtocol.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		1197A08025908F570064D03D /* ItemDetailChildControllers */ = {
+			isa = PBXGroup;
+			children = (
+				11995739258B31A00023A639 /* DatesController.swift */,
+				11995741258B6B080023A639 /* ImagesController.swift */,
+				11919ED1258F56F7002F1F13 /* SetController.swift */,
+			);
+			path = ItemDetailChildControllers;
 			sourceTree = "<group>";
 		};
 		11CD5BA825837F8C000FD294 /* Fonts */ = {
