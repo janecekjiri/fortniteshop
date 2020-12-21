@@ -12,18 +12,16 @@ class SearchItemsController: UICollectionViewController {
 
     private let cellId = "cellId"
 
+    private let searchController = UISearchController(searchResultsController: nil)
+
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        definesPresentationContext = true
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+        setUpSearchController()
+        setUpNavigationItem()
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
 
@@ -44,6 +42,21 @@ class SearchItemsController: UICollectionViewController {
     }
 }
 
+// MARK: - Setup Methods
+extension SearchItemsController {
+    private func setUpSearchController() {
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+    }
+
+    private func setUpNavigationItem() {
+        navigationItem.title = "Search"
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+}
+
+// MARK: - UISearchBarDelegate Methods
 extension SearchItemsController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print(searchBar.text)
