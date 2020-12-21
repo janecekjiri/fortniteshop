@@ -21,9 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
 
             let dailyShopController = DailyShopController()
-            let navController = UINavigationController(rootViewController: dailyShopController)
+            let searchController = SearchController()
+            let tabBarController = BaseTabBarController()
+            tabBarController.addController(dailyShopController, with: "Item Shop", with: "shoppingCart")
+            tabBarController.addController(searchController, with: "Search", with: "search")
 
-            window.rootViewController = navController
+            window.rootViewController = tabBarController
             window.makeKeyAndVisible()
             self.window = window
         }

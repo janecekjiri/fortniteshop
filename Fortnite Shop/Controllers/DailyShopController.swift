@@ -142,6 +142,7 @@ extension DailyShopController {
         }
     }
 
+    // TODO: Fix
     @objc private func refresh() {
         if !isFetchingData {
             activityIndicator.startAnimating()
