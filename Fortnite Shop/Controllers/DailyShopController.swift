@@ -129,6 +129,10 @@ extension DailyShopController {
                         return
                     }
                     self.items.append((item, image))
+                    // TODO: Move this sort to DailyShopModel
+                    self.items.sort { lhs, rhs -> Bool in
+                        return lhs.0 > rhs.0
+                    }
                     dispatchGroup.leave()
                 }
             }

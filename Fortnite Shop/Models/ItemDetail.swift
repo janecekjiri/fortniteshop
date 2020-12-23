@@ -8,13 +8,34 @@
 
 import Foundation
 
-enum Rarity: String {
+enum Rarity: String, Comparable {
     case common
     case uncommon
     case rare
     case epic
     case legendary
     case unknown
+
+    static func<(lhs: Rarity, rhs: Rarity) -> Bool {
+        return lhs.returnRarityValue() < rhs.returnRarityValue()
+    }
+
+    private func returnRarityValue() -> Int {
+        switch self {
+        case .common:
+            return 0
+        case .uncommon:
+            return 1
+        case .rare:
+            return 2
+        case .epic:
+            return 3
+        case .legendary:
+            return 4
+        default:
+            return 5
+        }
+    }
 }
 
 struct ItemDetail: Decodable, ItemDetailProtocol {
