@@ -64,6 +64,13 @@ class Service {
         fetchItemDetail(for: item.identity, completion: completion)
     }
 
+    func fetchAllItems(completion: @escaping (ListItemsModel?) -> Void) {
+        guard let url = URL(string: "https://fortniteapi.io/v1/items/list?lang=en") else {
+            return
+        }
+        fetch(url: url, completion: completion)
+    }
+
     func fetchImage(url: String, completion: @escaping (UIImage?) -> Void) {
         let session = URLSession.shared
         guard let url = URL(string: url) else {

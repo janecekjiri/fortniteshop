@@ -38,6 +38,8 @@
 		11995740258B4B7E0023A639 /* DateCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1199573F258B4B7E0023A639 /* DateCellHeader.swift */; };
 		11995742258B6B080023A639 /* ImagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11995741258B6B080023A639 /* ImagesController.swift */; };
 		11995744258B95420023A639 /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11995743258B95420023A639 /* ImageDetailView.swift */; };
+		11A27C292595F64F00CDC4E9 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A27C282595F64F00CDC4E9 /* ListItem.swift */; };
+		11A27C2B2595FA8A00CDC4E9 /* ListItemsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A27C2A2595FA8A00CDC4E9 /* ListItemsModel.swift */; };
 		11CD5BA325836E28000FD294 /* CollectionViewLabelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */; };
 		11CD5BA725837DA4000FD294 /* BurbankBigCondensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */; };
 		11CD5BAA258380E5000FD294 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA9258380E5000FD294 /* UIFontExtension.swift */; };
@@ -77,6 +79,8 @@
 		1199573F258B4B7E0023A639 /* DateCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCellHeader.swift; sourceTree = "<group>"; };
 		11995741258B6B080023A639 /* ImagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesController.swift; sourceTree = "<group>"; };
 		11995743258B95420023A639 /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
+		11A27C282595F64F00CDC4E9 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
+		11A27C2A2595FA8A00CDC4E9 /* ListItemsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsModel.swift; sourceTree = "<group>"; };
 		11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLabelHeader.swift; sourceTree = "<group>"; };
 		11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BurbankBigCondensed-Black.otf"; sourceTree = "<group>"; };
 		11CD5BA9258380E5000FD294 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
@@ -107,6 +111,8 @@
 				118D9C952584A80300FC29C0 /* DailyShopItem.swift */,
 				11458C502582148500D562AA /* DailyShopModel.swift */,
 				11969E2325878FC300F25CDE /* ItemDetail.swift */,
+				11A27C282595F64F00CDC4E9 /* ListItem.swift */,
+				11A27C2A2595FA8A00CDC4E9 /* ListItemsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -342,9 +348,11 @@
 				11969E1C25874C4500F25CDE /* ItemDetailView.swift in Sources */,
 				115CBE3C258E08030094BD88 /* UIStackViewExtension.swift in Sources */,
 				115CBE44258E26820094BD88 /* UIButtonExtension.swift in Sources */,
+				11A27C292595F64F00CDC4E9 /* ListItem.swift in Sources */,
 				11458C5325822CC600D562AA /* UIAlertControllerExtension.swift in Sources */,
 				11969E2425878FC300F25CDE /* ItemDetail.swift in Sources */,
 				11458C512582148500D562AA /* DailyShopModel.swift in Sources */,
+				11A27C2B2595FA8A00CDC4E9 /* ListItemsModel.swift in Sources */,
 				11995742258B6B080023A639 /* ImagesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

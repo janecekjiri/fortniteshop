@@ -11,6 +11,7 @@ import UIKit
 class SearchItemsController: UICollectionViewController {
 
     private let cellId = "cellId"
+    private var items = [(ListItem, UIImage)]()
 
     private let searchController = UISearchController(searchResultsController: nil)
 
@@ -26,7 +27,7 @@ class SearchItemsController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return items.count
     }
 
     override func collectionView(
@@ -37,8 +38,13 @@ class SearchItemsController: UICollectionViewController {
         guard let searchCell = cell as? ImageCell else {
             return cell
         }
-        searchCell.backgroundColor = .red
+        searchCell.showImage(items[indexPath.row].1)
         return searchCell
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
+        navigationController?.pushViewController(itemDetailController, animated: true)
     }
 }
 
@@ -59,7 +65,33 @@ extension SearchItemsController {
 // MARK: - UISearchBarDelegate Methods
 extension SearchItemsController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print(searchBar.text)
+        items.removeAll()
+        guard let searchedText = searchBar.text else {
+            return
+        }
+        Service.shared.fetchAllItems { allItemsModel in
+            guard let allItemsModel = allItemsModel else {
+                return
+            }
+            var tempItems = allItemsModel.items
+            tempItems.removeAll { !$0.name.lowercased().contains(searchedText.lowercased()) }
+            let dispatchGroup = DispatchGroup()
+            tempItems.forEach { item in
+                dispatchGroup.enter()
+                Service.shared.fetchImage(url: item.fullBackground) { image in
+                    guard let image = image else {
+                        return
+                    }
+                    self.items.append((item, image))
+                    dispatchGroup.leave()
+                }
+            }
+            dispatchGroup.notify(queue: .main) {
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
 }
 
