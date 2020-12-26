@@ -194,6 +194,7 @@ extension ItemDetailController {
             dispatchGroup.enter()
             Service.shared.fetchImage(url: url) { image in
                 guard let image = image else {
+                    dispatchGroup.leave()
                     return
                 }
                 self.images.append(image)
@@ -213,10 +214,12 @@ extension ItemDetailController {
             dispatchGroup.enter()
             Service.shared.fetchItemDetail(for: identity) { setItem in
                 guard let setItem = setItem else {
+                    dispatchGroup.leave()
                     return
                 }
                 Service.shared.fetchImage(url: setItem.fullBackground) { image in
                     guard let image = image else {
+                        dispatchGroup.leave()
                         return
                     }
                     self.setItems.append((setItem, image))
