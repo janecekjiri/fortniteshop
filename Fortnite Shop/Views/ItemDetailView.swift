@@ -103,7 +103,9 @@ extension ItemDetailView {
 extension ItemDetailView {
 
     func setUpView(for item: ItemDetail, with image: UIImage) {
-        descriptionLabel.text = "\"\(item.description)\""
+        if !item.description.isEmpty {
+            descriptionLabel.text = "\"\(item.description)\""
+        }
         imageView.image = image
 
         dateFormatter.dateStyle = .long
