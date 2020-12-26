@@ -11,6 +11,8 @@ import UIKit
 class SearchItemsController: UICollectionViewController {
 
     private let cellId = "cellId"
+    private let headerId = "headerId"
+    private var hasSearched = false
     private var items = [(ListItem, UIImage)]()
 
     private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
@@ -27,6 +29,11 @@ class SearchItemsController: UICollectionViewController {
         setUpNavigationItem()
         positionActivityIndicator()
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(
+            CollectionViewLabelHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: headerId
+        )
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -48,6 +55,33 @@ class SearchItemsController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
         navigationController?.pushViewController(itemDetailController, animated: true)
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: headerId,
+            for: indexPath
+        )
+        guard let labelHader = header as? CollectionViewLabelHeader else {
+            return header
+        }
+        if hasSearched {
+            labelHader.setTitle("\(items.count) items found")
+        }
+        return labelHader
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
+        return .init(width: view.frame.width, height: 40)
     }
 }
 
@@ -75,6 +109,7 @@ extension SearchItemsController {
 extension SearchItemsController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         items.removeAll()
+        hasSearched = true
         guard let searchedText = searchBar.text else {
             return
         }
