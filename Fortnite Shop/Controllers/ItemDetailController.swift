@@ -16,7 +16,7 @@ class ItemDetailController: UIViewController {
 
     private let itemDetailView = ItemDetailView()
     private let imageDetailView = ImageDetailView()
-    private let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
+    private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
     private var images = [UIImage]()
     private var setItems = [(ItemDetail, UIImage)]()
 

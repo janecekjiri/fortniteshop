@@ -13,6 +13,8 @@ class SearchItemsController: UICollectionViewController {
     private let cellId = "cellId"
     private var items = [(ListItem, UIImage)]()
 
+    private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
+
     private let searchController = UISearchController(searchResultsController: nil)
 
     convenience init() {
@@ -23,6 +25,7 @@ class SearchItemsController: UICollectionViewController {
         super.viewDidLoad()
         setUpSearchController()
         setUpNavigationItem()
+        positionActivityIndicator()
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
 
@@ -60,6 +63,12 @@ extension SearchItemsController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
+
+    private func positionActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+    }
 }
 
 // MARK: - UISearchBarDelegate Methods
@@ -69,8 +78,10 @@ extension SearchItemsController: UISearchBarDelegate {
         guard let searchedText = searchBar.text else {
             return
         }
+        activityIndicator.startAnimating()
         Service.shared.fetchAllItems { allItemsModel in
             guard let allItemsModel = allItemsModel else {
+                self.activityIndicator.stopAnimating()
                 return
             }
             var tempItems = allItemsModel.items
@@ -80,6 +91,7 @@ extension SearchItemsController: UISearchBarDelegate {
                 dispatchGroup.enter()
                 Service.shared.fetchImage(url: item.fullBackground) { image in
                     guard let image = image else {
+                        dispatchGroup.leave()
                         return
                     }
                     self.items.append((item, image))
@@ -88,6 +100,7 @@ extension SearchItemsController: UISearchBarDelegate {
             }
             dispatchGroup.notify(queue: .main) {
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
                     self.collectionView.reloadData()
                 }
             }

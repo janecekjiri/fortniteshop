@@ -16,7 +16,7 @@ class DailyShopController: UICollectionViewController {
     private var isFetchingData = true
     private let dateFormatter = DateFormatter()
 
-    private let activityIndicator = UIActivityIndicatorView.largeWhiteIndicator
+    private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
