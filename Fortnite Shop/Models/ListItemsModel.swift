@@ -21,7 +21,6 @@ struct ListItemsModel: Decodable {
         case loadingScreen = "loadingscreen"
         case tandemOutfit = "tandemoutfit"
         case itemAccess = "itemaccess"
-        // missing: bannertoken, battlebus
     }
 
     init(from decoder: Decoder) throws {

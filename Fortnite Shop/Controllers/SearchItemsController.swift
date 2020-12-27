@@ -28,12 +28,7 @@ class SearchItemsController: UICollectionViewController {
         setUpSearchController()
         setUpNavigationItem()
         positionActivityIndicator()
-        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(
-            CollectionViewLabelHeader.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: headerId
-        )
+        registerCells()
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -56,33 +51,6 @@ class SearchItemsController: UICollectionViewController {
         let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
         navigationController?.pushViewController(itemDetailController, animated: true)
     }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath
-    ) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: headerId,
-            for: indexPath
-        )
-        guard let labelHader = header as? CollectionViewLabelHeader else {
-            return header
-        }
-        if hasSearched {
-            labelHader.setTitle("\(items.count) items found")
-        }
-        return labelHader
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        referenceSizeForHeaderInSection section: Int
-    ) -> CGSize {
-        return .init(width: view.frame.width, height: 40)
-    }
 }
 
 // MARK: - Setup Methods
@@ -102,6 +70,15 @@ extension SearchItemsController {
         view.addSubview(activityIndicator)
         activityIndicator.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
         activityIndicator.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+    }
+
+    private func registerCells() {
+        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(
+            CollectionViewLabelHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: headerId
+        )
     }
 }
 
@@ -169,6 +146,38 @@ extension SearchItemsController: UICollectionViewDelegateFlowLayout {
         minimumLineSpacingForSectionAt section: Int
     ) -> CGFloat {
         return 10
+    }
+
+}
+
+// MARK: - UICollectionView Header Methods
+extension SearchItemsController {
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: headerId,
+            for: indexPath
+        )
+        guard let labelHader = header as? CollectionViewLabelHeader else {
+            return header
+        }
+        if hasSearched {
+            labelHader.setTitle("\(items.count) items found")
+        }
+        return labelHader
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
+        return .init(width: view.frame.width, height: 40)
     }
 
 }
