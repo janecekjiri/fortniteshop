@@ -89,28 +89,38 @@ extension SearchItemsController: UISearchBarDelegate {
             return
         }
         prepareForFetch()
+
         Service.shared.fetchAllItems { allItemsModel in
             guard let allItemsModel = allItemsModel else {
                 self.setUpAfterFetch()
                 return
             }
+
             var tempItems = allItemsModel.items
             tempItems.removeAll { !$0.name.lowercased().contains(searchedText.lowercased()) }
+
             let dispatchGroup = DispatchGroup()
             tempItems.forEach { item in
                 dispatchGroup.enter()
-                Service.shared.fetchImage(url: item.fullBackground) { image in
-                    guard let image = image else {
-                        dispatchGroup.leave()
-                        return
-                    }
-                    self.items.append((item, image))
+                self.fetchImage(for: item) {
                     dispatchGroup.leave()
                 }
             }
+
             dispatchGroup.notify(queue: .main) {
                 self.setUpAfterFetch()
             }
+        }
+    }
+
+    private func fetchImage(for item: ListItem, completion: @escaping () -> Void) {
+        Service.shared.fetchImage(url: item.fullBackground) { image in
+            guard let image = image else {
+                completion()
+                return
+            }
+            self.items.append((item, image))
+            completion()
         }
     }
 
