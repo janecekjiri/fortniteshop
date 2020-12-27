@@ -82,21 +82,16 @@ extension SearchItemsController {
     }
 }
 
-// MARK: - UISearchBarDelegate Methods
+// MARK: - UISearchBarDelegate And Helper Methods
 extension SearchItemsController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        items.removeAll()
-        collectionView.isScrollEnabled = false
-        collectionView.allowsSelection = false
-        hasSearched = true
         guard let searchedText = searchBar.text else {
             return
         }
-        activityIndicator.startAnimating()
+        prepareForFetch()
         Service.shared.fetchAllItems { allItemsModel in
             guard let allItemsModel = allItemsModel else {
-                self.activityIndicator.stopAnimating()
-                self.collectionView.reloadData()
+                self.setUpAfterFetch()
                 return
             }
             var tempItems = allItemsModel.items
@@ -114,14 +109,24 @@ extension SearchItemsController: UISearchBarDelegate {
                 }
             }
             dispatchGroup.notify(queue: .main) {
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.collectionView.isScrollEnabled = true
-                    self.collectionView.allowsSelection = true
-                    self.collectionView.reloadData()
-                }
+                self.setUpAfterFetch()
             }
         }
+    }
+
+    private func prepareForFetch() {
+        items.removeAll()
+        collectionView.isScrollEnabled = false
+        collectionView.allowsSelection = false
+        hasSearched = true
+        activityIndicator.startAnimating()
+    }
+
+    private func setUpAfterFetch() {
+        activityIndicator.stopAnimating()
+        collectionView.isScrollEnabled = true
+        collectionView.allowsSelection = true
+        collectionView.reloadData()
     }
 }
 
