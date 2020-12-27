@@ -112,10 +112,7 @@ extension DailyShopController {
     }
 
     private func fetchDailyShop() {
-        items.removeAll()
-        isFetchingData = true
-        collectionView.isScrollEnabled = false
-        collectionView.allowsSelection = false
+        prepareForFetch()
         Service.shared.fetchDailyShop { dailyShop in
             guard let dailyShop = dailyShop else {
                 self.handleFetchError()
@@ -125,27 +122,44 @@ extension DailyShopController {
             let dispatchGroup = DispatchGroup()
             dailyShop.items.forEach { item in
                 dispatchGroup.enter()
-                Service.shared.fetchImage(url: item.fullBackground) { image in
-                    guard let image = image else {
-                        return
-                    }
-                    self.items.append((item, image))
-                    // TODO: Move this sort to DailyShopModel
-                    self.items.sort { lhs, rhs -> Bool in
-                        return lhs.0 > rhs.0
-                    }
+                self.fetchImage(for: item) {
                     dispatchGroup.leave()
                 }
             }
 
             dispatchGroup.notify(queue: .main) {
-                self.activityIndicator.stopAnimating()
-                self.collectionView.reloadData()
-                self.collectionView.isScrollEnabled = true
-                self.collectionView.allowsSelection = true
-                self.isFetchingData = false
+                self.setUpAfterFetch()
             }
         }
+    }
+
+    private func fetchImage(for item: DailyShopItem, completion: @escaping () -> Void) {
+        Service.shared.fetchImage(url: item.fullBackground) { image in
+            guard let image = image else {
+                return
+            }
+            self.items.append((item, image))
+            // TODO: Move this sort to DailyShopModel
+            self.items.sort { lhs, rhs -> Bool in
+                return lhs.0 > rhs.0
+            }
+            completion()
+        }
+    }
+
+    private func prepareForFetch() {
+        items.removeAll()
+        isFetchingData = true
+        collectionView.isScrollEnabled = false
+        collectionView.allowsSelection = false
+    }
+
+    private func setUpAfterFetch() {
+        activityIndicator.stopAnimating()
+        collectionView.reloadData()
+        collectionView.isScrollEnabled = true
+        collectionView.allowsSelection = true
+        isFetchingData = false
     }
 
     // TODO: Fix
