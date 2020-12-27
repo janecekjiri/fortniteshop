@@ -115,6 +115,7 @@ extension DailyShopController {
         items.removeAll()
         isFetchingData = true
         collectionView.isScrollEnabled = false
+        collectionView.allowsSelection = false
         Service.shared.fetchDailyShop { dailyShop in
             guard let dailyShop = dailyShop else {
                 self.handleFetchError()
@@ -141,6 +142,7 @@ extension DailyShopController {
                 self.activityIndicator.stopAnimating()
                 self.collectionView.reloadData()
                 self.collectionView.isScrollEnabled = true
+                self.collectionView.allowsSelection = true
                 self.isFetchingData = false
             }
         }
