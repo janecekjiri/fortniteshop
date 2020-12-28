@@ -42,7 +42,7 @@ struct ItemDetail: Decodable, ItemDetailProtocol {
     let identity, name, description, type, set: String
     let rarity: Rarity
     let price: Int
-    let releaseDate, lastAppearance: Date // TODO: Change to Date?
+    let releaseDate, lastAppearance: Date?
     let history: [Date]
     let itemsInSet: [String]
     let icon, background, fullBackground: String
@@ -79,11 +79,19 @@ struct ItemDetail: Decodable, ItemDetailProtocol {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let releaseDateString = try itemContainer.decode(String.self, forKey: .releaseDate)
-        let lastAppearanceString = try itemContainer.decode(String.self, forKey: .lastAppearance)
+        let releaseDateString = try itemContainer.decode(String?.self, forKey: .releaseDate)
+        let lastAppearanceString = try itemContainer.decode(String?.self, forKey: .lastAppearance)
         let historyStrings = try itemContainer.decode([String].self, forKey: .history)
-        releaseDate = dateFormatter.date(from: releaseDateString) ?? Date()
-        lastAppearance = dateFormatter.date(from: lastAppearanceString) ?? Date()
+        if let releaseDateString = releaseDateString {
+            releaseDate = dateFormatter.date(from: releaseDateString)
+        } else {
+            releaseDate = nil
+        }
+        if let lastAppearanceString = lastAppearanceString {
+            lastAppearance = dateFormatter.date(from: lastAppearanceString)
+        } else {
+            lastAppearance = nil
+        }
         var historyDate = [Date]()
         historyStrings.forEach { historyDate.append(dateFormatter.date(from: $0) ?? Date()) }
         history = historyDate

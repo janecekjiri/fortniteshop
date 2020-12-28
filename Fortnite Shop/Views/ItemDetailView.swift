@@ -110,14 +110,24 @@ extension ItemDetailView {
 
         dateFormatter.dateStyle = .long
 
-        releaseDateLabel.setAttributedHistoryText(
-            withBoldText: "Released: ",
-            withNormalText: dateFormatter.string(from: item.releaseDate)
-        )
-        lastSeenLabel.setAttributedHistoryText(
-            withBoldText: "Last seen: ",
-            withNormalText: dateFormatter.string(from: item.lastAppearance)
-        )
+        if let releaseDate = item.releaseDate {
+            releaseDateLabel.setAttributedHistoryText(
+                withBoldText: "Released: ",
+                withNormalText: dateFormatter.string(from: releaseDate)
+            )
+        } else {
+            releaseDateLabel.isHidden = true
+        }
+
+        if let lastAppearance = item.lastAppearance {
+            lastSeenLabel.setAttributedHistoryText(
+                withBoldText: "Last seen: ",
+                withNormalText: dateFormatter.string(from: lastAppearance)
+            )
+        } else {
+            lastSeenLabel.isHidden = true
+        }
+
         occurrencesLabel.setAttributedHistoryText(
             withBoldText: "Occurrences: ",
             withNormalText: "\(item.history.count)"
