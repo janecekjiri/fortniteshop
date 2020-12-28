@@ -42,7 +42,7 @@ struct ItemDetail: Decodable, ItemDetailProtocol {
     let identity, name, description, type, set: String
     let rarity: Rarity
     let price: Int
-    let releaseDate, lastAppearance: Date
+    let releaseDate, lastAppearance: Date // TODO: Change to Date?
     let history: [Date]
     let itemsInSet: [String]
     let icon, background, fullBackground: String
