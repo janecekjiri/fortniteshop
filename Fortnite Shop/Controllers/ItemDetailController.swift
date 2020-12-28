@@ -150,6 +150,23 @@ extension ItemDetailController {
         )
     }
 
+    private func showErrorAlert() {
+        let alertController = UIAlertController.makeErrorAlertController(
+            message: "We were not able to obtain item's details. Please try it later"
+        )
+        DispatchQueue.main.async {
+            self.navigationController?.present(alertController, animated: true)
+        }
+    }
+
+    private func handleFetchError() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
+        self.showErrorAlert()
+        // TODO: Dismiss current VC and return to the previous one
+    }
+
 }
 
 // MARK: - Networking
@@ -158,6 +175,7 @@ extension ItemDetailController {
     private func fetchItemDetail() {
         Service.shared.fetchItemDetail(for: item) { itemDetail in
             guard let itemDetail = itemDetail else {
+                self.handleFetchError()
                 return
             }
             self.datesController.addDates(itemDetail.history)
