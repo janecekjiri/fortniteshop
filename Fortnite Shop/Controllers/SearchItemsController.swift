@@ -108,6 +108,7 @@ extension SearchItemsController: UISearchBarDelegate {
             }
 
             dispatchGroup.notify(queue: .main) {
+                // TODO: Test that this works. If it crashes, put it into DispatchQueue.main
                 self.setUpAfterFetch()
             }
         }

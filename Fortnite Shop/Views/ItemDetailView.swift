@@ -110,8 +110,8 @@ extension ItemDetailView {
 
         dateFormatter.dateStyle = .long
 
-        setUpReleaseDateLabel(for: item.releaseDate)
-        setUpLastAppearanceLabel(for: item.lastAppearance)
+        setUpLabel(releaseDateLabel, withBoldText: "Released: ", for: item.releaseDate)
+        setUpLabel(lastSeenLabel, withBoldText: "Last seen: ", for: item.lastAppearance)
 
         occurrencesLabel.setAttributedHistoryText(
             withBoldText: "Occurrences: ",
@@ -123,25 +123,14 @@ extension ItemDetailView {
         }
     }
 
-    private func setUpReleaseDateLabel(for date: Date?) {
-        if let releaseDate = date {
-            releaseDateLabel.setAttributedHistoryText(
-                withBoldText: "Released: ",
-                withNormalText: dateFormatter.string(from: releaseDate)
+    private func setUpLabel(_ label: UILabel, withBoldText text: String, for date: Date?) {
+        if let date = date {
+            label.setAttributedHistoryText(
+                withBoldText: text,
+                withNormalText: dateFormatter.string(from: date)
             )
         } else {
-            releaseDateLabel.isHidden = true
-        }
-    }
-
-    private func setUpLastAppearanceLabel(for date: Date?) {
-        if let lastAppearance = date {
-            lastSeenLabel.setAttributedHistoryText(
-                withBoldText: "Last seen: ",
-                withNormalText: dateFormatter.string(from: lastAppearance)
-            )
-        } else {
-            lastSeenLabel.isHidden = true
+            label.isHidden = true
         }
     }
 
