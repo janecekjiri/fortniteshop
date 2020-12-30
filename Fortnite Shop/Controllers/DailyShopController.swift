@@ -12,7 +12,7 @@ class DailyShopController: UICollectionViewController {
 
     private let dailyShopCellId = "dailyShopCellId"
     private let collectionViewHeader = "collectionViewHeader"
-    private var items = [(DailyShopItem, UIImage)]()
+    private var items = [(DailyShopItem, ImageTask)]()
     private var isFetchingData = true
     private let dateFormatter = DateFormatter()
 
@@ -42,8 +42,27 @@ class DailyShopController: UICollectionViewController {
         guard let dailyShopCell = cell as? ImageCell else {
             return cell
         }
-        dailyShopCell.showImage(items[indexPath.item].1)
+
+        let image = items[indexPath.item].1.image
+        dailyShopCell.showImage(image)
+
         return dailyShopCell
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        items[indexPath.row].1.resume()
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        didEndDisplaying cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        items[indexPath.row].1.pause()
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -119,31 +138,24 @@ extension DailyShopController {
                 return
             }
 
-            let dispatchGroup = DispatchGroup()
-            dailyShop.items.forEach { item in
-                dispatchGroup.enter()
-                self.fetchImage(for: item) {
-                    dispatchGroup.leave()
-                }
+            // TODO: Move this sort to DailyShopModel
+            var dailyShopItems = dailyShop.items
+            dailyShopItems.sort { lhs, rhs -> Bool in
+                return lhs > rhs
             }
 
-            dispatchGroup.notify(queue: .main) {
+            let session = URLSession.shared
+            dailyShopItems.enumerated().forEach { index, item in
+                let imageTask = ImageTask(url: item.fullBackground, session: session)
+                imageTask.didDownloadImage = {
+                    self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                }
+                self.items.append((item, imageTask))
+            }
+
+            DispatchQueue.main.async {
                 self.setUpAfterFetch()
             }
-        }
-    }
-
-    private func fetchImage(for item: DailyShopItem, completion: @escaping () -> Void) {
-        Service.shared.fetchImage(url: item.fullBackground) { image in
-            guard let image = image else {
-                return
-            }
-            self.items.append((item, image))
-            // TODO: Move this sort to DailyShopModel
-            self.items.sort { lhs, rhs -> Bool in
-                return lhs.0 > rhs.0
-            }
-            completion()
         }
     }
 
