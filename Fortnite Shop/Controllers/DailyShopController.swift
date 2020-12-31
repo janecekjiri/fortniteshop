@@ -44,7 +44,8 @@ class DailyShopController: UICollectionViewController {
         }
 
         let image = items[indexPath.item].1.image
-        dailyShopCell.showImage(image)
+        let item = items[indexPath.item].0
+        dailyShopCell.showImage(image, for: item)
 
         return dailyShopCell
     }

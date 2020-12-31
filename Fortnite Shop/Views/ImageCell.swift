@@ -52,4 +52,35 @@ class ImageCell: UICollectionViewCell {
         }
     }
 
+    func showImage(_ image: UIImage?, for item: DailyShopItem) {
+        itemImageView.image = image
+
+        if image == nil {
+            showRarityBackground(for: item.rarity)
+            itemImageView.layer.borderWidth = 2
+        } else {
+            itemImageView.layer.borderWidth = 0
+        }
+    }
+
+    private func showRarityBackground(for rarity: Rarity) {
+        switch rarity {
+        case .uncommon:
+            itemImageView.image = UIImage(named: "uncommon")
+            itemImageView.layer.borderColor = UIColor(red: 135, green: 227, blue: 57).cgColor
+        case .rare:
+            itemImageView.image = UIImage(named: "rare")
+            itemImageView.layer.borderColor = UIColor(red: 55, green: 209, blue: 255).cgColor
+        case .epic:
+            itemImageView.image = UIImage(named: "epic")
+            itemImageView.layer.borderColor = UIColor(red: 233, green: 94, blue: 255).cgColor
+        case .legendary:
+            itemImageView.image = UIImage(named: "legendary")
+            itemImageView.layer.borderColor = UIColor(red: 233, green: 141, blue: 75).cgColor
+        default:
+            itemImageView.image = UIImage(named: "common")
+            itemImageView.layer.borderColor = UIColor(red: 177, green: 177, blue: 177).cgColor
+        }
+    }
+
 }
