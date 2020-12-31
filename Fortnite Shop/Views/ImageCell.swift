@@ -10,6 +10,7 @@ import UIKit
 
 class ImageCell: UICollectionViewCell {
 
+    // TODO: Remove this
     private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
 
     private let itemImageView: UIImageView = {
@@ -28,6 +29,7 @@ class ImageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // TODO: Remove this method
     private func positionActivityIndicator() {
         addSubview(activityIndicator)
         activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -42,6 +44,7 @@ class ImageCell: UICollectionViewCell {
         itemImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 
+    // TODO: Remove this method
     func showImage(_ image: UIImage?) {
         itemImageView.image = image
 
@@ -63,6 +66,7 @@ class ImageCell: UICollectionViewCell {
         }
     }
 
+    // TODO: Add colors to UIColor extension
     private func showRarityBackground(for rarity: Rarity) {
         switch rarity {
         case .uncommon:
