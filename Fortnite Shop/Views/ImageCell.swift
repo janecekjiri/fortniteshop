@@ -66,41 +66,9 @@ class ImageCell: UICollectionViewCell {
         }
     }
 
-    // TODO: Add colors to UIColor extension
     private func showRarityBackground(for rarity: Rarity) {
         itemImageView.layer.borderColor = UIColor.rarityBorderColor(for: rarity).cgColor
-        switch rarity {
-        case .uncommon:
-            itemImageView.image = UIImage(named: "uncommon")
-        case .rare:
-            itemImageView.image = UIImage(named: "rare")
-        case .epic:
-            itemImageView.image = UIImage(named: "epic")
-        case .legendary:
-            itemImageView.image = UIImage(named: "legendary")
-        case .darkSeries:
-            itemImageView.image = UIImage(named: "darkSeries")
-        case .frozenSeries:
-            itemImageView.image = UIImage(named: "frozenSeries")
-        case .shadowSeries:
-            itemImageView.image = UIImage(named: "shadowSeries")
-        case .slurpSeries:
-            itemImageView.image = UIImage(named: "slurpSeries")
-        case .lavaSeries:
-            itemImageView.image = UIImage(named: "lavaSeries")
-        case .iconSeries:
-            itemImageView.image = UIImage(named: "iconSeries")
-        case .marvel:
-            itemImageView.image = UIImage(named: "marvel")
-        case .dcSeries:
-            itemImageView.image = UIImage(named: "dcSeries")
-        case .starWarsSeries:
-            itemImageView.image = UIImage(named: "starWarsSeries")
-        case .gamingLegendsSeries:
-            itemImageView.image = UIImage(named: "gamingLegendsSeries")
-        default:
-            itemImageView.image = UIImage(named: "common")
-        }
+        itemImageView.image = UIImage.rarityBackground(for: rarity)
     }
 
 }

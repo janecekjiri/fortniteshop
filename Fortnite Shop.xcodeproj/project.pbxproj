@@ -18,6 +18,7 @@
 		115CBE40258E22CA0094BD88 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115CBE3F258E22CA0094BD88 /* UIViewExtension.swift */; };
 		115CBE42258E24EA0094BD88 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115CBE41258E24EA0094BD88 /* UIImageViewExtension.swift */; };
 		115CBE44258E26820094BD88 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115CBE43258E26820094BD88 /* UIButtonExtension.swift */; };
+		118933C8259E1EBB008A639A /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118933C7259E1EBB008A639A /* UIImageExtension.swift */; };
 		118D9C962584A80300FC29C0 /* DailyShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D9C952584A80300FC29C0 /* DailyShopItem.swift */; };
 		118FC9DC258101B300A4D1F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118FC9DB258101B300A4D1F5 /* AppDelegate.swift */; };
 		118FC9DE258101B300A4D1F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118FC9DD258101B300A4D1F5 /* SceneDelegate.swift */; };
@@ -58,6 +59,7 @@
 		115CBE3F258E22CA0094BD88 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		115CBE41258E24EA0094BD88 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		115CBE43258E26820094BD88 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		118933C7259E1EBB008A639A /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		118D9C952584A80300FC29C0 /* DailyShopItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyShopItem.swift; sourceTree = "<group>"; };
 		118FC9D8258101B300A4D1F5 /* Fortnite Shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fortnite Shop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		118FC9DB258101B300A4D1F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				115CBE3F258E22CA0094BD88 /* UIViewExtension.swift */,
 				115CBE41258E24EA0094BD88 /* UIImageViewExtension.swift */,
 				115CBE43258E26820094BD88 /* UIButtonExtension.swift */,
+				118933C7259E1EBB008A639A /* UIImageExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				118FC9DE258101B300A4D1F5 /* SceneDelegate.swift in Sources */,
 				115CBE3E258E18C90094BD88 /* UISegmentedControlExtension.swift in Sources */,
 				11919ED4258F7550002F1F13 /* ItemDetailProtocol.swift in Sources */,
+				118933C8259E1EBB008A639A /* UIImageExtension.swift in Sources */,
 				11995740258B4B7E0023A639 /* DateCellHeader.swift in Sources */,
 				11969E262588C4AD00F25CDE /* UILabelExtension.swift in Sources */,
 				118D9C962584A80300FC29C0 /* DailyShopItem.swift in Sources */,
