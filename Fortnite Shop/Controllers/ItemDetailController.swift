@@ -82,6 +82,7 @@ extension ItemDetailController {
         // TODO: Handle this properly
         itemDetailView.didChangeSegment = { index in
             self.imagesController.setIsBeingDisplayed(index == 1)
+            self.setController.setIsBeingDisplayed(index == 2)
         }
     }
 
@@ -176,6 +177,7 @@ extension ItemDetailController {
                 return
             }
             self.imagesController.set(itemDetail: itemDetail)
+            self.setController.insert(identitites: itemDetail.itemsInSet)
             self.datesController.addDates(itemDetail.history)
             if !itemDetail.itemsInSet.isEmpty {
                 DispatchQueue.main.async {
@@ -199,6 +201,7 @@ extension ItemDetailController {
         }
     }
 
+    /*
     private func fetchSetItems(for item: ItemDetail, completion:  @escaping () -> Void) {
         let items = item.itemsInSet
         let dispatchGroup = DispatchGroup()
@@ -223,6 +226,6 @@ extension ItemDetailController {
             self.setController.insert(self.setItems)
             completion()
         }
-    }
+    }*/
 
 }
