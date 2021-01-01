@@ -74,16 +74,16 @@ extension ItemDetailController {
     private func setUpDetailView(for item: ItemDetail, with image: UIImage) {
         view.addSubview(itemDetailView)
         itemDetailView.setUpView(for: item, with: image)
+        itemDetailView.didChangeSegment = handleSwitchedSegments(to:)
         itemDetailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         itemDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         itemDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         itemDetailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
 
-        // TODO: Handle this properly
-        itemDetailView.didChangeSegment = { index in
-            self.imagesController.setIsBeingDisplayed(index == 1)
-            self.setController.setIsBeingDisplayed(index == 2)
-        }
+    private func handleSwitchedSegments(to index: Int) {
+        imagesController.setIsBeingDisplayed(index == 1)
+        setController.setIsBeingDisplayed(index == 2)
     }
 
     private func setUpImagesController() {
