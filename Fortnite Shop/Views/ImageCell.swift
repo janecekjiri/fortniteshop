@@ -34,12 +34,11 @@ class ImageCell: UICollectionViewCell {
     }
 
     func showImage(_ image: UIImage?, for rarity: Rarity) {
-        itemImageView.image = image
-
         if image == nil {
             showRarityBackground(for: rarity)
             itemImageView.layer.borderWidth = 2
         } else {
+            itemImageView.image = image
             itemImageView.layer.borderWidth = 0
         }
     }
