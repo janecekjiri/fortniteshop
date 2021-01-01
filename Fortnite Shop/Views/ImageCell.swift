@@ -10,9 +10,6 @@ import UIKit
 
 class ImageCell: UICollectionViewCell {
 
-    // TODO: Remove this
-    private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
-
     private let itemImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -21,19 +18,11 @@ class ImageCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        positionActivityIndicator()
         positionImageView()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    // TODO: Remove this method
-    private func positionActivityIndicator() {
-        addSubview(activityIndicator)
-        activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
     private func positionImageView() {
@@ -42,17 +31,6 @@ class ImageCell: UICollectionViewCell {
         itemImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         itemImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         itemImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-    }
-
-    // TODO: Remove this method
-    func showImage(_ image: UIImage?) {
-        itemImageView.image = image
-
-        if image == nil {
-            activityIndicator.startAnimating()
-        } else {
-            activityIndicator.stopAnimating()
-        }
     }
 
     func showImage(_ image: UIImage?, for rarity: Rarity) {
