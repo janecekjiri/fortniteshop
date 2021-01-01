@@ -26,35 +26,6 @@ class ImagesController: UICollectionViewController {
         super.viewDidLoad()
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
-
-    func set(itemDetail: ItemDetail) {
-        self.itemDetail = itemDetail
-        makeImageTasks(for: itemDetail)
-    }
-
-    func setIsBeingDisplayed(_ isBeingDisplayed: Bool) {
-        self.isBeingDisplayed = isBeingDisplayed
-        if isBeingDisplayed {
-            self.collectionView.reloadData()
-        } else {
-            self.imageTasks.forEach { $0.pause() }
-        }
-    }
-
-    private func makeImageTasks(for item: ItemDetail) {
-        var urls = [item.icon]
-        if let url = item.featured {
-            urls.append(url)
-        }
-        let session = URLSession.shared
-        urls.enumerated().forEach { index, url in
-            let imageTask = ImageTask(url: url, session: session)
-            imageTask.didDownloadImage = {
-                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
-            }
-            self.imageTasks.append(imageTask)
-        }
-    }
 }
 
 // MARK: - CollectionView Setup Methods
@@ -108,6 +79,38 @@ extension ImagesController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let image = imageTasks[indexPath.item].image {
             didSelectImage?(image)
+        }
+    }
+}
+
+// MARK: - Custom Methods
+extension ImagesController {
+    func set(itemDetail: ItemDetail) {
+        self.itemDetail = itemDetail
+        makeImageTasks(for: itemDetail)
+    }
+
+    func setIsBeingDisplayed(_ isBeingDisplayed: Bool) {
+        self.isBeingDisplayed = isBeingDisplayed
+        if isBeingDisplayed {
+            self.collectionView.reloadData()
+        } else {
+            self.imageTasks.forEach { $0.pause() }
+        }
+    }
+
+    private func makeImageTasks(for item: ItemDetail) {
+        var urls = [item.icon]
+        if let url = item.featured {
+            urls.append(url)
+        }
+        let session = URLSession.shared
+        urls.enumerated().forEach { index, url in
+            let imageTask = ImageTask(url: url, session: session)
+            imageTask.didDownloadImage = {
+                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            }
+            self.imageTasks.append(imageTask)
         }
     }
 }
