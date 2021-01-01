@@ -36,13 +36,7 @@ class ItemDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        setUpImagesController()
-
-        setController.didPressSet = { setItem in
-            let itemDetailController = ItemDetailController(for: setItem)
-            self.navigationController?.pushViewController(itemDetailController, animated: true)
-        }
-
+        setUpSegmentedControllers()
         addChildControllers()
         positionActivityIndicator()
         setUpImageDetailView()
@@ -81,14 +75,32 @@ extension ItemDetailController {
         itemDetailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 
-    private func handleSwitchedSegments(to index: Int) {
-        imagesController.setIsBeingDisplayed(index == 1)
-        setController.setIsBeingDisplayed(index == 2)
-    }
-
     private func setUpImagesController() {
         imagesController.didSelectImage = { image in
             self.showImage(image)
+        }
+    }
+
+    private func setUpSetController() {
+        setController.didPressSet = { setItem in
+            let itemDetailController = ItemDetailController(for: setItem)
+            self.navigationController?.pushViewController(itemDetailController, animated: true)
+        }
+    }
+
+    private func setUpSegmentedControllers() {
+        setUpImagesController()
+        setUpSetController()
+    }
+
+    private func setUpControllers(for itemDetail: ItemDetail) {
+        datesController.addDates(itemDetail.history)
+        imagesController.set(itemDetail: itemDetail)
+        if !itemDetail.itemsInSet.isEmpty {
+            setController.insert(identitites: itemDetail.itemsInSet)
+            DispatchQueue.main.async {
+                self.addChild(controller: self.setController)
+            }
         }
     }
 
@@ -165,6 +177,18 @@ extension ItemDetailController {
         // TODO: Dismiss current VC and return to the previous one
     }
 
+    private func handleFinishedFetch(for itemDetail: ItemDetail, with image: UIImage) {
+        activityIndicator.stopAnimating()
+        navigationItem.title = itemDetail.name
+        setUpDetailView(for: itemDetail, with: image)
+        positionImageDetailView()
+    }
+
+    private func handleSwitchedSegments(to index: Int) {
+        imagesController.setIsBeingDisplayed(index == 1)
+        setController.setIsBeingDisplayed(index == 2)
+    }
+
 }
 
 // MARK: - Networking
@@ -176,14 +200,7 @@ extension ItemDetailController {
                 self.handleFetchError()
                 return
             }
-            self.imagesController.set(itemDetail: itemDetail)
-            self.setController.insert(identitites: itemDetail.itemsInSet)
-            self.datesController.addDates(itemDetail.history)
-            if !itemDetail.itemsInSet.isEmpty {
-                DispatchQueue.main.async {
-                    self.addChild(controller: self.setController)
-                }
-            }
+            self.setUpControllers(for: itemDetail)
             DispatchQueue.main.async {
                 self.imageDetailView.backgroundColor = UIColor.rarityColor(for: itemDetail.rarity)
             }
@@ -192,40 +209,10 @@ extension ItemDetailController {
                     return
                 }
                 DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.navigationItem.title = itemDetail.name
-                    self.setUpDetailView(for: itemDetail, with: image)
-                    self.positionImageDetailView()
+                    self.handleFinishedFetch(for: itemDetail, with: image)
                 }
             }
         }
     }
-
-    /*
-    private func fetchSetItems(for item: ItemDetail, completion:  @escaping () -> Void) {
-        let items = item.itemsInSet
-        let dispatchGroup = DispatchGroup()
-        items.forEach { identity in
-            dispatchGroup.enter()
-            Service.shared.fetchItemDetail(for: identity) { setItem in
-                guard let setItem = setItem else {
-                    dispatchGroup.leave()
-                    return
-                }
-                Service.shared.fetchImage(url: setItem.fullBackground) { image in
-                    guard let image = image else {
-                        dispatchGroup.leave()
-                        return
-                    }
-                    self.setItems.append((setItem, image))
-                    dispatchGroup.leave()
-                }
-            }
-        }
-        dispatchGroup.notify(queue: .main) {
-            self.setController.insert(self.setItems)
-            completion()
-        }
-    }*/
 
 }
