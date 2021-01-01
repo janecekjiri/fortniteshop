@@ -78,6 +78,11 @@ extension ItemDetailController {
         itemDetailView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         itemDetailView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         itemDetailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+
+        // TODO: Handle this properly
+        itemDetailView.didChangeSegment = { index in
+            self.imagesController.setIsBeingDisplayed(index == 1)
+        }
     }
 
     private func setUpImagesController() {
@@ -114,14 +119,6 @@ extension ItemDetailController {
 
 // MARK: - Custom Methods
 extension ItemDetailController {
-
-    private func makeLinkArray(for item: ItemDetail) -> [String] {
-        var urls = [item.icon]
-        if let url = item.featured {
-            urls.append(url)
-        }
-        return urls
-    }
 
     private func addChildControllers() {
         addChild(controller: datesController, doesHaveBorder: true)
@@ -178,6 +175,7 @@ extension ItemDetailController {
                 self.handleFetchError()
                 return
             }
+            self.imagesController.set(itemDetail: itemDetail)
             self.datesController.addDates(itemDetail.history)
             if !itemDetail.itemsInSet.isEmpty {
                 DispatchQueue.main.async {
@@ -191,37 +189,13 @@ extension ItemDetailController {
                 guard let image = image else {
                     return
                 }
-                self.fetchImages(for: itemDetail) {
-                    self.fetchSetItems(for: itemDetail) {
-                        DispatchQueue.main.async {
-                            self.activityIndicator.stopAnimating()
-                            self.navigationItem.title = itemDetail.name
-                            self.setUpDetailView(for: itemDetail, with: image)
-                            self.positionImageDetailView()
-                        }
-                    }
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.navigationItem.title = itemDetail.name
+                    self.setUpDetailView(for: itemDetail, with: image)
+                    self.positionImageDetailView()
                 }
             }
-        }
-    }
-
-    private func fetchImages(for item: ItemDetail, completion: @escaping () -> Void) {
-        let urls = makeLinkArray(for: item)
-        let dispatchGroup = DispatchGroup()
-        urls.forEach { url in
-            dispatchGroup.enter()
-            Service.shared.fetchImage(url: url) { image in
-                guard let image = image else {
-                    dispatchGroup.leave()
-                    return
-                }
-                self.images.append(image)
-                dispatchGroup.leave()
-            }
-        }
-        dispatchGroup.notify(queue: .main) {
-            self.imagesController.insert(self.images, item.rarity)
-            completion()
         }
     }
 
