@@ -51,17 +51,12 @@ class ImageCell: UICollectionViewCell {
 
     func showImage(_ image: UIImage?, for rarity: Rarity) {
         if image == nil {
-            showTemporarilyRarityBackground(for: rarity)
+            showRarityBackground(for: rarity, using: itemImageView)
             itemImageView.layer.borderWidth = 2
         } else {
             itemImageView.image = image
             itemImageView.layer.borderWidth = 0
         }
-    }
-
-    private func showTemporarilyRarityBackground(for rarity: Rarity) {
-        itemImageView.layer.borderColor = UIColor.rarityBorderColor(for: rarity).cgColor
-        itemImageView.image = UIImage.rarityBackground(for: rarity)
     }
 
     func showImage(_ image: UIImage?, withBackgroundRarity rarity: Rarity) {
@@ -72,12 +67,12 @@ class ImageCell: UICollectionViewCell {
             itemImageView.layer.borderColor = UIColor.rarityBorderColor(for: rarity).cgColor
             itemImageView.layer.borderWidth = 2
         }
-        showRarityBackground(for: rarity)
+        showRarityBackground(for: rarity, using: backgroundImageView)
     }
 
-    private func showRarityBackground(for rarity: Rarity) {
-        backgroundImageView.layer.borderColor = UIColor.rarityBorderColor(for: rarity).cgColor
-        backgroundImageView.image = UIImage.rarityBackground(for: rarity)
+    private func showRarityBackground(for rarity: Rarity, using imageView: UIImageView) {
+        imageView.layer.borderColor = UIColor.rarityBorderColor(for: rarity).cgColor
+        imageView.image = UIImage.rarityBackground(for: rarity)
     }
 
 }
