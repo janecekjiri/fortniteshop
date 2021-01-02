@@ -43,8 +43,7 @@ extension ImagesController: UICollectionViewDelegateFlowLayout {
             return cell
         }
         if let itemDetail = itemDetail {
-            imageCell.showImage(imageTasks[indexPath.item].image, for: itemDetail.rarity)
-            imageCell.backgroundColor = UIColor.rarityColor(for: itemDetail.rarity)
+            imageCell.showImage(imageTasks[indexPath.item].image, withBackgroundRarity: itemDetail.rarity)
         }
         return imageCell
     }

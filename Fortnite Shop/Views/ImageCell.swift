@@ -10,14 +10,22 @@ import UIKit
 
 class ImageCell: UICollectionViewCell {
 
+    private let backgroundImageView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private let itemImageView: UIImageView = {
         let view = UIImageView()
+        view.isOpaque = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        positionBackgroundImageView()
         positionImageView()
     }
 
@@ -33,9 +41,17 @@ class ImageCell: UICollectionViewCell {
         itemImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 
+    private func positionBackgroundImageView() {
+        addSubview(backgroundImageView)
+        backgroundImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        backgroundImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        backgroundImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
+
     func showImage(_ image: UIImage?, for rarity: Rarity) {
         if image == nil {
-            showRarityBackground(for: rarity)
+            showTemporarilyRarityBackground(for: rarity)
             itemImageView.layer.borderWidth = 2
         } else {
             itemImageView.image = image
@@ -43,9 +59,25 @@ class ImageCell: UICollectionViewCell {
         }
     }
 
-    private func showRarityBackground(for rarity: Rarity) {
+    private func showTemporarilyRarityBackground(for rarity: Rarity) {
         itemImageView.layer.borderColor = UIColor.rarityBorderColor(for: rarity).cgColor
         itemImageView.image = UIImage.rarityBackground(for: rarity)
+    }
+
+    func showImage(_ image: UIImage?, withBackgroundRarity rarity: Rarity) {
+        if image == nil {
+            backgroundImageView.layer.borderWidth = 2
+        } else {
+            itemImageView.image = image
+            itemImageView.layer.borderColor = UIColor.rarityBorderColor(for: rarity).cgColor
+            itemImageView.layer.borderWidth = 2
+        }
+        showRarityBackground(for: rarity)
+    }
+
+    private func showRarityBackground(for rarity: Rarity) {
+        backgroundImageView.layer.borderColor = UIColor.rarityBorderColor(for: rarity).cgColor
+        backgroundImageView.image = UIImage.rarityBackground(for: rarity)
     }
 
 }
