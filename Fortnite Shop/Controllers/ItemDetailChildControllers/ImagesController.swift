@@ -42,8 +42,9 @@ extension ImagesController: UICollectionViewDelegateFlowLayout {
         guard let imageCell = cell as? ImageCell else {
             return cell
         }
+        let image = imageTasks[indexPath.item].image
         if let itemDetail = itemDetail {
-            imageCell.showTransparentImage(imageTasks[indexPath.item].image, withBackgroundRarity: itemDetail.rarity)
+            imageCell.showTransparentImage(image, withBackgroundRarity: itemDetail.rarity)
         }
         return imageCell
     }
