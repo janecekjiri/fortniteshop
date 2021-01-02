@@ -25,28 +25,20 @@ class ImageCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        positionBackgroundImageView()
-        positionImageView()
+        positionImageView(backgroundImageView)
+        positionImageView(itemImageView)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func positionImageView() {
-        addSubview(itemImageView)
-        itemImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        itemImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        itemImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        itemImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-    }
-
-    private func positionBackgroundImageView() {
-        addSubview(backgroundImageView)
-        backgroundImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        backgroundImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        backgroundImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    private func positionImageView(_ imageView: UIImageView) {
+        addSubview(imageView)
+        imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        imageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        imageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 
     func showFullBackgroundImage(_ image: UIImage?, for rarity: Rarity) {
