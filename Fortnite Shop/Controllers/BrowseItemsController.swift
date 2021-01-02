@@ -18,6 +18,7 @@ class BrowseItemsController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Browse Items"
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
 
