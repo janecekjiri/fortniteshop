@@ -18,13 +18,16 @@ class ImageDetailView: UIView {
         return button
     }()
 
+    private let backgroundImageView = UIImageView(contentMode: .scaleAspectFit)
     private let imageView = UIImageView(contentMode: .scaleAspectFit)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
         translatesAutoresizingMaskIntoConstraints = false
-        positionImageView()
+        imageView.isOpaque = false
+        positionImageView(backgroundImageView)
+        positionImageView(imageView)
         positionCloseButton()
     }
 
@@ -32,7 +35,7 @@ class ImageDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func positionImageView() {
+    private func positionImageView(_ imageView: UIImageView) {
         addSubview(imageView)
         imageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         imageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
@@ -50,6 +53,10 @@ class ImageDetailView: UIView {
 
     func showImage(_ image: UIImage) {
         imageView.image = image
+    }
+
+    func setRarityBackground(for rarity: Rarity) {
+        backgroundImageView.image = UIImage.rarityBackground(for: rarity)
     }
 
     @objc func pressedCloseButton() {

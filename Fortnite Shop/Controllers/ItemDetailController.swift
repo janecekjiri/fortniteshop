@@ -202,7 +202,7 @@ extension ItemDetailController {
             }
             self.setUpControllers(for: itemDetail)
             DispatchQueue.main.async {
-                self.imageDetailView.backgroundColor = UIColor.rarityColor(for: itemDetail.rarity)
+                self.imageDetailView.setRarityBackground(for: itemDetail.rarity)
             }
             Service.shared.fetchImage(url: itemDetail.fullBackground) { image in
                 guard let image = image else {

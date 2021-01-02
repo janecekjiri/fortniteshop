@@ -15,21 +15,6 @@ extension UIColor {
         self.init(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
     }
 
-    static func rarityColor(for rarity: Rarity) -> UIColor {
-        switch rarity {
-        case .uncommon:
-            return uncommonRarityColor
-        case .rare:
-            return rareRarityColor
-        case .epic:
-            return epicRarityColor
-        case .legendary:
-            return legendaryRarityColor
-        default:
-            return commonRarityColor
-        }
-    }
-
     static func rarityBorderColor(for rarity: Rarity) -> UIColor {
         switch rarity {
         case .uncommon:
@@ -64,17 +49,6 @@ extension UIColor {
             return commonBorderColor
         }
     }
-
-    // MARK: - Rarity Colors
-    static let commonRarityColor = UIColor.gray
-
-    static let uncommonRarityColor = UIColor(red: 49, green: 146, blue: 54)
-
-    static let rareRarityColor = UIColor(red: 11, green: 118, blue: 170)
-
-    static let epicRarityColor = UIColor(red: 157, green: 77, blue: 187)
-
-    static let legendaryRarityColor = UIColor(red: 195, green: 94, blue: 40)
 
     // MARK: - Rarity Border Colors
 
