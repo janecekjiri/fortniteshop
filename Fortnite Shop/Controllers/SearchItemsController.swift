@@ -127,7 +127,7 @@ extension SearchItemsController {
            }
            let image = items[indexPath.item].1.image
            let item = items[indexPath.item].0
-           searchCell.showImage(image, for: item.rarity)
+           searchCell.showFullBackgroundImage(image, for: item.rarity)
            return searchCell
        }
 

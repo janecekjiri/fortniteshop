@@ -42,7 +42,7 @@ extension SetController: UICollectionViewDelegateFlowLayout {
         }
         let item = items[indexPath.row].0
         let image = items[indexPath.row].1.image
-        itemCell.showImage(image, for: item.rarity)
+        itemCell.showFullBackgroundImage(image, for: item.rarity)
         return itemCell
     }
 

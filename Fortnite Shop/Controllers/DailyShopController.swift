@@ -153,7 +153,7 @@ extension DailyShopController {
 
         let image = items[indexPath.item].1.image
         let item = items[indexPath.item].0
-        dailyShopCell.showImage(image, for: item.rarity)
+        dailyShopCell.showFullBackgroundImage(image, for: item.rarity)
 
         return dailyShopCell
     }

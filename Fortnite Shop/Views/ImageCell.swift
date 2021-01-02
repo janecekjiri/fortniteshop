@@ -49,7 +49,7 @@ class ImageCell: UICollectionViewCell {
         backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 
-    func showImage(_ image: UIImage?, for rarity: Rarity) {
+    func showFullBackgroundImage(_ image: UIImage?, for rarity: Rarity) {
         if image == nil {
             showRarityBackground(for: rarity, using: itemImageView)
             itemImageView.layer.borderWidth = 2
@@ -59,7 +59,7 @@ class ImageCell: UICollectionViewCell {
         }
     }
 
-    func showImage(_ image: UIImage?, withBackgroundRarity rarity: Rarity) {
+    func showTransparentImage(_ image: UIImage?, withBackgroundRarity rarity: Rarity) {
         if image == nil {
             backgroundImageView.layer.borderWidth = 2
         } else {
