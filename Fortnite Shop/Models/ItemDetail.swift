@@ -9,11 +9,16 @@
 import Foundation
 
 enum Rarity: String, Comparable {
-    case common
-    case uncommon
-    case rare
-    case epic
-    case legendary
+    case uncommon, rare, epic, legendary, marvel
+    case darkSeries = "dark"
+    case frozenSeries = "frozen series"
+    case shadowSeries = "shadow series"
+    case slurpSeries = "slurp series"
+    case lavaSeries = "lava series"
+    case iconSeries = "icon series"
+    case dcSeries = "dc"
+    case starWarsSeries = "star wars series"
+    case gamingLegendsSeries = "platform series"
     case unknown
 
     static func<(lhs: Rarity, rhs: Rarity) -> Bool {
@@ -22,8 +27,6 @@ enum Rarity: String, Comparable {
 
     private func returnRarityValue() -> Int {
         switch self {
-        case .common:
-            return 0
         case .uncommon:
             return 1
         case .rare:

@@ -11,8 +11,10 @@ import UIKit
 class ImagesController: UICollectionViewController {
 
     private let cellId = "cellId"
-    private var images = [UIImage]()
+    private var imageTasks = [ImageTask]()
     private var rarity = Rarity.unknown
+    private var itemDetail: ItemDetail?
+    private var isBeingDisplayed = false
 
     var didSelectImage: ((UIImage) -> Void)?
 
@@ -24,18 +26,12 @@ class ImagesController: UICollectionViewController {
         super.viewDidLoad()
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
-
-    func insert(_ images: [UIImage], _ rarity: Rarity) {
-        images.forEach { self.images.append($0) }
-        self.rarity = rarity
-        collectionView.reloadData()
-    }
 }
 
 // MARK: - CollectionView Setup Methods
 extension ImagesController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return imageTasks.count
     }
 
     override func collectionView(
@@ -46,9 +42,29 @@ extension ImagesController: UICollectionViewDelegateFlowLayout {
         guard let imageCell = cell as? ImageCell else {
             return cell
         }
-        imageCell.showImage(images[indexPath.item])
-        imageCell.backgroundColor = UIColor.rarityColor(for: rarity)
+        let image = imageTasks[indexPath.item].image
+        if let itemDetail = itemDetail {
+            imageCell.showTransparentImage(image, withBackgroundRarity: itemDetail.rarity)
+        }
         return imageCell
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        if isBeingDisplayed {
+            imageTasks[indexPath.row].resume()
+        }
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        didEndDisplaying cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        imageTasks[indexPath.row].pause()
     }
 
     func collectionView(
@@ -61,6 +77,40 @@ extension ImagesController: UICollectionViewDelegateFlowLayout {
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelectImage?(images[indexPath.item])
+        if let image = imageTasks[indexPath.item].image {
+            didSelectImage?(image)
+        }
+    }
+}
+
+// MARK: - Custom Methods
+extension ImagesController {
+    func set(itemDetail: ItemDetail) {
+        self.itemDetail = itemDetail
+        makeImageTasks(for: itemDetail)
+    }
+
+    func setIsBeingDisplayed(_ isBeingDisplayed: Bool) {
+        self.isBeingDisplayed = isBeingDisplayed
+        if isBeingDisplayed {
+            self.collectionView.reloadData()
+        } else {
+            self.imageTasks.forEach { $0.pause() }
+        }
+    }
+
+    private func makeImageTasks(for item: ItemDetail) {
+        var urls = [item.icon]
+        if let url = item.featured {
+            urls.append(url)
+        }
+        let session = URLSession.shared
+        urls.enumerated().forEach { index, url in
+            let imageTask = ImageTask(url: url, session: session)
+            imageTask.didDownloadImage = {
+                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            }
+            self.imageTasks.append(imageTask)
+        }
     }
 }

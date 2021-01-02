@@ -18,6 +18,7 @@
 		115CBE40258E22CA0094BD88 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115CBE3F258E22CA0094BD88 /* UIViewExtension.swift */; };
 		115CBE42258E24EA0094BD88 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115CBE41258E24EA0094BD88 /* UIImageViewExtension.swift */; };
 		115CBE44258E26820094BD88 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115CBE43258E26820094BD88 /* UIButtonExtension.swift */; };
+		118933C8259E1EBB008A639A /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118933C7259E1EBB008A639A /* UIImageExtension.swift */; };
 		118D9C962584A80300FC29C0 /* DailyShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D9C952584A80300FC29C0 /* DailyShopItem.swift */; };
 		118FC9DC258101B300A4D1F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118FC9DB258101B300A4D1F5 /* AppDelegate.swift */; };
 		118FC9DE258101B300A4D1F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118FC9DD258101B300A4D1F5 /* SceneDelegate.swift */; };
@@ -40,6 +41,7 @@
 		11995744258B95420023A639 /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11995743258B95420023A639 /* ImageDetailView.swift */; };
 		11A27C292595F64F00CDC4E9 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A27C282595F64F00CDC4E9 /* ListItem.swift */; };
 		11A27C2B2595FA8A00CDC4E9 /* ListItemsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A27C2A2595FA8A00CDC4E9 /* ListItemsModel.swift */; };
+		11BD9885259CA2210018A0DE /* ImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BD9884259CA2210018A0DE /* ImageTask.swift */; };
 		11CD5BA325836E28000FD294 /* CollectionViewLabelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */; };
 		11CD5BA725837DA4000FD294 /* BurbankBigCondensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */; };
 		11CD5BAA258380E5000FD294 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD5BA9258380E5000FD294 /* UIFontExtension.swift */; };
@@ -57,6 +59,7 @@
 		115CBE3F258E22CA0094BD88 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		115CBE41258E24EA0094BD88 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		115CBE43258E26820094BD88 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		118933C7259E1EBB008A639A /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		118D9C952584A80300FC29C0 /* DailyShopItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyShopItem.swift; sourceTree = "<group>"; };
 		118FC9D8258101B300A4D1F5 /* Fortnite Shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fortnite Shop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		118FC9DB258101B300A4D1F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 		11995743258B95420023A639 /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		11A27C282595F64F00CDC4E9 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		11A27C2A2595FA8A00CDC4E9 /* ListItemsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemsModel.swift; sourceTree = "<group>"; };
+		11BD9884259CA2210018A0DE /* ImageTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTask.swift; sourceTree = "<group>"; };
 		11CD5BA225836E28000FD294 /* CollectionViewLabelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLabelHeader.swift; sourceTree = "<group>"; };
 		11CD5BA625837DA1000FD294 /* BurbankBigCondensed-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BurbankBigCondensed-Black.otf"; sourceTree = "<group>"; };
 		11CD5BA9258380E5000FD294 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				11458C4E25820F4400D562AA /* Service.swift */,
+				11BD9884259CA2210018A0DE /* ImageTask.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 				115CBE3F258E22CA0094BD88 /* UIViewExtension.swift */,
 				115CBE41258E24EA0094BD88 /* UIImageViewExtension.swift */,
 				115CBE43258E26820094BD88 /* UIButtonExtension.swift */,
+				118933C7259E1EBB008A639A /* UIImageExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -335,11 +341,13 @@
 				115CBE40258E22CA0094BD88 /* UIViewExtension.swift in Sources */,
 				1199573A258B31A00023A639 /* DatesController.swift in Sources */,
 				11458C4F25820F4400D562AA /* Service.swift in Sources */,
+				11BD9885259CA2210018A0DE /* ImageTask.swift in Sources */,
 				11995744258B95420023A639 /* ImageDetailView.swift in Sources */,
 				1199573C258B32E80023A639 /* DateCell.swift in Sources */,
 				118FC9DE258101B300A4D1F5 /* SceneDelegate.swift in Sources */,
 				115CBE3E258E18C90094BD88 /* UISegmentedControlExtension.swift in Sources */,
 				11919ED4258F7550002F1F13 /* ItemDetailProtocol.swift in Sources */,
+				118933C8259E1EBB008A639A /* UIImageExtension.swift in Sources */,
 				11995740258B4B7E0023A639 /* DateCellHeader.swift in Sources */,
 				11969E262588C4AD00F25CDE /* UILabelExtension.swift in Sources */,
 				118D9C962584A80300FC29C0 /* DailyShopItem.swift in Sources */,

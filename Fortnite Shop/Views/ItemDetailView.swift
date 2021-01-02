@@ -19,6 +19,8 @@ class ItemDetailView: UIView {
     private let imageView = UIImageView()
     private var segmentedViews = [UIView]()
 
+    var didChangeSegment: ((Int) -> Void)?
+
     private lazy var historyStackView = UIStackView.makeVerticalStackView(
         arrangedSubview: [releaseDateLabel, lastSeenLabel, occurrencesLabel],
         distribution: .fillEqually,
@@ -45,6 +47,7 @@ class ItemDetailView: UIView {
 
     @objc private func segmentDidChange(_ segmentedControl: UISegmentedControl) {
         segmentedViews.enumerated().forEach { $1.isHidden = $0 != segmentedControl.selectedSegmentIndex }
+        didChangeSegment?(segmentedControl.selectedSegmentIndex)
     }
 
 }

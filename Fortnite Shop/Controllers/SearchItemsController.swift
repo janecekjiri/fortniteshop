@@ -13,7 +13,7 @@ class SearchItemsController: UICollectionViewController {
     private let cellId = "cellId"
     private let headerId = "headerId"
     private var hasSearched = false
-    private var items = [(ListItem, UIImage)]()
+    private var items = [(ListItem, ImageTask)]()
 
     private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
 
@@ -29,27 +29,6 @@ class SearchItemsController: UICollectionViewController {
         setUpNavigationItem()
         positionActivityIndicator()
         registerCells()
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
-    }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        guard let searchCell = cell as? ImageCell else {
-            return cell
-        }
-        searchCell.showImage(items[indexPath.row].1)
-        return searchCell
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
-        navigationController?.pushViewController(itemDetailController, animated: true)
     }
 }
 
@@ -96,32 +75,10 @@ extension SearchItemsController: UISearchBarDelegate {
                 return
             }
 
-            var tempItems = allItemsModel.items
-            tempItems.removeAll { !$0.name.lowercased().contains(searchedText.lowercased()) }
-
-            let dispatchGroup = DispatchGroup()
-            tempItems.forEach { item in
-                dispatchGroup.enter()
-                self.fetchImage(for: item) {
-                    dispatchGroup.leave()
-                }
-            }
-
-            dispatchGroup.notify(queue: .main) {
-                // TODO: Test that this works. If it crashes, put it into DispatchQueue.main
+            self.fillItems(with: allItemsModel.items, for: searchedText)
+            DispatchQueue.main.async {
                 self.setUpAfterFetch()
             }
-        }
-    }
-
-    private func fetchImage(for item: ListItem, completion: @escaping () -> Void) {
-        Service.shared.fetchImage(url: item.fullBackground) { image in
-            guard let image = image else {
-                completion()
-                return
-            }
-            self.items.append((item, image))
-            completion()
         }
     }
 
@@ -139,6 +96,61 @@ extension SearchItemsController: UISearchBarDelegate {
         collectionView.allowsSelection = true
         collectionView.reloadData()
     }
+
+    private func fillItems(with listItems: [ListItem], for searchedText: String) {
+        var filteredItems = listItems
+        filteredItems.removeAll { !$0.name.lowercased().contains(searchedText.lowercased()) }
+        let session = URLSession.shared
+        filteredItems.enumerated().forEach { index, listItem in
+            let imageTask = ImageTask(url: listItem.fullBackground, session: session)
+            imageTask.didDownloadImage = {
+                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            }
+            self.items.append((listItem, imageTask))
+        }
+    }
+}
+
+// MARK: - UICollectionView Setup Methods
+extension SearchItemsController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+           return items.count
+       }
+
+       override func collectionView(
+           _ collectionView: UICollectionView,
+           cellForItemAt indexPath: IndexPath
+       ) -> UICollectionViewCell {
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+           guard let searchCell = cell as? ImageCell else {
+               return cell
+           }
+           let image = items[indexPath.item].1.image
+           let item = items[indexPath.item].0
+           searchCell.showFullBackgroundImage(image, for: item.rarity)
+           return searchCell
+       }
+
+       override func collectionView(
+           _ collectionView: UICollectionView,
+           willDisplay cell: UICollectionViewCell,
+           forItemAt indexPath: IndexPath
+       ) {
+           items[indexPath.row].1.resume()
+       }
+
+       override func collectionView(
+           _ collectionView: UICollectionView,
+           didEndDisplaying cell: UICollectionViewCell,
+           forItemAt indexPath: IndexPath
+       ) {
+           items[indexPath.row].1.pause()
+       }
+
+       override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+           let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
+           navigationController?.pushViewController(itemDetailController, animated: true)
+       }
 }
 
 // MARK: - UICollectionView Layout Methods

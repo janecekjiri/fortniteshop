@@ -11,7 +11,8 @@ import UIKit
 class SetController: UICollectionViewController {
 
     private let imageCellId = "imageCellId"
-    private var items = [(ItemDetail, UIImage)]()
+    private var isBeingDisplayed = false
+    private var items = [(ItemDetail, ImageTask)]()
 
     var didPressSet: ((ItemDetail) -> Void)?
 
@@ -22,11 +23,6 @@ class SetController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: imageCellId)
-    }
-
-    func insert(_ items: [(ItemDetail, UIImage)]) {
-        self.items = items
-        collectionView.reloadData()
     }
 }
 
@@ -44,9 +40,29 @@ extension SetController: UICollectionViewDelegateFlowLayout {
         guard let itemCell = cell as? ImageCell else {
             return cell
         }
-        let image = items[indexPath.row].1
-        itemCell.showImage(image)
+        let item = items[indexPath.row].0
+        let image = items[indexPath.row].1.image
+        itemCell.showFullBackgroundImage(image, for: item.rarity)
         return itemCell
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        if isBeingDisplayed {
+            items[indexPath.row].1.resume()
+        }
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        didEndDisplaying cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        // TODO: Figure out why with the next line uncommented, some pictures aren't occasionally presented
+        //items[indexPath.row].1.pause()
     }
 
     func collectionView(
@@ -61,5 +77,33 @@ extension SetController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items[indexPath.row].0
         didPressSet?(item)
+    }
+}
+
+// MARK: - Custom Methods
+extension SetController {
+    func setIsBeingDisplayed(_ isBeingDisplayed: Bool) {
+        self.isBeingDisplayed = isBeingDisplayed
+        if isBeingDisplayed {
+            self.collectionView.reloadData()
+        } else {
+            self.items.forEach { $1.pause() }
+        }
+    }
+
+    func insert(identitites: [String]) {
+        let session = URLSession.shared
+        identitites.enumerated().forEach { index, identity in
+            Service.shared.fetchItemDetail(for: identity) { itemDetail in
+                guard let itemDetail = itemDetail else {
+                    return
+                }
+                let imageTask = ImageTask(url: itemDetail.fullBackground, session: session)
+                imageTask.didDownloadImage = {
+                    self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                }
+                self.items.append((itemDetail, imageTask))
+            }
+        }
     }
 }

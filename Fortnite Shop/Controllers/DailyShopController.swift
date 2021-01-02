@@ -12,7 +12,7 @@ class DailyShopController: UICollectionViewController {
 
     private let dailyShopCellId = "dailyShopCellId"
     private let collectionViewHeader = "collectionViewHeader"
-    private var items = [(DailyShopItem, UIImage)]()
+    private var items = [(DailyShopItem, ImageTask)]()
     private var isFetchingData = true
     private let dateFormatter = DateFormatter()
 
@@ -28,51 +28,6 @@ class DailyShopController: UICollectionViewController {
         prepareActivityIndicator()
         registerCells()
         fetchDailyShop()
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
-    }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dailyShopCellId, for: indexPath)
-        guard let dailyShopCell = cell as? ImageCell else {
-            return cell
-        }
-        dailyShopCell.showImage(items[indexPath.item].1)
-        return dailyShopCell
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
-        navigationController?.pushViewController(itemDetailController, animated: true)
-    }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath
-    ) -> UICollectionReusableView {
-        if let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: collectionViewHeader,
-            for: indexPath
-            ) as? CollectionViewLabelHeader {
-            header.setTitle(returnTodaysDate().uppercased())
-            return header
-        }
-        return UICollectionReusableView()
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        referenceSizeForHeaderInSection section: Int
-    ) -> CGSize {
-        return .init(width: view.frame.width, height: 40)
     }
 }
 
@@ -119,31 +74,24 @@ extension DailyShopController {
                 return
             }
 
-            let dispatchGroup = DispatchGroup()
-            dailyShop.items.forEach { item in
-                dispatchGroup.enter()
-                self.fetchImage(for: item) {
-                    dispatchGroup.leave()
-                }
+            // TODO: Move this sort to DailyShopModel
+            var dailyShopItems = dailyShop.items
+            dailyShopItems.sort { lhs, rhs -> Bool in
+                return lhs > rhs
             }
 
-            dispatchGroup.notify(queue: .main) {
+            let session = URLSession.shared
+            dailyShopItems.enumerated().forEach { index, item in
+                let imageTask = ImageTask(url: item.fullBackground, session: session)
+                imageTask.didDownloadImage = {
+                    self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                }
+                self.items.append((item, imageTask))
+            }
+
+            DispatchQueue.main.async {
                 self.setUpAfterFetch()
             }
-        }
-    }
-
-    private func fetchImage(for item: DailyShopItem, completion: @escaping () -> Void) {
-        Service.shared.fetchImage(url: item.fullBackground) { image in
-            guard let image = image else {
-                return
-            }
-            self.items.append((item, image))
-            // TODO: Move this sort to DailyShopModel
-            self.items.sort { lhs, rhs -> Bool in
-                return lhs.0 > rhs.0
-            }
-            completion()
         }
     }
 
@@ -188,6 +136,50 @@ extension DailyShopController {
     }
 }
 
+// MARK: - UICollectionView Setup Methods
+extension DailyShopController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return items.count
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dailyShopCellId, for: indexPath)
+        guard let dailyShopCell = cell as? ImageCell else {
+            return cell
+        }
+
+        let image = items[indexPath.item].1.image
+        let item = items[indexPath.item].0
+        dailyShopCell.showFullBackgroundImage(image, for: item.rarity)
+
+        return dailyShopCell
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        items[indexPath.row].1.resume()
+    }
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        didEndDisplaying cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        items[indexPath.row].1.pause()
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
+        navigationController?.pushViewController(itemDetailController, animated: true)
+    }
+}
+
 // MARK: - UICollectionView Layout Methods
 extension DailyShopController: UICollectionViewDelegateFlowLayout {
 
@@ -216,4 +208,31 @@ extension DailyShopController: UICollectionViewDelegateFlowLayout {
         return 10
     }
 
+}
+
+// MARK: - UICollectionView Section Headers Layout Methods
+extension DailyShopController {
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        if let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: collectionViewHeader,
+            for: indexPath
+            ) as? CollectionViewLabelHeader {
+            header.setTitle(returnTodaysDate().uppercased())
+            return header
+        }
+        return UICollectionReusableView()
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
+        return .init(width: view.frame.width, height: 40)
+    }
 }
