@@ -49,6 +49,12 @@ extension BrowseItemsController {
         return filterCell
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = browseItemsOptions[indexPath.item]
+        let filteredItemController = FilteredItemController(filterOption: item.browseItemsOption)
+        navigationController?.pushViewController(filteredItemController, animated: true)
+    }
+
 }
 
 // MARK: - UICollectionView Layout Methods
