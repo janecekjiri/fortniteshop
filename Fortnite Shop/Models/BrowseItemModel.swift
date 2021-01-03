@@ -16,9 +16,11 @@ enum BrowseItemsOption {
 
 class BrowseItemModel {
     let browseItemsOption: BrowseItemsOption
+    let title: String
 
-    init(browseItemsOption: BrowseItemsOption) {
+    init(browseItemsOption: BrowseItemsOption, title: String) {
         self.browseItemsOption = browseItemsOption
+        self.title = title
     }
 
     func returnRarity() -> Rarity {

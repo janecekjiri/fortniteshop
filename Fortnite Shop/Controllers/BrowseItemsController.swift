@@ -51,7 +51,7 @@ extension BrowseItemsController {
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = browseItemsOptions[indexPath.item]
-        let filteredItemController = FilteredItemController(filterOption: item.browseItemsOption)
+        let filteredItemController = FilteredItemController(filterOption: item)
         navigationController?.pushViewController(filteredItemController, animated: true)
     }
 
@@ -80,35 +80,35 @@ extension BrowseItemsController: UICollectionViewDelegateFlowLayout {
 extension BrowseItemsController {
     private func makeBrowsingOptions() {
         browseItemsOptions = [
-            BrowseItemModel(browseItemsOption: .all),
-            BrowseItemModel(browseItemsOption: .rarity(.uncommon)),
-            BrowseItemModel(browseItemsOption: .rarity(.rare)),
-            BrowseItemModel(browseItemsOption: .rarity(.epic)),
-            BrowseItemModel(browseItemsOption: .rarity(.legendary)),
-            BrowseItemModel(browseItemsOption: .rarity(.darkSeries)),
-            BrowseItemModel(browseItemsOption: .rarity(.frozenSeries)),
-            BrowseItemModel(browseItemsOption: .rarity(.shadowSeries)),
-            BrowseItemModel(browseItemsOption: .rarity(.slurpSeries)),
-            BrowseItemModel(browseItemsOption: .rarity(.lavaSeries)),
-            BrowseItemModel(browseItemsOption: .rarity(.iconSeries)),
-            BrowseItemModel(browseItemsOption: .rarity(.marvel)),
-            BrowseItemModel(browseItemsOption: .rarity(.dcSeries)),
-            BrowseItemModel(browseItemsOption: .rarity(.starWarsSeries)),
-            BrowseItemModel(browseItemsOption: .rarity(.gamingLegendsSeries)),
-            BrowseItemModel(browseItemsOption: .itemType(.emoji, .uncommon)),
-            BrowseItemModel(browseItemsOption: .itemType(.glider, .marvel)),
-            BrowseItemModel(browseItemsOption: .itemType(.backpack, .marvel)),
-            BrowseItemModel(browseItemsOption: .itemType(.pickaxe, .epic)),
-            BrowseItemModel(browseItemsOption: .itemType(.wrap, .uncommon)),
-            BrowseItemModel(browseItemsOption: .itemType(.spray, .uncommon)),
-            BrowseItemModel(browseItemsOption: .itemType(.outfit, .uncommon)),
-            BrowseItemModel(browseItemsOption: .itemType(.music, .rare)),
-            BrowseItemModel(browseItemsOption: .itemType(.emote, .rare)),
-            BrowseItemModel(browseItemsOption: .itemType(.contrail, .uncommon)),
-            BrowseItemModel(browseItemsOption: .itemType(.bundle, .legendary)),
-            BrowseItemModel(browseItemsOption: .itemType(.toy, .rare)),
-            BrowseItemModel(browseItemsOption: .itemType(.pet, .epic)),
-            BrowseItemModel(browseItemsOption: .itemType(.loadingScreen, .uncommon))
+            BrowseItemModel(browseItemsOption: .all, title: "All Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.uncommon), title: "Uncommon Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.rare), title: "Rare Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.epic), title: "Epic Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.legendary), title: "Legendary Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.darkSeries), title: "Dark Series Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.frozenSeries), title: "Frozen Series Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.shadowSeries), title: "Shadow Series Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.slurpSeries), title: "Slurp Series Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.lavaSeries), title: "Lava Series Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.iconSeries), title: "Icon Series Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.marvel), title: "Marvel Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.dcSeries), title: "DC Series Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.starWarsSeries), title: "Star Wars Series Items"),
+            BrowseItemModel(browseItemsOption: .rarity(.gamingLegendsSeries), title: "Gaming Legends Series Items"),
+            BrowseItemModel(browseItemsOption: .itemType(.emoji, .uncommon), title: "Emojis"),
+            BrowseItemModel(browseItemsOption: .itemType(.glider, .marvel), title: "Gliders"),
+            BrowseItemModel(browseItemsOption: .itemType(.backpack, .marvel), title: "Backpacks"),
+            BrowseItemModel(browseItemsOption: .itemType(.pickaxe, .epic), title: "Pickaxes"),
+            BrowseItemModel(browseItemsOption: .itemType(.wrap, .uncommon), title: "Wraps"),
+            BrowseItemModel(browseItemsOption: .itemType(.spray, .uncommon), title: "Sprays"),
+            BrowseItemModel(browseItemsOption: .itemType(.outfit, .uncommon), title: "Outfits"),
+            BrowseItemModel(browseItemsOption: .itemType(.music, .rare), title: "Music"),
+            BrowseItemModel(browseItemsOption: .itemType(.emote, .rare), title: "Emotes"),
+            BrowseItemModel(browseItemsOption: .itemType(.contrail, .uncommon), title: "Contrails"),
+            BrowseItemModel(browseItemsOption: .itemType(.bundle, .legendary), title: "Bundles"),
+            BrowseItemModel(browseItemsOption: .itemType(.toy, .rare), title: "Toys"),
+            BrowseItemModel(browseItemsOption: .itemType(.pet, .epic), title: "Pet"),
+            BrowseItemModel(browseItemsOption: .itemType(.loadingScreen, .uncommon), title: "Loading Screens")
         ]
     }
 }

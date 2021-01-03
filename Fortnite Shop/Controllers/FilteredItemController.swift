@@ -11,12 +11,12 @@ import UIKit
 class FilteredItemController: UICollectionViewController {
 
     private let cellId = "cellId"
-    private let filterOption: BrowseItemsOption
+    private let filterOption: BrowseItemModel
     private var items = [(ListItem, ImageTask)]()
 
     private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
 
-    init(filterOption: BrowseItemsOption) {
+    init(filterOption: BrowseItemModel) {
         self.filterOption = filterOption
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -28,6 +28,7 @@ class FilteredItemController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
+        setupNavigationBar()
         setUpActivityIndicator()
         fetchData()
     }
@@ -53,7 +54,7 @@ extension FilteredItemController {
     private func filterItems(_ items: [ListItem]) {
         var tempItems = items
         tempItems.removeAll { $0.rarity == .unknown }
-        switch filterOption {
+        switch filterOption.browseItemsOption {
         case .all:
             tempItems.sort { (item1, item2) -> Bool in
                 item1.rarity > item2.rarity
@@ -88,6 +89,10 @@ extension FilteredItemController {
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         activityIndicator.startAnimating()
+    }
+
+    private func setupNavigationBar() {
+        navigationItem.title = filterOption.title
     }
 }
 
