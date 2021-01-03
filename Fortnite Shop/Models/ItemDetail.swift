@@ -37,8 +37,28 @@ enum Rarity: String, Comparable {
             return 3
         case .legendary:
             return 4
-        default:
+        case .darkSeries:
             return 5
+        case .frozenSeries:
+            return 6
+        case .shadowSeries:
+            return 7
+        case .slurpSeries:
+            return 8
+        case .lavaSeries:
+            return 9
+        case .iconSeries:
+            return 10
+        case .dcSeries:
+            return 11
+        case .starWarsSeries:
+            return 12
+        case .gamingLegendsSeries:
+            return 13
+        case .marvel:
+            return 14
+        default:
+            return 15
         }
     }
 }

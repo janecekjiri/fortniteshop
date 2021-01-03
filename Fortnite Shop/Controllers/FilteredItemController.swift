@@ -47,13 +47,19 @@ extension FilteredItemController {
 
     private func filterItems(_ items: [ListItem]) {
         var tempItems = items
+        tempItems.removeAll { $0.rarity == .unknown }
         switch filterOption {
         case .all:
-            break
+            tempItems.sort { (item1, item2) -> Bool in
+                item1.rarity > item2.rarity
+            }
         case .rarity(let rarity):
             tempItems.removeAll { $0.rarity != rarity }
         case .itemType(let itemType, let rarity):
             tempItems.removeAll { $0.type != itemType }
+            tempItems.sort { (item1, item2) -> Bool in
+                item1.rarity > item2.rarity
+            }
         }
 
         let session = URLSession.shared
