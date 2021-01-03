@@ -11,9 +11,10 @@ import Foundation
 struct ListItem: Decodable, ItemDetailProtocol {
     let name, identity, fullBackground: String
     let rarity: Rarity
+    let type: ItemType
 
     enum CodingKeys: String, CodingKey {
-        case name, images, rarity
+        case name, images, rarity, type
         case identity = "id"
     }
 
@@ -27,6 +28,8 @@ struct ListItem: Decodable, ItemDetailProtocol {
         identity = try container.decode(String.self, forKey: .identity)
         let rarityString = try container.decode(String.self, forKey: .rarity)
         rarity = Rarity(rawValue: rarityString) ?? .unknown
+        let stringType = try container.decode(String.self, forKey: .type)
+        type = ItemType(stringValue: stringType) ?? ItemType.unknown
         let imagesContainer = try container.nestedContainer(keyedBy: ImageKeys.self, forKey: .images)
         fullBackground = try imagesContainer.decode(String.self, forKey: .image)
     }
