@@ -14,6 +14,8 @@ class FilteredItemController: UICollectionViewController {
     private let filterOption: BrowseItemsOption
     private var items = [(ListItem, ImageTask)]()
 
+    private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
+
     init(filterOption: BrowseItemsOption) {
         self.filterOption = filterOption
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -26,6 +28,7 @@ class FilteredItemController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
+        setUpActivityIndicator()
         fetchData()
     }
 
@@ -36,10 +39,12 @@ extension FilteredItemController {
     private func fetchData() {
         Service.shared.fetchAllItems { allItemsModels in
             guard let allItemsModels = allItemsModels else {
+                self.handleFetchError()
                 return
             }
             self.filterItems(allItemsModels.items)
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
                 self.collectionView.reloadData()
             }
         }
@@ -70,6 +75,19 @@ extension FilteredItemController {
             }
             self.items.append((item, imageTask))
         }
+    }
+
+    private func handleFetchError() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
+    }
+
+    private func setUpActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicator.startAnimating()
     }
 }
 
