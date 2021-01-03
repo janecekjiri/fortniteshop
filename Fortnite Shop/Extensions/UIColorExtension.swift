@@ -17,6 +17,8 @@ extension UIColor {
 
     static func rarityBorderColor(for rarity: Rarity) -> UIColor {
         switch rarity {
+        case .common:
+            return commonBorderColor
         case .uncommon:
             return uncommonBorderColor
         case .rare:

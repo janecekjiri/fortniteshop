@@ -9,7 +9,7 @@
 import Foundation
 
 enum Rarity: String, Comparable {
-    case uncommon, rare, epic, legendary, marvel
+    case common, uncommon, rare, epic, legendary, marvel
     case darkSeries = "dark"
     case frozenSeries = "frozen series"
     case shadowSeries = "shadow series"
@@ -27,6 +27,8 @@ enum Rarity: String, Comparable {
 
     private func returnRarityValue() -> Int {
         switch self {
+        case .common:
+            return 0
         case .uncommon:
             return 1
         case .rare:
@@ -41,8 +43,15 @@ enum Rarity: String, Comparable {
     }
 }
 
+enum ItemType: String, CodingKey {
+    case emoji, glider, backpack, pickaxe, wrap, spray, outfit, music, emote, contrail, bundle, toy, pet
+    case loadingScreen = "loadingscreen"
+    case unknown
+}
+
 struct ItemDetail: Decodable, ItemDetailProtocol {
-    let identity, name, description, type, set: String
+    let identity, name, description, set: String
+    let type: ItemType
     let rarity: Rarity
     let price: Int
     let releaseDate, lastAppearance: Date?
@@ -72,7 +81,8 @@ struct ItemDetail: Decodable, ItemDetailProtocol {
         let itemContainer = try container.nestedContainer(keyedBy: ItemKeys.self, forKey: .item)
         identity = try itemContainer.decode(String.self, forKey: .identity)
         name = try itemContainer.decode(String.self, forKey: .name)
-        type = try itemContainer.decode(String.self, forKey: .type)
+        let stringType = try itemContainer.decode(String.self, forKey: .type)
+        type = ItemType(stringValue: stringType) ?? ItemType.unknown
         let rarityString = try itemContainer.decode(String.self, forKey: .rarity)
         rarity = Rarity(rawValue: rarityString) ?? .unknown
         price = try itemContainer.decode(Int.self, forKey: .price)

@@ -11,6 +11,7 @@ import UIKit
 class BrowseItemsController: UICollectionViewController {
 
     private let cellId = "cellId"
+    private var browseItemsOptions = [BrowseItemModel]()
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -18,6 +19,7 @@ class BrowseItemsController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        makeBrowsingOptions()
         navigationItem.title = "Browse Items"
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
@@ -28,7 +30,7 @@ class BrowseItemsController: UICollectionViewController {
 extension BrowseItemsController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return browseItemsOptions.count
     }
 
     override func collectionView(
@@ -39,7 +41,11 @@ extension BrowseItemsController {
         guard let filterCell = cell as? ImageCell else {
             return cell
         }
-        filterCell.showFullBackgroundImage(nil, for: .legendary)
+        let option = browseItemsOptions[indexPath.item]
+        filterCell.showTransparentImage(
+            UIImage.returnBrowseItemsOptionImage(for: option.browseItemsOption),
+            withBackgroundRarity: option.returnRarity()
+        )
         return filterCell
     }
 
@@ -62,5 +68,41 @@ extension BrowseItemsController: UICollectionViewDelegateFlowLayout {
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
         return .init(top: 10, left: 10, bottom: 10, right: 10)
+    }
+}
+
+extension BrowseItemsController {
+    private func makeBrowsingOptions() {
+        browseItemsOptions = [
+            BrowseItemModel(browseItemsOption: .all),
+            BrowseItemModel(browseItemsOption: .rarity(.uncommon)),
+            BrowseItemModel(browseItemsOption: .rarity(.rare)),
+            BrowseItemModel(browseItemsOption: .rarity(.epic)),
+            BrowseItemModel(browseItemsOption: .rarity(.legendary)),
+            BrowseItemModel(browseItemsOption: .rarity(.darkSeries)),
+            BrowseItemModel(browseItemsOption: .rarity(.frozenSeries)),
+            BrowseItemModel(browseItemsOption: .rarity(.shadowSeries)),
+            BrowseItemModel(browseItemsOption: .rarity(.slurpSeries)),
+            BrowseItemModel(browseItemsOption: .rarity(.lavaSeries)),
+            BrowseItemModel(browseItemsOption: .rarity(.iconSeries)),
+            BrowseItemModel(browseItemsOption: .rarity(.marvel)),
+            BrowseItemModel(browseItemsOption: .rarity(.dcSeries)),
+            BrowseItemModel(browseItemsOption: .rarity(.starWarsSeries)),
+            BrowseItemModel(browseItemsOption: .rarity(.gamingLegendsSeries)),
+            BrowseItemModel(browseItemsOption: .itemType(.emoji, .uncommon)),
+            BrowseItemModel(browseItemsOption: .itemType(.glider, .marvel)),
+            BrowseItemModel(browseItemsOption: .itemType(.backpack, .marvel)),
+            BrowseItemModel(browseItemsOption: .itemType(.pickaxe, .epic)),
+            BrowseItemModel(browseItemsOption: .itemType(.wrap, .uncommon)),
+            BrowseItemModel(browseItemsOption: .itemType(.spray, .uncommon)),
+            BrowseItemModel(browseItemsOption: .itemType(.outfit, .uncommon)),
+            BrowseItemModel(browseItemsOption: .itemType(.music, .rare)),
+            BrowseItemModel(browseItemsOption: .itemType(.emote, .rare)),
+            BrowseItemModel(browseItemsOption: .itemType(.contrail, .uncommon)),
+            BrowseItemModel(browseItemsOption: .itemType(.bundle, .legendary)),
+            BrowseItemModel(browseItemsOption: .itemType(.toy, .rare)),
+            BrowseItemModel(browseItemsOption: .itemType(.pet, .epic)),
+            BrowseItemModel(browseItemsOption: .itemType(.loadingScreen, .uncommon))
+        ]
     }
 }
