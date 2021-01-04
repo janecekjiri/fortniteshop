@@ -1,5 +1,5 @@
 //
-//  BrowseItemModel.swift
+//  FilterModel.swift
 //  Fortnite Shop
 //
 //  Created by Jiri Janecek on 03/01/2021.
@@ -8,23 +8,23 @@
 
 import Foundation
 
-enum BrowseItemsOption {
+enum ItemsFilter {
     case all
     case rarity(Rarity)
     case itemType(ItemType)
 }
 
-class BrowseItemModel {
-    let browseItemsOption: BrowseItemsOption
+class FilterModel {
+    let filter: ItemsFilter
     let title: String
 
-    init(browseItemsOption: BrowseItemsOption, title: String) {
-        self.browseItemsOption = browseItemsOption
+    init(filter: ItemsFilter, title: String) {
+        self.filter = filter
         self.title = title
     }
 
     func returnRarity() -> Rarity {
-        switch browseItemsOption {
+        switch filter {
         case .all:
             return Rarity.common
         case .rarity(let rarity):
