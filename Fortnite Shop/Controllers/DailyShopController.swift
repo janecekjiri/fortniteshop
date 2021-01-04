@@ -76,8 +76,11 @@ extension DailyShopController {
 
             // TODO: Move this sort to DailyShopModel
             var dailyShopItems = dailyShop.items
-            dailyShopItems.sort { lhs, rhs -> Bool in
-                return lhs > rhs
+            dailyShopItems.sort { item1, item2 -> Bool in
+                if item1.rarity == item2.rarity {
+                    return item1.name < item2.name
+                }
+                return item1 > item2
             }
 
             let session = URLSession.shared

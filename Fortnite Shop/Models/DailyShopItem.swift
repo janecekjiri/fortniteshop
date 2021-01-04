@@ -9,17 +9,18 @@
 import Foundation
 
 struct DailyShopItem: Decodable, ItemDetailProtocol, Comparable {
-    let identity, fullBackground: String
+    let identity, fullBackground, name: String
     let rarity: Rarity
 
     enum CodingKeys: String, CodingKey {
-        case rarity
+        case rarity, name
         case identity = "id"
         case fullBackground = "full_background"
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
         identity = try container.decode(String.self, forKey: .identity)
         fullBackground = try container.decode(String.self, forKey: .fullBackground)
         let stringRarity = try container.decode(String.self, forKey: .rarity)
