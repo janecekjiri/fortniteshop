@@ -100,6 +100,12 @@ extension SearchItemsController: UISearchBarDelegate {
     private func fillItems(with listItems: [ListItem], for searchedText: String) {
         var filteredItems = listItems
         filteredItems.removeAll { !$0.name.lowercased().contains(searchedText.lowercased()) }
+        filteredItems.sort { item1, item2 -> Bool in
+            if item1.rarity == item2.rarity {
+                return item1.name < item2.name
+            }
+            return item1.rarity > item2.rarity
+        }
         let session = URLSession.shared
         filteredItems.enumerated().forEach { index, listItem in
             let imageTask = ImageTask(url: listItem.fullBackground, session: session)
