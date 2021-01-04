@@ -15,16 +15,16 @@ enum ItemsFilter {
 }
 
 class FilterModel {
-    let filter: ItemsFilter
+    let itemsFilter: ItemsFilter
     let title: String
 
     init(filter: ItemsFilter, title: String) {
-        self.filter = filter
+        self.itemsFilter = filter
         self.title = title
     }
 
     func returnRarity() -> Rarity {
-        switch filter {
+        switch itemsFilter {
         case .all:
             return Rarity.common
         case .rarity(let rarity):

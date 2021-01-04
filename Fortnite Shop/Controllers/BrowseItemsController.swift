@@ -11,7 +11,7 @@ import UIKit
 class BrowseItemsController: UICollectionViewController {
 
     private let cellId = "cellId"
-    private var browseItemsOptions = [BrowseItemModel]()
+    private var filters = [FilterModel]()
 
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -19,7 +19,7 @@ class BrowseItemsController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeBrowsingOptions()
+        makeFilters()
         navigationItem.title = "Browse Items"
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
@@ -30,7 +30,7 @@ class BrowseItemsController: UICollectionViewController {
 extension BrowseItemsController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return browseItemsOptions.count
+        return filters.count
     }
 
     override func collectionView(
@@ -41,17 +41,17 @@ extension BrowseItemsController {
         guard let filterCell = cell as? ImageCell else {
             return cell
         }
-        let option = browseItemsOptions[indexPath.item]
+        let filter = filters[indexPath.item]
         filterCell.showTransparentImage(
-            UIImage.returnBrowseItemsOptionImage(for: option.browseItemsOption),
-            withBackgroundRarity: option.returnRarity()
+            UIImage.returnBrowseItemsOptionImage(for: filter.itemsFilter),
+            withBackgroundRarity: filter.returnRarity()
         )
         return filterCell
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = browseItemsOptions[indexPath.item]
-        let filteredItemController = FilteredItemController(filterOption: item)
+        let filter = filters[indexPath.item]
+        let filteredItemController = FilteredItemController(filter: filter)
         navigationController?.pushViewController(filteredItemController, animated: true)
     }
 
@@ -78,37 +78,37 @@ extension BrowseItemsController: UICollectionViewDelegateFlowLayout {
 }
 
 extension BrowseItemsController {
-    private func makeBrowsingOptions() {
-        browseItemsOptions = [
-            BrowseItemModel(browseItemsOption: .all, title: "All Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.uncommon), title: "Uncommon Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.rare), title: "Rare Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.epic), title: "Epic Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.legendary), title: "Legendary Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.darkSeries), title: "Dark Series Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.frozenSeries), title: "Frozen Series Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.shadowSeries), title: "Shadow Series Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.slurpSeries), title: "Slurp Series Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.lavaSeries), title: "Lava Series Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.iconSeries), title: "Icon Series Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.marvel), title: "Marvel Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.dcSeries), title: "DC Series Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.starWarsSeries), title: "Star Wars Series Items"),
-            BrowseItemModel(browseItemsOption: .rarity(.gamingLegendsSeries), title: "Gaming Legends Series Items"),
-            BrowseItemModel(browseItemsOption: .itemType(.bundle), title: "Bundles"),
-            BrowseItemModel(browseItemsOption: .itemType(.backpack), title: "Backpacks"),
-            BrowseItemModel(browseItemsOption: .itemType(.contrail), title: "Contrails"),
-            BrowseItemModel(browseItemsOption: .itemType(.emoji), title: "Emojis"),
-            BrowseItemModel(browseItemsOption: .itemType(.emote), title: "Emotes"),
-            BrowseItemModel(browseItemsOption: .itemType(.glider), title: "Gliders"),
-            BrowseItemModel(browseItemsOption: .itemType(.loadingScreen), title: "Loading Screens"),
-            BrowseItemModel(browseItemsOption: .itemType(.music), title: "Music"),
-            BrowseItemModel(browseItemsOption: .itemType(.outfit), title: "Outfits"),
-            BrowseItemModel(browseItemsOption: .itemType(.pet), title: "Pet"),
-            BrowseItemModel(browseItemsOption: .itemType(.pickaxe), title: "Pickaxes"),
-            BrowseItemModel(browseItemsOption: .itemType(.spray), title: "Sprays"),
-            BrowseItemModel(browseItemsOption: .itemType(.toy), title: "Toys"),
-            BrowseItemModel(browseItemsOption: .itemType(.wrap), title: "Wraps")
+    private func makeFilters() {
+        filters = [
+            FilterModel(filter: .all, title: "All Items"),
+            FilterModel(filter: .rarity(.uncommon), title: "Uncommon Items"),
+            FilterModel(filter: .rarity(.rare), title: "Rare Items"),
+            FilterModel(filter: .rarity(.epic), title: "Epic Items"),
+            FilterModel(filter: .rarity(.legendary), title: "Legendary Items"),
+            FilterModel(filter: .rarity(.darkSeries), title: "Dark Series Items"),
+            FilterModel(filter: .rarity(.frozenSeries), title: "Frozen Series Items"),
+            FilterModel(filter: .rarity(.shadowSeries), title: "Shadow Series Items"),
+            FilterModel(filter: .rarity(.slurpSeries), title: "Slurp Series Items"),
+            FilterModel(filter: .rarity(.lavaSeries), title: "Lava Series Items"),
+            FilterModel(filter: .rarity(.iconSeries), title: "Icon Series Items"),
+            FilterModel(filter: .rarity(.marvel), title: "Marvel Items"),
+            FilterModel(filter: .rarity(.dcSeries), title: "DC Series Items"),
+            FilterModel(filter: .rarity(.starWarsSeries), title: "Star Wars Series Items"),
+            FilterModel(filter: .rarity(.gamingLegendsSeries), title: "Gaming Legends Series Items"),
+            FilterModel(filter: .itemType(.bundle), title: "Bundles"),
+            FilterModel(filter: .itemType(.backpack), title: "Backpacks"),
+            FilterModel(filter: .itemType(.contrail), title: "Contrails"),
+            FilterModel(filter: .itemType(.emoji), title: "Emojis"),
+            FilterModel(filter: .itemType(.emote), title: "Emotes"),
+            FilterModel(filter: .itemType(.glider), title: "Gliders"),
+            FilterModel(filter: .itemType(.loadingScreen), title: "Loading Screens"),
+            FilterModel(filter: .itemType(.music), title: "Music"),
+            FilterModel(filter: .itemType(.outfit), title: "Outfits"),
+            FilterModel(filter: .itemType(.pet), title: "Pet"),
+            FilterModel(filter: .itemType(.pickaxe), title: "Pickaxes"),
+            FilterModel(filter: .itemType(.spray), title: "Sprays"),
+            FilterModel(filter: .itemType(.toy), title: "Toys"),
+            FilterModel(filter: .itemType(.wrap), title: "Wraps")
         ]
     }
 }

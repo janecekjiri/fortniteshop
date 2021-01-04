@@ -11,13 +11,13 @@ import UIKit
 class FilteredItemController: UICollectionViewController {
 
     private let cellId = "cellId"
-    private let filterOption: BrowseItemModel
+    private let filter: FilterModel
     private var items = [(ListItem, ImageTask)]()
 
     private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
 
-    init(filterOption: BrowseItemModel) {
-        self.filterOption = filterOption
+    init(filter: FilterModel) {
+        self.filter = filter
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
 
@@ -54,7 +54,7 @@ extension FilteredItemController {
     private func filterItems(_ items: [ListItem]) {
         var tempItems = items
         tempItems.removeAll { $0.rarity == .unknown }
-        switch filterOption.browseItemsOption {
+        switch filter.itemsFilter {
         case .all:
             tempItems.sort { (item1, item2) -> Bool in
                 if item1.rarity == item2.rarity {
@@ -101,7 +101,7 @@ extension FilteredItemController {
     }
 
     private func setupNavigationBar() {
-        navigationItem.title = filterOption.title
+        navigationItem.title = filter.title
     }
 }
 

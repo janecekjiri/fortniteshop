@@ -114,7 +114,7 @@ extension UIImage {
         }
     }
 
-    static func returnBrowseItemsOptionImage(for option: BrowseItemsOption) -> UIImage? {
+    static func returnBrowseItemsOptionImage(for option: ItemsFilter) -> UIImage? {
         switch option {
         case .all:
             return UIImage(named: "allItemsOption")
