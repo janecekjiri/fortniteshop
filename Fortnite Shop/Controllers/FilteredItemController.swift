@@ -126,6 +126,12 @@ extension FilteredItemController {
         return itemCell
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = items[indexPath.item].0
+        let itemDetailController = ItemDetailController(for: item)
+        navigationController?.pushViewController(itemDetailController, animated: true)
+    }
+
     override func collectionView(
         _ collectionView: UICollectionView,
         willDisplay cell: UICollectionViewCell,
