@@ -120,7 +120,7 @@ extension UIImage {
             return UIImage(named: "allItemsOption")
         case .rarity(let rarity):
             return returnBrowseItemsOptionImage(for: rarity)
-        case .itemType(let itemType, let rarity):
+        case .itemType(let itemType):
             return returnBrowseItemsOptionImage(for: itemType)
         }
     }

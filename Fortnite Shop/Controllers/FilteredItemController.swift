@@ -67,7 +67,7 @@ extension FilteredItemController {
             tempItems.sort { (item1, item2) -> Bool in
                 return item1.name < item2.name
             }
-        case .itemType(let itemType, let rarity):
+        case .itemType(let itemType):
             tempItems.removeAll { $0.type != itemType }
             tempItems.sort { (item1, item2) -> Bool in
                 if item1.rarity == item2.rarity {

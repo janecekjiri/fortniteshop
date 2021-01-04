@@ -11,7 +11,7 @@ import Foundation
 enum BrowseItemsOption {
     case all
     case rarity(Rarity)
-    case itemType(ItemType, Rarity)
+    case itemType(ItemType)
 }
 
 class BrowseItemModel {
@@ -29,8 +29,12 @@ class BrowseItemModel {
             return Rarity.common
         case .rarity(let rarity):
             return rarity
-        case .itemType(let itemType, let rarity):
-            return rarity
+        case .itemType(let itemType):
+            if itemType == .bundle {
+                return .legendary
+            } else {
+                return .uncommon
+            }
         }
     }
 }
