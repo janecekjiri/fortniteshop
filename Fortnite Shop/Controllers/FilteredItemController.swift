@@ -33,6 +33,11 @@ class FilteredItemController: UICollectionViewController {
         fetchData()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        items.removeAll()
+    }
+
 }
 
 // MARK: - Setup Methods
