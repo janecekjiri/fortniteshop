@@ -35,7 +35,21 @@ class FilteredItemController: UICollectionViewController {
 
 }
 
-// MARK: - Custom Methods
+// MARK: - Setup Methods
+extension FilteredItemController {
+    private func setUpActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicator.startAnimating()
+    }
+
+    private func setupNavigationBar() {
+        navigationItem.title = filter.title
+    }
+}
+
+// MARK: - Networking and Support Methods
 extension FilteredItemController {
     private func fetchData() {
         Service.shared.fetchAllItems { allItemsModels in
@@ -77,8 +91,12 @@ extension FilteredItemController {
             }
         }
 
+        self.makeItems(&tempItems)
+    }
+
+    private func makeItems(_ items: inout [ListItem]) {
         let session = URLSession.shared
-        tempItems.enumerated().forEach { index, item in
+        items.enumerated().forEach { index, item in
             let imageTask = ImageTask(url: item.fullBackground, session: session)
             imageTask.didDownloadImage = {
                 self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
@@ -93,16 +111,6 @@ extension FilteredItemController {
         }
     }
 
-    private func setUpActivityIndicator() {
-        view.addSubview(activityIndicator)
-        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        activityIndicator.startAnimating()
-    }
-
-    private func setupNavigationBar() {
-        navigationItem.title = filter.title
-    }
 }
 
 // MARK: - UICollectionView Setup Methods
