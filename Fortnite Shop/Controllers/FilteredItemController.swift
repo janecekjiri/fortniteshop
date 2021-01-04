@@ -57,41 +57,64 @@ extension FilteredItemController {
                 self.handleFetchError()
                 return
             }
-            self.filterItems(allItemsModels.items)
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.collectionView.reloadData()
-            }
+            self.handleFetchedData(allItemsModels)
         }
     }
 
+    private func handleFetchedData(_ data: ListItemsModel) {
+        filterItems(data.items)
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.collectionView.reloadData()
+        }
+    }
+
+    private func handleFetchError() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
+    }
+}
+
+// MARK: - Filtering and Sorting Methods
+extension FilteredItemController {
     private func filterItems(_ items: [ListItem]) {
         var tempItems = items
         tempItems.removeAll { $0.rarity == .unknown }
         switch filter.itemsFilter {
         case .all:
-            tempItems.sort { (item1, item2) -> Bool in
-                if item1.rarity == item2.rarity {
-                    return item1.name < item2.name
-                }
-                return item1.rarity > item2.rarity
-            }
+            self.sortAllItems(&tempItems)
         case .rarity(let rarity):
-            tempItems.removeAll { $0.rarity != rarity }
-            tempItems.sort { (item1, item2) -> Bool in
-                return item1.name < item2.name
-            }
+            self.filterByRarity(rarity, items: &tempItems)
         case .itemType(let itemType):
-            tempItems.removeAll { $0.type != itemType }
-            tempItems.sort { (item1, item2) -> Bool in
-                if item1.rarity == item2.rarity {
-                    return item1.name < item2.name
-                }
-                return item1.rarity > item2.rarity
-            }
+            self.filterByItemType(itemType, items: &tempItems)
         }
 
         self.makeItems(&tempItems)
+    }
+
+    private func sortAllItems(_ items: inout [ListItem]) {
+        items.sort { (item1, item2) -> Bool in
+            if item1.rarity == item2.rarity {
+                return item1.name < item2.name
+            }
+            return item1.rarity > item2.rarity
+        }
+    }
+
+    private func filterByRarity(_ rarity: Rarity, items: inout [ListItem]) {
+        items.removeAll { $0.rarity != rarity }
+        items.sort { $0.name < $1.name }
+    }
+
+    private func filterByItemType(_ type: ItemType, items: inout [ListItem]) {
+        items.removeAll { $0.type != type }
+        items.sort { (item1, item2) -> Bool in
+            if item1.rarity == item2.rarity {
+                return item1.name < item2.name
+            }
+            return item1.rarity > item2.rarity
+        }
     }
 
     private func makeItems(_ items: inout [ListItem]) {
@@ -104,13 +127,6 @@ extension FilteredItemController {
             self.items.append((item, imageTask))
         }
     }
-
-    private func handleFetchError() {
-        DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
-        }
-    }
-
 }
 
 // MARK: - UICollectionView Setup Methods
