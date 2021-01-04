@@ -13,6 +13,7 @@ class FilteredItemController: UICollectionViewController {
     private let cellId = "cellId"
     private let filter: FilterModel
     private var items = [(ListItem, ImageTask)]()
+    private var isDisappearing = false
 
     private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
 
@@ -35,6 +36,10 @@ class FilteredItemController: UICollectionViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isDisappearing = true
+        items.forEach { item in
+            item.1.pause()
+        }
         items.removeAll()
     }
 
@@ -146,7 +151,10 @@ extension FilteredItemController {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        guard let itemCell = cell as? ImageCell else {
+        guard
+            let itemCell = cell as? ImageCell,
+            indexPath.item < items.count
+        else {
             return cell
         }
         let item = items[indexPath.item].0
@@ -166,7 +174,9 @@ extension FilteredItemController {
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.item].1.resume()
+        if !isDisappearing {
+            items[indexPath.item].1.resume()
+        }
     }
 
     override func collectionView(
@@ -174,7 +184,9 @@ extension FilteredItemController {
         didEndDisplaying cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.item].1.pause()
+        if !isDisappearing {
+            items[indexPath.item].1.pause()
+        }
     }
 
 }
