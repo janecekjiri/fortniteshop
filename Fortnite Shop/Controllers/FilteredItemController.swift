@@ -57,14 +57,23 @@ extension FilteredItemController {
         switch filterOption.browseItemsOption {
         case .all:
             tempItems.sort { (item1, item2) -> Bool in
-                item1.rarity > item2.rarity
+                if item1.rarity == item2.rarity {
+                    return item1.name < item2.name
+                }
+                return item1.rarity > item2.rarity
             }
         case .rarity(let rarity):
             tempItems.removeAll { $0.rarity != rarity }
+            tempItems.sort { (item1, item2) -> Bool in
+                return item1.name < item2.name
+            }
         case .itemType(let itemType, let rarity):
             tempItems.removeAll { $0.type != itemType }
             tempItems.sort { (item1, item2) -> Bool in
-                item1.rarity > item2.rarity
+                if item1.rarity == item2.rarity {
+                    return item1.name < item2.name
+                }
+                return item1.rarity > item2.rarity
             }
         }
 
@@ -75,9 +84,6 @@ extension FilteredItemController {
                 self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             }
             self.items.append((item, imageTask))
-        }
-        self.items.sort { (item1, item2) -> Bool in
-            return item1.0.name < item2.0.name
         }
     }
 
