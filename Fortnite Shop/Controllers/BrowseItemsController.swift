@@ -20,6 +20,10 @@ class BrowseItemsController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         makeFilters()
+        setupController()
+    }
+
+    private func setupController() {
         navigationItem.title = "Browse Items"
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: cellId)
     }
@@ -77,6 +81,7 @@ extension BrowseItemsController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - Creation of Filters
 extension BrowseItemsController {
     private func makeFilters() {
         filters = [
