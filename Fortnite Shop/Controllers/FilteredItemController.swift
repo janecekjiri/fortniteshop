@@ -76,6 +76,9 @@ extension FilteredItemController {
             }
             self.items.append((item, imageTask))
         }
+        self.items.sort { (item1, item2) -> Bool in
+            return item1.0.name < item2.0.name
+        }
     }
 
     private func handleFetchError() {
