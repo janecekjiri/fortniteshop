@@ -96,19 +96,19 @@ extension BrowseItemsController {
             BrowseItemModel(browseItemsOption: .rarity(.starWarsSeries), title: "Star Wars Series Items"),
             BrowseItemModel(browseItemsOption: .rarity(.gamingLegendsSeries), title: "Gaming Legends Series Items"),
             BrowseItemModel(browseItemsOption: .itemType(.bundle, .legendary), title: "Bundles"),
-            BrowseItemModel(browseItemsOption: .itemType(.emoji, .uncommon), title: "Emojis"),
-            BrowseItemModel(browseItemsOption: .itemType(.glider, .uncommon), title: "Gliders"),
             BrowseItemModel(browseItemsOption: .itemType(.backpack, .uncommon), title: "Backpacks"),
-            BrowseItemModel(browseItemsOption: .itemType(.pickaxe, .uncommon), title: "Pickaxes"),
-            BrowseItemModel(browseItemsOption: .itemType(.wrap, .uncommon), title: "Wraps"),
-            BrowseItemModel(browseItemsOption: .itemType(.spray, .uncommon), title: "Sprays"),
-            BrowseItemModel(browseItemsOption: .itemType(.outfit, .uncommon), title: "Outfits"),
-            BrowseItemModel(browseItemsOption: .itemType(.music, .uncommon), title: "Music"),
-            BrowseItemModel(browseItemsOption: .itemType(.emote, .uncommon), title: "Emotes"),
             BrowseItemModel(browseItemsOption: .itemType(.contrail, .uncommon), title: "Contrails"),
-            BrowseItemModel(browseItemsOption: .itemType(.toy, .uncommon), title: "Toys"),
+            BrowseItemModel(browseItemsOption: .itemType(.emoji, .uncommon), title: "Emojis"),
+            BrowseItemModel(browseItemsOption: .itemType(.emote, .uncommon), title: "Emotes"),
+            BrowseItemModel(browseItemsOption: .itemType(.glider, .uncommon), title: "Gliders"),
+            BrowseItemModel(browseItemsOption: .itemType(.loadingScreen, .uncommon), title: "Loading Screens"),
+            BrowseItemModel(browseItemsOption: .itemType(.music, .uncommon), title: "Music"),
+            BrowseItemModel(browseItemsOption: .itemType(.outfit, .uncommon), title: "Outfits"),
             BrowseItemModel(browseItemsOption: .itemType(.pet, .uncommon), title: "Pet"),
-            BrowseItemModel(browseItemsOption: .itemType(.loadingScreen, .uncommon), title: "Loading Screens")
+            BrowseItemModel(browseItemsOption: .itemType(.pickaxe, .uncommon), title: "Pickaxes"),
+            BrowseItemModel(browseItemsOption: .itemType(.spray, .uncommon), title: "Sprays"),
+            BrowseItemModel(browseItemsOption: .itemType(.toy, .uncommon), title: "Toys"),
+            BrowseItemModel(browseItemsOption: .itemType(.wrap, .uncommon), title: "Wraps")
         ]
     }
 }
