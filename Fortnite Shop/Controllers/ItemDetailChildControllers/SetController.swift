@@ -61,8 +61,7 @@ extension SetController: UICollectionViewDelegateFlowLayout {
         didEndDisplaying cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        // TODO: Figure out why with the next line uncommented, some pictures aren't occasionally presented
-        //items[indexPath.row].1.pause()
+        items[indexPath.row].1.pause()
     }
 
     func collectionView(
