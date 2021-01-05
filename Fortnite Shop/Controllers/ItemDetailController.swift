@@ -163,7 +163,9 @@ extension ItemDetailController {
     private func showErrorAlert() {
         let alertController = UIAlertController.makeErrorAlertController(
             message: "We were not able to obtain item's details. Please try it later"
-        )
+        ) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
         DispatchQueue.main.async {
             self.navigationController?.present(alertController, animated: true)
         }
@@ -174,7 +176,6 @@ extension ItemDetailController {
             self.activityIndicator.stopAnimating()
         }
         self.showErrorAlert()
-        // TODO: Dismiss current VC and return to the previous one
     }
 
     private func handleFinishedFetch(for itemDetail: ItemDetail, with image: UIImage) {

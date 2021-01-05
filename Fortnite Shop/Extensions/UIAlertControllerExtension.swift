@@ -9,13 +9,16 @@
 import UIKit
 
 extension UIAlertController {
-    static func makeErrorAlertController(message: String) -> UIAlertController {
+    static func makeErrorAlertController(
+        message: String,
+        completion: ((UIAlertAction) -> Void)? = nil
+    ) -> UIAlertController {
         let alertController = UIAlertController(
             title: "Oops! There was an error...",
             message: message,
             preferredStyle: .alert
         )
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let action = UIAlertAction(title: "OK", style: .default, handler: completion)
         alertController.addAction(action)
         return alertController
     }
