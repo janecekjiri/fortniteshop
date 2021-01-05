@@ -116,6 +116,9 @@ extension DailyShopController {
     // TODO: Fix
     @objc private func refresh() {
         if !isFetchingData {
+            items.forEach { item in
+                item.1.pause()
+            }
             activityIndicator.startAnimating()
             fetchDailyShop()
         }
@@ -150,7 +153,10 @@ extension DailyShopController {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dailyShopCellId, for: indexPath)
-        guard let dailyShopCell = cell as? ImageCell else {
+        guard
+            let dailyShopCell = cell as? ImageCell,
+            indexPath.item < items.count
+        else {
             return cell
         }
 
@@ -166,7 +172,9 @@ extension DailyShopController {
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.row].1.resume()
+        if !isFetchingData {
+            items[indexPath.row].1.resume()
+        }
     }
 
     override func collectionView(
@@ -174,7 +182,9 @@ extension DailyShopController {
         didEndDisplaying cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.row].1.pause()
+        if !isFetchingData {
+            items[indexPath.row].1.pause()
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
