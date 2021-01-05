@@ -112,8 +112,7 @@ extension DailyShopController {
         collectionView.allowsSelection = true
         isFetchingData = false
     }
-
-    // TODO: Fix
+    
     @objc private func refresh() {
         if !isFetchingData {
             items.forEach { item in
