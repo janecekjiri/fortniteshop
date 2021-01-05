@@ -72,7 +72,7 @@ extension SearchItemsController: UISearchBarDelegate {
 
         Service.shared.fetchAllItems { allItemsModel in
             guard let allItemsModel = allItemsModel else {
-                self.setUpAfterFetch()
+                self.handleFetchError()
                 return
             }
 
@@ -81,6 +81,45 @@ extension SearchItemsController: UISearchBarDelegate {
                 self.setUpAfterFetch()
             }
         }
+    }
+
+    private func fillItems(with listItems: [ListItem], for searchedText: String) {
+        var filteredItems = listItems
+        filteredItems.removeAll { !$0.name.lowercased().contains(searchedText.lowercased()) }
+        filteredItems.sort { item1, item2 -> Bool in
+            if item1.rarity == item2.rarity {
+                return item1.name < item2.name
+            }
+            return item1.rarity > item2.rarity
+        }
+        let session = URLSession.shared
+        filteredItems.enumerated().forEach { index, listItem in
+            let imageTask = ImageTask(url: listItem.fullBackground, session: session)
+            imageTask.didDownloadImage = {
+                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            }
+            self.items.append((listItem, imageTask))
+        }
+    }
+}
+
+// MARK: - Handling Data Fetch
+extension SearchItemsController {
+    private func showErrorAlert() {
+        let alertController = UIAlertController.makeErrorAlertController(
+            message: "We were not able to obtain items you were looking for. Please try it later"
+        )
+        DispatchQueue.main.async {
+            self.navigationController?.present(alertController, animated: true)
+        }
+    }
+
+    private func handleFetchError() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
+        self.showErrorAlert()
+        self.isFetching = false
     }
 
     private func prepareForFetch() {
@@ -102,25 +141,6 @@ extension SearchItemsController: UISearchBarDelegate {
         collectionView.allowsSelection = true
         collectionView.reloadData()
         collectionView.setContentOffset(CGPoint(x: 0, y: -1000), animated: false)
-    }
-
-    private func fillItems(with listItems: [ListItem], for searchedText: String) {
-        var filteredItems = listItems
-        filteredItems.removeAll { !$0.name.lowercased().contains(searchedText.lowercased()) }
-        filteredItems.sort { item1, item2 -> Bool in
-            if item1.rarity == item2.rarity {
-                return item1.name < item2.name
-            }
-            return item1.rarity > item2.rarity
-        }
-        let session = URLSession.shared
-        filteredItems.enumerated().forEach { index, listItem in
-            let imageTask = ImageTask(url: listItem.fullBackground, session: session)
-            imageTask.didDownloadImage = {
-                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
-            }
-            self.items.append((listItem, imageTask))
-        }
     }
 }
 
