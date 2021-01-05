@@ -83,6 +83,16 @@ extension FilteredItemController {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
         }
+        showErrorAlert()
+    }
+
+    private func showErrorAlert() {
+        let alertController = UIAlertController.makeErrorAlertController(
+            message: "We were not able to obtain items you were looking for. Please try it later"
+        )
+        DispatchQueue.main.async {
+            self.navigationController?.present(alertController, animated: true)
+        }
     }
 }
 

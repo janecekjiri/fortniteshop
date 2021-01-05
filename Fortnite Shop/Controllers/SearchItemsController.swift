@@ -118,8 +118,8 @@ extension SearchItemsController {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
         }
-        self.showErrorAlert()
-        self.isFetching = false
+        showErrorAlert()
+        isFetching = false
     }
 
     private func prepareForFetch() {
