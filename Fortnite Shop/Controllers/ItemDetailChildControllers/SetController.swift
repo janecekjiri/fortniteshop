@@ -91,11 +91,21 @@ extension SetController {
         }
     }
 
+    private func showErrorAlert() {
+        let alertController = UIAlertController.makeErrorAlertController(
+            message: "We were not able to obtain information about item's set. Please try it later"
+        )
+        DispatchQueue.main.async {
+            self.navigationController?.present(alertController, animated: true)
+        }
+    }
+
     func insert(identitites: [String]) {
         let session = URLSession.shared
         identitites.enumerated().forEach { index, identity in
             Service.shared.fetchItemDetail(for: identity) { itemDetail in
                 guard let itemDetail = itemDetail else {
+                    self.showErrorAlert()
                     return
                 }
                 let imageTask = ImageTask(url: itemDetail.fullBackground, session: session)
