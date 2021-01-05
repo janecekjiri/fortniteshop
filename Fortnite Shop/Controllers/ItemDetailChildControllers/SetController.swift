@@ -85,9 +85,9 @@ extension SetController {
     func setIsBeingDisplayed(_ isBeingDisplayed: Bool) {
         self.isBeingDisplayed = isBeingDisplayed
         if isBeingDisplayed {
-            self.collectionView.reloadData()
+            collectionView.reloadData()
         } else {
-            self.items.forEach { $1.pause() }
+            items.forEach { $1.pause() }
         }
     }
 
@@ -103,18 +103,18 @@ extension SetController {
     func insert(identitites: [String]) {
         let session = URLSession.shared
         identitites.enumerated().forEach { index, identity in
-            Service.shared.fetchItemDetail(for: identity) { itemDetail in
+            Service.shared.fetchItemDetail(for: identity) { [weak self] itemDetail in
                 guard let itemDetail = itemDetail else {
-                    self.showErrorAlert()
+                    self?.showErrorAlert()
                     return
                 }
                 let imageTask = ImageTask(url: itemDetail.fullBackground, session: session)
                 imageTask.didDownloadImage = {
-                    self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                    self?.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
                 }
-                self.items.append((itemDetail, imageTask))
+                self?.items.append((itemDetail, imageTask))
                 if index == identitites.count - 1 {
-                    self.items.sort { item1, item2 -> Bool in
+                    self?.items.sort { item1, item2 -> Bool in
                         if item1.0.rarity == item2.0.rarity {
                             return item1.0.name < item2.0.name
                         }
