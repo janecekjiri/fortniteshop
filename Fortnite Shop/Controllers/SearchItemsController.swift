@@ -120,43 +120,43 @@ extension SearchItemsController: UISearchBarDelegate {
 // MARK: - UICollectionView Setup Methods
 extension SearchItemsController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-           return items.count
-       }
+        return items.count
+    }
 
-       override func collectionView(
-           _ collectionView: UICollectionView,
-           cellForItemAt indexPath: IndexPath
-       ) -> UICollectionViewCell {
-           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-           guard let searchCell = cell as? ImageCell else {
-               return cell
-           }
-           let image = items[indexPath.item].1.image
-           let item = items[indexPath.item].0
-           searchCell.showFullBackgroundImage(image, for: item.rarity)
-           return searchCell
-       }
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        guard let searchCell = cell as? ImageCell else {
+            return cell
+        }
+        let image = items[indexPath.item].1.image
+        let item = items[indexPath.item].0
+        searchCell.showFullBackgroundImage(image, for: item.rarity)
+        return searchCell
+    }
 
-       override func collectionView(
-           _ collectionView: UICollectionView,
-           willDisplay cell: UICollectionViewCell,
-           forItemAt indexPath: IndexPath
-       ) {
-           items[indexPath.row].1.resume()
-       }
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        items[indexPath.row].1.resume()
+    }
 
-       override func collectionView(
-           _ collectionView: UICollectionView,
-           didEndDisplaying cell: UICollectionViewCell,
-           forItemAt indexPath: IndexPath
-       ) {
-           items[indexPath.row].1.pause()
-       }
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        didEndDisplaying cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        items[indexPath.row].1.pause()
+    }
 
-       override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-           let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
-           navigationController?.pushViewController(itemDetailController, animated: true)
-       }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemDetailController = ItemDetailController(for: items[indexPath.item].0)
+        navigationController?.pushViewController(itemDetailController, animated: true)
+    }
 }
 
 // MARK: - UICollectionView Layout Methods
