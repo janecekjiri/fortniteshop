@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ListItem: Decodable, ItemDetailProtocol {
+struct ListItem: Decodable, Comparable, ItemDetailProtocol {
     let name, identity, fullBackground: String
     let rarity: Rarity
     let type: ItemType
@@ -32,5 +32,9 @@ struct ListItem: Decodable, ItemDetailProtocol {
         type = ItemType(stringValue: stringType) ?? ItemType.unknown
         let imagesContainer = try container.nestedContainer(keyedBy: ImageKeys.self, forKey: .images)
         fullBackground = try imagesContainer.decode(String.self, forKey: .image)
+    }
+
+    static func<(lhs: ListItem, rhs: ListItem) -> Bool {
+        return lhs.rarity < rhs.rarity
     }
 }

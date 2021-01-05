@@ -23,6 +23,13 @@ struct DailyShopModel: Decodable {
         let specialDaily = try container.decode([DailyShopItem].self, forKey: .specialDaily)
         let community = try container.decode([DailyShopItem].self, forKey: .community)
         let offers = try container.decode([DailyShopItem].self, forKey: .offers)
-        items = featured + daily + specialFeatured + specialDaily + community + offers
+        var tempItems = featured + daily + specialFeatured + specialDaily + community + offers
+        tempItems.sort { item1, item2 -> Bool in
+            if item1.rarity == item2.rarity {
+                return item1.name < item2.name
+            }
+            return item1 > item2
+        }
+        items = tempItems
     }
 }

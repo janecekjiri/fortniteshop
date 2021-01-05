@@ -35,6 +35,12 @@ struct ListItemsModel: Decodable {
         var allItems = emoji + glider + backpack + pickaxe + wrap + spray + outfit + music
         allItems += loadingScreen + emote + contrail
         allItems += bundle + toy + pet
+        allItems.sort { item1, item2 -> Bool in
+            if item1.rarity == item2.rarity {
+                return item1.name < item2.name
+            }
+            return item1 > item2
+        }
         items = allItems
     }
 }

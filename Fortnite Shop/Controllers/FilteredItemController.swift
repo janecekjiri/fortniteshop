@@ -105,38 +105,14 @@ extension FilteredItemController {
         tempItems.removeAll { $0.rarity == .unknown }
         switch filter.itemsFilter {
         case .all:
-            sortAllItems(&tempItems)
+            break
         case .rarity(let rarity):
-            filterByRarity(rarity, items: &tempItems)
+            tempItems.removeAll { $0.rarity != rarity }
         case .itemType(let itemType):
-            filterByItemType(itemType, items: &tempItems)
+            tempItems.removeAll { $0.type != itemType }
         }
 
         makeItems(&tempItems)
-    }
-
-    private func sortAllItems(_ items: inout [ListItem]) {
-        items.sort { (item1, item2) -> Bool in
-            if item1.rarity == item2.rarity {
-                return item1.name < item2.name
-            }
-            return item1.rarity > item2.rarity
-        }
-    }
-
-    private func filterByRarity(_ rarity: Rarity, items: inout [ListItem]) {
-        items.removeAll { $0.rarity != rarity }
-        items.sort { $0.name < $1.name }
-    }
-
-    private func filterByItemType(_ type: ItemType, items: inout [ListItem]) {
-        items.removeAll { $0.type != type }
-        items.sort { (item1, item2) -> Bool in
-            if item1.rarity == item2.rarity {
-                return item1.name < item2.name
-            }
-            return item1.rarity > item2.rarity
-        }
     }
 
     private func makeItems(_ items: inout [ListItem]) {
