@@ -70,15 +70,15 @@ extension SearchItemsController: UISearchBarDelegate {
         }
         prepareForFetch()
 
-        Service.shared.fetchAllItems { allItemsModel in
+        Service.shared.fetchAllItems { [weak self] allItemsModel in
             guard let allItemsModel = allItemsModel else {
-                self.handleFetchError()
+                self?.handleFetchError()
                 return
             }
 
-            self.fillItems(with: allItemsModel.items, for: searchedText)
+            self?.fillItems(with: allItemsModel.items, for: searchedText)
             DispatchQueue.main.async {
-                self.setUpAfterFetch()
+                self?.setUpAfterFetch()
             }
         }
     }
@@ -95,8 +95,8 @@ extension SearchItemsController: UISearchBarDelegate {
         let session = URLSession.shared
         filteredItems.enumerated().forEach { index, listItem in
             let imageTask = ImageTask(url: listItem.fullBackground, session: session)
-            imageTask.didDownloadImage = {
-                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            imageTask.didDownloadImage = { [weak self] in
+                self?.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             }
             self.items.append((listItem, imageTask))
         }

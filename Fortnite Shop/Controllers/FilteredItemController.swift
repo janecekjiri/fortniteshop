@@ -62,12 +62,12 @@ extension FilteredItemController {
 // MARK: - Networking and Support Methods
 extension FilteredItemController {
     private func fetchData() {
-        Service.shared.fetchAllItems { allItemsModels in
+        Service.shared.fetchAllItems { [weak self] allItemsModels in
             guard let allItemsModels = allItemsModels else {
-                self.handleFetchError()
+                self?.handleFetchError()
                 return
             }
-            self.handleFetchedData(allItemsModels)
+            self?.handleFetchedData(allItemsModels)
         }
     }
 
@@ -89,8 +89,8 @@ extension FilteredItemController {
     private func showErrorAlert() {
         let alertController = UIAlertController.makeErrorAlertController(
             message: "We were not able to obtain items you were looking for. Please try it later"
-        ) { _ in
-            self.navigationController?.popViewController(animated: true)
+        ) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
         }
         DispatchQueue.main.async {
             self.navigationController?.present(alertController, animated: true)
@@ -105,14 +105,14 @@ extension FilteredItemController {
         tempItems.removeAll { $0.rarity == .unknown }
         switch filter.itemsFilter {
         case .all:
-            self.sortAllItems(&tempItems)
+            sortAllItems(&tempItems)
         case .rarity(let rarity):
-            self.filterByRarity(rarity, items: &tempItems)
+            filterByRarity(rarity, items: &tempItems)
         case .itemType(let itemType):
-            self.filterByItemType(itemType, items: &tempItems)
+            filterByItemType(itemType, items: &tempItems)
         }
 
-        self.makeItems(&tempItems)
+        makeItems(&tempItems)
     }
 
     private func sortAllItems(_ items: inout [ListItem]) {
@@ -143,8 +143,8 @@ extension FilteredItemController {
         let session = URLSession.shared
         items.enumerated().forEach { index, item in
             let imageTask = ImageTask(url: item.fullBackground, session: session)
-            imageTask.didDownloadImage = {
-                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            imageTask.didDownloadImage = { [weak self] in
+                self?.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             }
             self.items.append((item, imageTask))
         }
