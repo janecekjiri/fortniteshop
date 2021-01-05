@@ -14,6 +14,7 @@ class SearchItemsController: UICollectionViewController {
     private let headerId = "headerId"
     private var hasSearched = false
     private var items = [(ListItem, ImageTask)]()
+    private var isFetching = false
 
     private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
 
@@ -83,6 +84,10 @@ extension SearchItemsController: UISearchBarDelegate {
     }
 
     private func prepareForFetch() {
+        isFetching = true
+        items.forEach { item in
+            item.1.pause()
+        }
         items.removeAll()
         collectionView.isScrollEnabled = false
         collectionView.allowsSelection = false
@@ -91,10 +96,12 @@ extension SearchItemsController: UISearchBarDelegate {
     }
 
     private func setUpAfterFetch() {
+        isFetching = false
         activityIndicator.stopAnimating()
         collectionView.isScrollEnabled = true
         collectionView.allowsSelection = true
         collectionView.reloadData()
+        collectionView.setContentOffset(CGPoint(x: 0, y: -1000), animated: false)
     }
 
     private func fillItems(with listItems: [ListItem], for searchedText: String) {
@@ -128,7 +135,10 @@ extension SearchItemsController {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        guard let searchCell = cell as? ImageCell else {
+        guard
+            let searchCell = cell as? ImageCell,
+            indexPath.item < items.count
+        else {
             return cell
         }
         let image = items[indexPath.item].1.image
@@ -142,7 +152,10 @@ extension SearchItemsController {
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.row].1.resume()
+        if !isFetching {
+            items[indexPath.item].1.resume()
+        }
+
     }
 
     override func collectionView(
@@ -150,7 +163,9 @@ extension SearchItemsController {
         didEndDisplaying cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.row].1.pause()
+        if !isFetching && indexPath.item < items.count {
+            items[indexPath.item].1.pause()
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
