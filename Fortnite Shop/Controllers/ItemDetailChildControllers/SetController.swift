@@ -113,6 +113,14 @@ extension SetController {
                     self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
                 }
                 self.items.append((itemDetail, imageTask))
+                if index == identitites.count - 1 {
+                    self.items.sort { item1, item2 -> Bool in
+                        if item1.0.rarity == item2.0.rarity {
+                            return item1.0.name < item2.0.name
+                        }
+                        return item1.0.rarity > item2.0.rarity
+                    }
+                }
             }
         }
     }
