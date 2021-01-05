@@ -89,7 +89,9 @@ extension FilteredItemController {
     private func showErrorAlert() {
         let alertController = UIAlertController.makeErrorAlertController(
             message: "We were not able to obtain items you were looking for. Please try it later"
-        )
+        ) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
         DispatchQueue.main.async {
             self.navigationController?.present(alertController, animated: true)
         }
