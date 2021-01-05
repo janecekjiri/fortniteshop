@@ -68,9 +68,9 @@ extension DailyShopController {
 
     private func fetchDailyShop() {
         prepareForFetch()
-        Service.shared.fetchDailyShop { dailyShop in
+        Service.shared.fetchDailyShop { [weak self] dailyShop in
             guard let dailyShop = dailyShop else {
-                self.handleFetchError()
+                self?.handleFetchError()
                 return
             }
 
@@ -87,13 +87,13 @@ extension DailyShopController {
             dailyShopItems.enumerated().forEach { index, item in
                 let imageTask = ImageTask(url: item.fullBackground, session: session)
                 imageTask.didDownloadImage = {
-                    self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                    self?.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
                 }
-                self.items.append((item, imageTask))
+                self?.items.append((item, imageTask))
             }
 
             DispatchQueue.main.async {
-                self.setUpAfterFetch()
+                self?.setUpAfterFetch()
             }
         }
     }
@@ -136,8 +136,8 @@ extension DailyShopController {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
         }
-        self.showErrorAlert()
-        self.isFetchingData = false
+        showErrorAlert()
+        isFetchingData = false
     }
 }
 
