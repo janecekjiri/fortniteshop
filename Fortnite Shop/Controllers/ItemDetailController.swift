@@ -206,6 +206,7 @@ extension ItemDetailController {
             }
             Service.shared.fetchImage(url: itemDetail.fullBackground) { image in
                 guard let image = image else {
+                    self.handleFetchError()
                     return
                 }
                 DispatchQueue.main.async {
