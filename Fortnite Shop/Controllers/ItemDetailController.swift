@@ -49,7 +49,10 @@ class ItemDetailController: UIViewController {
 extension ItemDetailController {
 
     private func setUpImageDetailView() {
-        imageDetailView.didPressCloseButton = {
+        imageDetailView.didPressCloseButton = { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.topConstraint?.constant = self.view.bounds.height
             self.bottomConstraint?.constant = self.view.bounds.height
             self.navigationController?.navigationBar.isHidden = false
@@ -76,15 +79,15 @@ extension ItemDetailController {
     }
 
     private func setUpImagesController() {
-        imagesController.didSelectImage = { image in
-            self.showImage(image)
+        imagesController.didSelectImage = { [weak self] image in
+            self?.showImage(image)
         }
     }
 
     private func setUpSetController() {
-        setController.didPressSet = { setItem in
+        setController.didPressSet = { [weak self] setItem in
             let itemDetailController = ItemDetailController(for: setItem)
-            self.navigationController?.pushViewController(itemDetailController, animated: true)
+            self?.navigationController?.pushViewController(itemDetailController, animated: true)
         }
     }
 
@@ -163,7 +166,9 @@ extension ItemDetailController {
     private func showErrorAlert() {
         let alertController = UIAlertController.makeErrorAlertController(
             message: "We were not able to obtain item's details. Please try it later"
-        )
+        ) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
         DispatchQueue.main.async {
             self.navigationController?.present(alertController, animated: true)
         }
@@ -173,8 +178,7 @@ extension ItemDetailController {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
         }
-        self.showErrorAlert()
-        // TODO: Dismiss current VC and return to the previous one
+        showErrorAlert()
     }
 
     private func handleFinishedFetch(for itemDetail: ItemDetail, with image: UIImage) {
@@ -195,21 +199,22 @@ extension ItemDetailController {
 extension ItemDetailController {
 
     private func fetchItemDetail() {
-        Service.shared.fetchItemDetail(for: item) { itemDetail in
+        Service.shared.fetchItemDetail(for: item) { [weak self] itemDetail in
             guard let itemDetail = itemDetail else {
-                self.handleFetchError()
+                self?.handleFetchError()
                 return
             }
-            self.setUpControllers(for: itemDetail)
+            self?.setUpControllers(for: itemDetail)
             DispatchQueue.main.async {
-                self.imageDetailView.setRarityBackground(for: itemDetail.rarity)
+                self?.imageDetailView.setRarityBackground(for: itemDetail.rarity)
             }
             Service.shared.fetchImage(url: itemDetail.fullBackground) { image in
                 guard let image = image else {
+                    self?.handleFetchError()
                     return
                 }
                 DispatchQueue.main.async {
-                    self.handleFinishedFetch(for: itemDetail, with: image)
+                    self?.handleFinishedFetch(for: itemDetail, with: image)
                 }
             }
         }

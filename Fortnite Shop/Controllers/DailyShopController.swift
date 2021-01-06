@@ -68,29 +68,24 @@ extension DailyShopController {
 
     private func fetchDailyShop() {
         prepareForFetch()
-        Service.shared.fetchDailyShop { dailyShop in
+        Service.shared.fetchDailyShop { [weak self] dailyShop in
             guard let dailyShop = dailyShop else {
-                self.handleFetchError()
+                self?.handleFetchError()
                 return
             }
 
-            // TODO: Move this sort to DailyShopModel
-            var dailyShopItems = dailyShop.items
-            dailyShopItems.sort { lhs, rhs -> Bool in
-                return lhs > rhs
-            }
-
+            let dailyShopItems = dailyShop.items
             let session = URLSession.shared
             dailyShopItems.enumerated().forEach { index, item in
                 let imageTask = ImageTask(url: item.fullBackground, session: session)
                 imageTask.didDownloadImage = {
-                    self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                    self?.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
                 }
-                self.items.append((item, imageTask))
+                self?.items.append((item, imageTask))
             }
 
             DispatchQueue.main.async {
-                self.setUpAfterFetch()
+                self?.setUpAfterFetch()
             }
         }
     }
@@ -110,9 +105,11 @@ extension DailyShopController {
         isFetchingData = false
     }
 
-    // TODO: Fix
     @objc private func refresh() {
         if !isFetchingData {
+            items.forEach { item in
+                item.1.pause()
+            }
             activityIndicator.startAnimating()
             fetchDailyShop()
         }
@@ -131,8 +128,8 @@ extension DailyShopController {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
         }
-        self.showErrorAlert()
-        self.isFetchingData = false
+        showErrorAlert()
+        isFetchingData = false
     }
 }
 
@@ -147,7 +144,10 @@ extension DailyShopController {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dailyShopCellId, for: indexPath)
-        guard let dailyShopCell = cell as? ImageCell else {
+        guard
+            let dailyShopCell = cell as? ImageCell,
+            indexPath.item < items.count
+        else {
             return cell
         }
 
@@ -163,7 +163,9 @@ extension DailyShopController {
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.row].1.resume()
+        if !isFetchingData {
+            items[indexPath.row].1.resume()
+        }
     }
 
     override func collectionView(
@@ -171,7 +173,9 @@ extension DailyShopController {
         didEndDisplaying cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.row].1.pause()
+        if !isFetchingData {
+            items[indexPath.row].1.pause()
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

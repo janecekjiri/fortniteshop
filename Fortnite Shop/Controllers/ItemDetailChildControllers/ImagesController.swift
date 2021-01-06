@@ -93,9 +93,9 @@ extension ImagesController {
     func setIsBeingDisplayed(_ isBeingDisplayed: Bool) {
         self.isBeingDisplayed = isBeingDisplayed
         if isBeingDisplayed {
-            self.collectionView.reloadData()
+            collectionView.reloadData()
         } else {
-            self.imageTasks.forEach { $0.pause() }
+            imageTasks.forEach { $0.pause() }
         }
     }
 
@@ -107,8 +107,8 @@ extension ImagesController {
         let session = URLSession.shared
         urls.enumerated().forEach { index, url in
             let imageTask = ImageTask(url: url, session: session)
-            imageTask.didDownloadImage = {
-                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            imageTask.didDownloadImage = { [weak self] in
+                self?.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             }
             self.imageTasks.append(imageTask)
         }

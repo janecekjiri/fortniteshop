@@ -13,6 +13,7 @@ class FilteredItemController: UICollectionViewController {
     private let cellId = "cellId"
     private let filter: FilterModel
     private var items = [(ListItem, ImageTask)]()
+    private var isDisappearing = false
 
     private let activityIndicator = UIActivityIndicatorView.makeLargeWhiteIndicator()
 
@@ -31,6 +32,15 @@ class FilteredItemController: UICollectionViewController {
         setupNavigationBar()
         setUpActivityIndicator()
         fetchData()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        isDisappearing = true
+        items.forEach { item in
+            item.1.pause()
+        }
+        items.removeAll()
     }
 
 }
@@ -52,12 +62,12 @@ extension FilteredItemController {
 // MARK: - Networking and Support Methods
 extension FilteredItemController {
     private func fetchData() {
-        Service.shared.fetchAllItems { allItemsModels in
+        Service.shared.fetchAllItems { [weak self] allItemsModels in
             guard let allItemsModels = allItemsModels else {
-                self.handleFetchError()
+                self?.handleFetchError()
                 return
             }
-            self.handleFetchedData(allItemsModels)
+            self?.handleFetchedData(allItemsModels)
         }
     }
 
@@ -73,6 +83,18 @@ extension FilteredItemController {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
         }
+        showErrorAlert()
+    }
+
+    private func showErrorAlert() {
+        let alertController = UIAlertController.makeErrorAlertController(
+            message: "We were not able to obtain items you were looking for. Please try it later"
+        ) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
+        DispatchQueue.main.async {
+            self.navigationController?.present(alertController, animated: true)
+        }
     }
 }
 
@@ -83,46 +105,22 @@ extension FilteredItemController {
         tempItems.removeAll { $0.rarity == .unknown }
         switch filter.itemsFilter {
         case .all:
-            self.sortAllItems(&tempItems)
+            break
         case .rarity(let rarity):
-            self.filterByRarity(rarity, items: &tempItems)
+            tempItems.removeAll { $0.rarity != rarity }
         case .itemType(let itemType):
-            self.filterByItemType(itemType, items: &tempItems)
+            tempItems.removeAll { $0.type != itemType }
         }
 
-        self.makeItems(&tempItems)
-    }
-
-    private func sortAllItems(_ items: inout [ListItem]) {
-        items.sort { (item1, item2) -> Bool in
-            if item1.rarity == item2.rarity {
-                return item1.name < item2.name
-            }
-            return item1.rarity > item2.rarity
-        }
-    }
-
-    private func filterByRarity(_ rarity: Rarity, items: inout [ListItem]) {
-        items.removeAll { $0.rarity != rarity }
-        items.sort { $0.name < $1.name }
-    }
-
-    private func filterByItemType(_ type: ItemType, items: inout [ListItem]) {
-        items.removeAll { $0.type != type }
-        items.sort { (item1, item2) -> Bool in
-            if item1.rarity == item2.rarity {
-                return item1.name < item2.name
-            }
-            return item1.rarity > item2.rarity
-        }
+        makeItems(&tempItems)
     }
 
     private func makeItems(_ items: inout [ListItem]) {
         let session = URLSession.shared
         items.enumerated().forEach { index, item in
             let imageTask = ImageTask(url: item.fullBackground, session: session)
-            imageTask.didDownloadImage = {
-                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            imageTask.didDownloadImage = { [weak self] in
+                self?.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
             }
             self.items.append((item, imageTask))
         }
@@ -141,7 +139,10 @@ extension FilteredItemController {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        guard let itemCell = cell as? ImageCell else {
+        guard
+            let itemCell = cell as? ImageCell,
+            indexPath.item < items.count
+        else {
             return cell
         }
         let item = items[indexPath.item].0
@@ -161,7 +162,9 @@ extension FilteredItemController {
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.item].1.resume()
+        if !isDisappearing {
+            items[indexPath.item].1.resume()
+        }
     }
 
     override func collectionView(
@@ -169,7 +172,9 @@ extension FilteredItemController {
         didEndDisplaying cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        items[indexPath.item].1.pause()
+        if !isDisappearing {
+            items[indexPath.item].1.pause()
+        }
     }
 
 }
