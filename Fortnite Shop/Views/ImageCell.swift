@@ -36,6 +36,7 @@ class ImageCell: UICollectionViewCell {
         super.init(frame: frame)
         positionImageView(backgroundImageView)
         positionImageView(itemImageView)
+        positionTag()
     }
 
     required init?(coder: NSCoder) {
@@ -47,6 +48,16 @@ class ImageCell: UICollectionViewCell {
         tagLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         tagLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         tagLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        tagLabel.isHidden = true
+    }
+
+    func displayTag(with text: String) {
+        tagLabel.text = text
+        tagLabel.isHidden = false
+    }
+
+    func hideTag() {
+        tagLabel.isHidden = true
     }
 
     private func positionImageView(_ imageView: UIImageView) {

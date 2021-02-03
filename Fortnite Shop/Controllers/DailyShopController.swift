@@ -151,9 +151,14 @@ extension DailyShopController {
             return cell
         }
 
+        dailyShopCell.hideTag()
+
         let image = items[indexPath.item].1.image
         let item = items[indexPath.item].0
         dailyShopCell.showFullBackgroundImage(image, for: item.rarity)
+        if let lastAppearance = item.lastAppearance {
+            dailyShopCell.displayTag(with: lastAppearance)
+        }
 
         return dailyShopCell
     }
