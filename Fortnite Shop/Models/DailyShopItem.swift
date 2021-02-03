@@ -11,9 +11,10 @@ import Foundation
 struct DailyShopItem: Decodable, ItemDetailProtocol, Comparable {
     let identity, fullBackground, name: String
     let rarity: Rarity
+    let lastAppearance: Date?
 
     enum CodingKeys: String, CodingKey {
-        case rarity, name
+        case rarity, name, lastAppearance
         case identity = "id"
         case fullBackground = "full_background"
     }
@@ -25,6 +26,15 @@ struct DailyShopItem: Decodable, ItemDetailProtocol, Comparable {
         fullBackground = try container.decode(String.self, forKey: .fullBackground)
         let stringRarity = try container.decode(String.self, forKey: .rarity)
         rarity = Rarity(rawValue: stringRarity) ?? Rarity.unknown
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let lastAppearanceString = try container.decode(String?.self, forKey: .lastAppearance)
+        if let lastAppearanceString = lastAppearanceString {
+            lastAppearance = dateFormatter.date(from: lastAppearanceString)
+        } else {
+            lastAppearance = nil
+        }
     }
 
     static func<(lhs: DailyShopItem, rhs: DailyShopItem) -> Bool {
