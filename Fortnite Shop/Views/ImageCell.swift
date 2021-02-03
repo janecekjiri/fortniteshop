@@ -23,6 +23,15 @@ class ImageCell: UICollectionViewCell {
         return view
     }()
 
+    private let tagLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .red
+        label.font = UIFont.fortniteFont(ofSize: 15)
+        label.text = " BACK AFTER +100 DAYS! "
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         positionImageView(backgroundImageView)
@@ -31,6 +40,13 @@ class ImageCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func positionTag() {
+        addSubview(tagLabel)
+        tagLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        tagLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        tagLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
 
     private func positionImageView(_ imageView: UIImageView) {
