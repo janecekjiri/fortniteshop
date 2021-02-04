@@ -12,10 +12,12 @@ class BaseTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBar.barStyle = .black
     }
 
     func addController(_ controller: UIViewController, with title: String, with imageName: String) {
         let navController = UINavigationController(rootViewController: controller)
+        navController.navigationBar.barStyle = .black
         let tabBarItem = UITabBarItem(
             title: title,
             image: UIImage(named: imageName),
