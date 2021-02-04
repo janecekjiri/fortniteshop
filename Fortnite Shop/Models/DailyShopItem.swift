@@ -11,10 +11,11 @@ import Foundation
 struct DailyShopItem: Decodable, ItemDetailProtocol, Comparable {
     let identity, fullBackground, name: String
     let rarity: Rarity
+    let discount: Int
     private(set) var lastAppearance: String?
 
     enum CodingKeys: String, CodingKey {
-        case rarity, name, lastAppearance
+        case rarity, name, lastAppearance, price, priceNoDiscount
         case identity = "id"
         case fullBackground = "full_background"
     }
@@ -26,6 +27,10 @@ struct DailyShopItem: Decodable, ItemDetailProtocol, Comparable {
         fullBackground = try container.decode(String.self, forKey: .fullBackground)
         let stringRarity = try container.decode(String.self, forKey: .rarity)
         rarity = Rarity(rawValue: stringRarity) ?? Rarity.unknown
+
+        let price = try container.decode(Int.self, forKey: .price)
+        let priceNoDiscount = try container.decode(Int.self, forKey: .priceNoDiscount)
+        discount = priceNoDiscount - price
 
         let lastAppearanceString = try container.decode(String?.self, forKey: .lastAppearance)
         lastAppearance = nil

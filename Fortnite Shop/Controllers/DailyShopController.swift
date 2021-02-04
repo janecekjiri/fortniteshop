@@ -159,6 +159,9 @@ extension DailyShopController {
         if let lastAppearance = item.lastAppearance {
             dailyShopCell.displayTag(with: lastAppearance)
         }
+        if item.discount != 0 {
+            dailyShopCell.displayTag(with: " \(item.discount) V-BUCKS OFF ")
+        }
 
         return dailyShopCell
     }
