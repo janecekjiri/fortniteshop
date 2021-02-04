@@ -23,4 +23,6 @@ This forces remaining players into tighter spaces and encourages player encounte
 <img src=https://i.ibb.co/6r9n6kN/item-Detail.png alt=lol width=350 height=622><p>
 <img src=https://i.ibb.co/pynJxh9/browse.png alt=lol width=350 height=622>
 <img src=https://i.ibb.co/bvtLj4z/search.png alt=lol width=350 height=622><p>
-<img src=https://i.ibb.co/JdpvZrb/filtered.png alt=lol width=350 height=622>
+<img src=https://i.ibb.co/JdpvZrb/filtered.png alt=lol width=350 height=622><p>
+<b>Change log</b><p>
+- 0.1.1: Added tags for new and returning items or for discounted items. Navigation and tab bars are now both black/dark even in light mode.
