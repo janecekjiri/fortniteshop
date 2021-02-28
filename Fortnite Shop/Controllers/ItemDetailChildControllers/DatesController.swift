@@ -15,10 +15,14 @@ class DatesController: UICollectionViewController {
     private var dates = [Date]()
     private let dateFormatter = DateFormatter()
 
-    convenience init() {
+    init() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionHeadersPinToVisibleBounds = true
-        self.init(collectionViewLayout: layout)
+        super.init(collectionViewLayout: layout)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
