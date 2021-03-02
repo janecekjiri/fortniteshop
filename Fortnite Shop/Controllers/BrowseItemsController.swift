@@ -13,8 +13,12 @@ class BrowseItemsController: UICollectionViewController {
     private let cellId = "cellId"
     private var filters = [FilterModel]()
 
-    convenience init() {
-        self.init(collectionViewLayout: UICollectionViewFlowLayout())
+    init() {
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
